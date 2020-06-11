@@ -18,7 +18,7 @@ else:
     TOKEN = os.environ.get('TOKEN')
 
 if not TOKEN:
-    raise 'Not running localy and TOKEN is not an environment valiable'
+    raise 'Not running localy and TOKEN is not an environment variable'
 
 @client.event
 async def on_message(message):
