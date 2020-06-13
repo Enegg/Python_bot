@@ -1,1 +1,1 @@
-worker: python ROBO_Head.py
+web: python ROBO_Head.py
