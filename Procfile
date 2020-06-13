@@ -1,1 +1,1 @@
-worker: python ROBO_Head.py --log-file
+web: python ROBO_Head.py --log-file
