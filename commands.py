@@ -4,7 +4,7 @@ import re
 import discord
 from random import randint
 from config import purge_confirm_emote, prefix, purge_cap, authorid, abbreviations
-client = discord.Client()
+from ROBO_Head import client
 
 #general use
 
@@ -113,12 +113,6 @@ async def epix_command(message):
     channelid = channels(server_name)[channel_name]
     channel = client.get_channel(channelid)
     await channel.send(' '.join(cont))
-
-'''def database_handler(name):
-    data = urllib.request.urlopen(link + name)
-    cont = data.read()
-    print(cont)'''
-
 
 operation = {'add': ['health'],
     'mult': ['eneCap','heaCap','eneReg','heaCap','heaCol','phyDmg','expDmg','eleDmg','heaDmg','eneDmg'],
