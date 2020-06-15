@@ -14,10 +14,10 @@ TOKEN = None
 
 if socket.gethostname() == 'Mystery_machine':
     TOKEN = importlib.import_module('TOKEN').TOKEN
-    prefix = importlib.import_module('config').prefix
+    from config import prefix_local as prefix
 else:
     TOKEN = os.environ.get('TOKEN')
-    prefix = os.environ.get('prefix')
+    from config import prefix_host as prefix
 
 if not TOKEN:
     raise 'Not running localy and TOKEN is not an environment variable'

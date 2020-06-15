@@ -1,6 +1,7 @@
 """Config file containing items like bot token, purge cap and prefix."""
 #general vars
-prefix = ','
+prefix_local = '-'
+prefix_host = ','
 authorid = 190505392504045570
 #purge
 purge_cap = 2000
