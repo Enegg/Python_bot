@@ -6,16 +6,12 @@ import requests
 import os
 import importlib
 import socket
-from config import authorid, prefix_host, prefix_local, abbreviations, WUabbrev, trans_range, tiers, colors, item_dict, link
-from commands import prefix_handler, trigger, purge, roll_handler, permz, epix_command, channels, buff
-client = discord.Client()
-prefix = prefix_host
+from config import authorid, abbreviations, WUabbrev, trans_range, tiers, colors, item_dict, link
+from commands import prefix, client, prefix_handler, trigger, purge, roll_handler, permz, epix_command, channels, buff
 TOKEN = None
 
 if socket.gethostname() == 'Mystery_machine':
     TOKEN = importlib.import_module('TOKEN').TOKEN
-    global prefix
-    prefix = prefix_local
 else:
     TOKEN = os.environ.get('TOKEN')
 

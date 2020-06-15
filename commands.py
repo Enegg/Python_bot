@@ -2,11 +2,15 @@
 import asyncio
 import re
 import discord
+import socket
 from random import randint
-from config import purge_confirm_emote, prefix, purge_cap, authorid, abbreviations
-from ROBO_Head import client
+from config import prefix_host, prefix_local, purge_confirm_emote, purge_cap, authorid, abbreviations
+client = discord.Client()
+prefix = prefix_host
 
 #general use
+if socket.gethostname() == 'Mystery_machine':
+    prefix = prefix_local
 
 def permz(msg):
     permKeys, power = ['manage_messages', 'manage_guild', 'administrator'], 0
