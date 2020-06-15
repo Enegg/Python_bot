@@ -6,18 +6,18 @@ import requests
 import os
 import importlib
 import socket
-from config import authorid, abbreviations, WUabbrev, trans_range, tiers, colors, item_dict, link
+from config import authorid, prefix_host, prefix_local, abbreviations, WUabbrev, trans_range, tiers, colors, item_dict, link
 from commands import prefix_handler, trigger, purge, roll_handler, permz, epix_command, channels, buff
 client = discord.Client()
-
+prefix = prefix_host
 TOKEN = None
 
 if socket.gethostname() == 'Mystery_machine':
     TOKEN = importlib.import_module('TOKEN').TOKEN
-    from config import prefix_local as prefix
+    global prefix
+    prefix = prefix_local
 else:
     TOKEN = os.environ.get('TOKEN')
-    from config import prefix_host as prefix
 
 if not TOKEN:
     raise 'Not running localy and TOKEN is not an environment variable'
