@@ -146,14 +146,13 @@ operation = {'add': ['health'],
     'mult+': ['phyRes','expRes','eleRes'],
     'reduce': ['backfire']}
 
-def buff(stat, value, enabled):
+def buff(stat, value, enabled, item):
     if enabled == False: return value
-    if stat not in operation['add'] and stat not in operation['mult'] and stat not in operation['mult+'] and stat not in operation['reduce']: return value
-    if stat in operation['add']: result = value + 350
-    if stat in operation['mult']: result = round(value * 1.2)
-    if stat in operation['mult+']: result = round(value * 1.4)
-    if stat in operation['reduce']: result = round(value * 0.8)
-    return result
+    if stat in operation['add'] and item['type'] == 'TORSO': return value + 350
+    if stat in operation['mult']: return round(value * 1.2)
+    if stat in operation['mult+']: return round(value * 1.4)
+    if stat in operation['reduce']: return round(value * 0.8)
+    return value
 
 async def stats(args):
     msg, args = args
@@ -202,10 +201,10 @@ async def stats(args):
         if divine == True and k in item['divine']: pool = 'divine'
         #number range handler
         if isinstance(item['stats'][k], list):
-            if len(item['stats'][k]) == 1: value = buff(k, item[pool][k][0], buffs) #handling one spot range
+            if len(item['stats'][k]) == 1: value = buff(k, item[pool][k][0], buffs, item) #handling one spot range
             elif item[pool][k][1] == 0: value = item[pool][k][0]
-            else: value = str(buff(k, item[pool][k][0], buffs)) + '-' + str(buff(k, item[pool][k][1], buffs))
-        else: value = buff(k, item[pool][k], buffs)
+            else: value = str(buff(k, item[pool][k][0], buffs, item)) + '-' + str(buff(k, item[pool][k][1], buffs, item))
+        else: value = buff(k, item[pool][k], buffs, item)
         item_stats += '{} **{}** {}\n'.format(WU_DB['WUabbrev'][k][1], value, WU_DB['WUabbrev'][k][0])
     #transform range
     min, max = item['transform_range'].split('-')
