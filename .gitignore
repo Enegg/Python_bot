@@ -125,3 +125,4 @@ dmypy.json
 .pyre/
 
 /TOKEN.py
+/test_file.py

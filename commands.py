@@ -4,17 +4,25 @@ import re
 import discord
 import socket
 import json
-import requests
+import inspect
 from random import randint
-from config import prefix_host, prefix_local, purge_confirm_emote, purge_cap, authorid, abbreviations, WU_DB
+from config import prefix_host, prefix_local, purge_confirm_emote, purge_cap, authorid, abbreviations, WU_DB, security_lvl
 client = discord.Client()
-prefix = prefix_host
+items_list = json.loads(open("items.json").read())
 
-#general use
+prefix = prefix_host
 if socket.gethostname() == 'Mystery_machine':
     prefix = prefix_local
 
+#------------------functions-------------------
+def get_item_by_id_or_name(value):
+  for item in items_list:
+    if str(item['id']) == str(value) or item['name'].lower() == str(value).lower():
+      return item
+  return None
+
 def permz(msg):
+    '''0 - anyone, 1 - manage messages, 2 - manage guild, 3 - admin'''
     permKeys, power = ['manage_messages', 'manage_guild', 'administrator'], 0
     for key in permKeys:
         for role in msg.author.roles:
@@ -38,6 +46,7 @@ def intify(s, default=0):
     return default
 
 def channels(guild_name):
+    '''returns a dict of channels of a given server'''
     guild_channels_cache = {}
     channel_id_cache = {}
     for guild in client.guilds:
@@ -51,11 +60,12 @@ def channels(guild_name):
     return channel_id_cache
 
 def roll(a=1, b=6):
+    '''returns a random value between specified args, defaults to 1 - 6'''
     min_, max_ = min(a, b), max(a, b)
     return randint(min_, max_)
 
-#handlers
 def prefix_handler(msg, sep=' '):
+    '''retrieves arguments and the command itself from a command message'''
     txt = msg.content.replace(prefix, '', 1)
     cmd = re.match(r'(^[^\s]+)', txt)[0]
     txt = txt.replace(cmd, '')
@@ -65,56 +75,67 @@ def prefix_handler(msg, sep=' '):
         args = [arg for arg in map(lambda a: a.strip(), args)]
     return cmd, args
 
-def trigger(message, cmd): return message.content.startswith(prefix + cmd)
+#-------------------commands-------------------
 
-def roll_handler(message):
-    cont = prefix_handler(message)
-    if cont[1] == ['']: return roll()
-    cs = cont[1]
+def ping(): return 'Pong! {}ms'.format(round(client.latency * 1000))
+
+async def wot(args):
+    if args[1][0] == '':
+        await args[0].add_reaction('❌')
+        return
+    await args[0].channel.send(channels(' '.join(args[1])))
+
+def roles(args): return '`{}`'.format(args[0].author.roles)
+
+def dice(args):
+    if args[1] == ['']: return roll()
+    cs = args[1]
     a = intify(cs[0], 'ass')
     if len(cs) > 1: b = intify(cs[1], 'ass')
     else: b = 0
     if a == 'ass' or b == 'ass': return 'Wrong syntax'
     return roll(a, b)
 
-#async def send(content, channel=message.channel): await channel.send(content)
+async def avatar(args):
+    msg = args[0]
+    user = msg.author
+    if msg.mentions != []: user = msg.mentions[0]
+    await msg.channel.send(user.avatar_url)
 
-async def purge(message, cap=purge_cap):
-    channel = message.channel
-    purger = lambda n: channel.purge(limit=n)
-    await message.delete()
-    cont = prefix_handler(message)[1][0]
-    count = intify(cont)
+async def purge(args, cap=purge_cap):
+    msg, cont = args
+    def purger(n): return msg.channel.purge(limit=n)
+    await msg.delete()
+    count = intify(cont[0])
     if count > cap: count = cap
     if count <= 10: await purger(count)
     else:
-        botmsg = await channel.send('You are going to purge {} messages, continue?'.format(count))
+        botmsg = await msg.channel.send('You are going to purge {} messages, continue?'.format(count))
         await botmsg.add_reaction(purge_confirm_emote)
         try:
-            reaction, user = await client.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == message.author and reaction.emoji == purge_confirm_emote)
+            reaction, user = await client.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == msg.author and reaction.emoji == purge_confirm_emote)
         except asyncio.TimeoutError:
             await botmsg.delete()
         else:
             await botmsg.delete()
             while count >= 100:
-                await purger(100)
+                purger(100)
                 count -= 100
             if count > 0: await purger(count)
 
-async def epix_command(message):
-    cont = message.content.split()
-    await message.delete()
-    cont.pop(0)
-    if cont != []:
+async def epix_command(args):
+    msg, cont = args
+    await msg.delete()
+    if cont[0] != '':
         pass
-    elif message.author.id == authorid:
+    elif msg.author.id == authorid:
         cont = input().split()
     else:
-        await message.channel.send('Empty fields', delete_after=3.0)
+        await msg.channel.send('Empty fields', delete_after=3.0)
     server_name = cont.pop(0)
     channel_name = cont.pop(0)
     if channels(server_name) == False:
-        await message.channel.send('Invalid entry', delete_after=3.0)
+        await msg.channel.send('Invalid entry', delete_after=3.0)
         return
     channelid = channels(server_name)[channel_name]
     channel = client.get_channel(channelid)
@@ -134,36 +155,32 @@ def buff(stat, value, enabled):
     if stat in operation['reduce']: result = round(value * 0.8)
     return result
 
-async def stats(message):
-    args = prefix_handler(message)[1]
+async def stats(args):
+    msg, args = args
     if args[0] == '':
-        await message.channel.send('Funny command huh')
+        await msg.add_reaction('❌')
         return
     #flags
     flags = []
     for i in ['-d', '-b', '-r']:
-        if i in args:
-            flags.append(args.pop(args.index(i)))
+        if i in args: flags.append(args.pop(args.index(i)))
     buffs = '-b' in flags
     #solving for abbrevs
     name = ' '.join(args).lower()
-    if name in WU_DB['item_dict']:
-        name = WU_DB['item_dict'][name]
-    item = json.loads(requests.get(WU_DB['api_link'] + name).text)
+    if name in WU_DB['item_dict']: name = WU_DB['item_dict'][name]
+    #getting the item
+    item = get_item_by_id_or_name(name.lower())
+    if item == None:
+        await msg.add_reaction('❌')
+        return
     #test flag
     if '-r' in flags:
-        if permz(message) > 2:
-            await message.channel.send(item)
+        if permz(msg) > 2:
+            await msg.channel.send(item)
             return
         else:
-            await message.add_reaction('❌')
+            await msg.add_reaction('❌')
             return
-    #error handling
-    if 'message' in item:
-        await message.add_reaction('❌')
-        if permz(message) > 3:
-            print(item)
-        return
     #adding a note when -d or -b flag is included
     note = ''
     divine = False
@@ -171,41 +188,63 @@ async def stats(message):
     if '-d' in flags:
         divine = 'divine' in item
         note = ' (divine{})'.format(beef) if divine else ' (~~divine~~{})'.format(beef)
-    elif buffs == True:
-        note = ' (buffed)'
+    elif buffs == True: note = ' (buffed)'
     #adding item stats
     item_stats = ''
     spaced = False
+    WU_DB['WUabbrev']['uses'][0] = 'Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses'
     for k in item['stats']:
         if k in ['backfire', 'heaCost', 'eneCost'] and spaced == False:
             item_stats += '\n'
             spaced = True
-        y = 'stats'
+        pool = 'stats'
         #divine handler
-        if divine == True:
-            if k in item['divine']:
-                y = 'divine'
+        if divine == True and k in item['divine']: pool = 'divine'
         #number range handler
         if isinstance(item['stats'][k], list):
-            #handling one spot range
-            if len(item['stats'][k]) == 1:
-                value = buff(k, item[y][k][0], buffs)
-            elif item[y][k][1] == 0:
-                value = item[y][k][0]
-            else:
-                value = str(buff(k, item[y][k][0], buffs)) + '-' + str(buff(k, item[y][k][1], buffs))
-        else:
-            value = buff(k, item[y][k], buffs)
-        item_stats = item_stats + '**{}**'.format(value) + ' {}\n'.format(WU_DB['WUabbrev'][k])
-    #embedding
-    embed = discord.Embed(title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=WU_DB['colors'][item['element']])
+            if len(item['stats'][k]) == 1: value = buff(k, item[pool][k][0], buffs) #handling one spot range
+            elif item[pool][k][1] == 0: value = item[pool][k][0]
+            else: value = str(buff(k, item[pool][k][0], buffs)) + '-' + str(buff(k, item[pool][k][1], buffs))
+        else: value = buff(k, item[pool][k], buffs)
+        item_stats += '{} **{}** {}\n'.format(WU_DB['WUabbrev'][k][1], value, WU_DB['WUabbrev'][k][0])
     #transform range
     min, max = item['transform_range'].split('-')
+    #embedding
+    embed = discord.Embed(title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=WU_DB['colors'][item['element']])
     fields = []
-    fields.append(['Transform range: ', '{}'.format(''.join(WU_DB['trans_range'][WU_DB['tiers'].index(min):WU_DB['tiers'].index(max) + 1]))])
+    fields.append(['Transform range: ', '{}'.format(''.join(WU_DB['trans_colors'][WU_DB['tiers'].index(min):WU_DB['tiers'].index(max) + 1]))])
     fields.append(['Stats{}:'.format(note), item_stats])
-    for field in fields:
-        embed.add_field(name=field[0], value=field[1], inline=False)
+    for field in fields: embed.add_field(name=field[0], value=field[1], inline=False)
     img_url = WU_DB['sprite_path'] + item['name'].replace(' ', '') + '.png'
     embed.set_image(url=img_url)
-    await message.channel.send(embed=embed)
+    await msg.channel.send(embed=embed)
+
+async def shutdown(args):
+    await args[0].channel.send('I will be back')
+    await client.logout()
+
+commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, 'avatar': avatar, 'roll': dice, 'roles': roles, 'purge': purge}
+
+async def trigger(msg):
+    if not msg.content.startswith(prefix): return
+    channel = msg.channel # default channel
+    cmd, args = prefix_handler(msg)
+    # checking if the command is valid
+    if cmd not in commands:
+        await msg.add_reaction('❌')
+        return
+    # checking if the user has adequate priviledges, if any necessary
+    if cmd in security_lvl and permz(msg) < security_lvl[cmd]:
+            await msg.add_reaction('❌')
+            return
+    pack = [msg, args]
+    iscoroutine = inspect.iscoroutinefunction(commands[cmd])
+    sig = inspect.signature(commands[cmd])
+    params = sig.parameters
+
+    if iscoroutine == False: # executing non-coros
+        if len(params) == 0: result = commands[cmd]() # running no arg function
+        else: result = commands[cmd](pack)
+        if result != None: await channel.send(result)
+        return
+    else: await commands[cmd](pack)

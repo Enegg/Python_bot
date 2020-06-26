@@ -1,0 +1,3659 @@
+[
+	{
+		"id": 1,
+		"name": "Interceptor",
+		"type": "TORSO",
+		"element": "PHYSICAL",
+		"transform_range": "COMMON-DIVINE",
+		"stats": {
+			"weight": 309,
+			"health": 860,
+			"eneCap": 193,
+			"eneReg": 56,
+			"heaCap": 265,
+			"heaCol": 80,
+			"phyRes": 16,
+			"expRes": 22,
+			"eleRes": 22
+		},
+		"divine": {
+			"health": 884,
+			"eneCap": 200,
+			"heaCap": 275
+		}
+	},
+	{
+		"id": 2,
+		"name": "Archimonde",
+		"type": "TORSO",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 363,
+			"health": 1090,
+			"eneCap": 265,
+			"eneReg": 76,
+			"heaCap": 265,
+			"heaCol": 76,
+			"phyRes": 22,
+			"expRes": 22,
+			"eleRes": 22
+		},
+		"divine": {
+			"health": 1152,
+			"eneCap": 284,
+			"heaCap": 284
+		}
+	},
+	{
+		"id": 3,
+		"name": "Avenger",
+		"type": "TORSO",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 350,
+			"health": 1271,
+			"eneCap": 193,
+			"eneReg": 64,
+			"heaCap": 145,
+			"heaCol": 48,
+			"phyRes": 16,
+			"expRes": 22,
+			"eleRes": 22
+		},
+		"divine": {
+			"health": 1306,
+			"eneCap": 200,
+			"heaCap": 150
+		}
+	},
+	{
+		"id": 4,
+		"name": "Hollow Spectral Armor",
+		"type": "TORSO",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 370,
+			"health": 1589,
+			"eneCap": 241,
+			"eneReg": 80,
+			"heaCap": 241,
+			"heaCol": 80
+		},
+		"divine": {
+			"health": 1678,
+			"eneCap": 259,
+			"heaCap": 259
+		}
+	},
+	{
+		"id": 5,
+		"name": "Energy Free Armor",
+		"type": "TORSO",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 335,
+			"health": 1343,
+			"eneCap": 25,
+			"eneReg": 8,
+			"heaCap": 223,
+			"heaCol": 80,
+			"phyRes": 24,
+			"expRes": 24,
+			"eleRes": 24
+		},
+		"divine": {
+			"health": 1441,
+			"eneCap": 26,
+			"heaCap": 235
+		}
+	},
+	{
+		"id": 6,
+		"name": "Battery Armor",
+		"width": 222,
+		"height": 226,
+		"type": "TORSO",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 360,
+			"health": 1239,
+			"eneCap": 361,
+			"eneReg": 24,
+			"heaCap": 334,
+			"heaCol": 24,
+			"phyRes": 14,
+			"expRes": 14,
+			"eleRes": 14
+		},
+		"divine": {
+			"health": 1284,
+			"eneCap": 374,
+			"heaCap": 343
+		}
+	},
+	{
+		"id": 7,
+		"name": "Iron Boots",
+		"type": "LEGS",
+		"element": "PHYSICAL",
+		"transform_range": "COMMON-DIVINE",
+		"stats": {
+			"weight": 138,
+			"health": 472,
+			"phyDmg": [163, 213],
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 491,
+			"phyDmg": [167, 219]
+		}
+	},
+	{
+		"id": 8,
+		"name": "Rolling Beasts",
+		"type": "LEGS",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 134,
+			"health": 451,
+			"phyDmg": [160, 242],
+			"push": 1,
+			"range": [1, 0],
+			"walk": 3
+		},
+		"divine": {
+			"health": 476,
+			"phyDmg": [169, 255]
+		}
+	},
+	{
+		"id": 9,
+		"name": "Grave Diggers",
+		"type": "LEGS",
+		"element": "PHYSICAL",
+		"transform_range": "RARE-DIVINE",
+		"stats": {
+			"weight": 123,
+			"health": 287,
+			"phyDmg": [223, 285],
+			"push": 2,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 295,
+			"phyDmg": [167, 219]
+		}
+	},
+	{
+		"id": 10,
+		"name": "The Claw",
+		"type": "LEGS",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 150,
+			"health": 860,
+			"phyDmg": [79, 111],
+			"range": [1, 0]
+		},
+		"divine": {
+			"health": 909,
+			"phyDmg": [83, 117]
+		}
+	},
+	{
+		"id": 11,
+		"name": "BackBreaker",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 44,
+			"phyDmg": [228, 408],
+			"heaColDmg": 8,
+			"eneRegDmg": 8,
+			"push": 1,
+			"range": [1, 0],
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [234, 419]
+		}
+	},
+	{
+		"id": 12,
+		"name": "War Hammer",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 58,
+			"phyDmg": [254, 427],
+			"heaCapDmg": 24,
+			"eneCapDmg": 24,
+			"push": 3,
+			"range": [1, 0],
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [261, 439]
+		}
+	},
+	{
+		"id": 13,
+		"name": "SeraphBlade",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 49,
+			"phyDmg": [234, 376],
+			"phyResDmg": 12,
+			"range": [1, 2],
+			"eneCost": 13,
+			"heaCost": 50
+		},
+		"divine": {
+			"phyDmg": [251, 403]
+		}
+	},
+	{
+		"id": 14,
+		"name": "Annihilation",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 65,
+			"phyDmg": [203, 341],
+			"phyResDmg": 15,
+			"range": [1, 2],
+			"uses": 3
+		},
+		"divine": {
+			"phyDmg": [209, 351]
+		}
+	},
+	{
+		"id": 15,
+		"name": "Mercy",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 84,
+			"phyDmg": [197, 440],
+			"phyResDmg": 10,
+			"push": 1,
+			"range": [1, 2],
+			"uses": 3
+		},
+		"divine": {
+			"phyDmg": [208, 464]
+		}
+	},
+	{
+		"id": 16,
+		"name": "Armor Annihilator",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 20,
+			"phyDmg": [39, 52],
+			"phyResDmg": 50,
+			"range": [2, 4],
+			"uses": 1
+		},
+		"divine": {
+			"phyDmg": [43, 57]
+		}
+	},
+	{
+		"id": 17,
+		"name": "Advanced Repulser",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 18,
+			"phyDmg": [72, 95],
+			"push": 4,
+			"range": [2, 4],
+			"heaCost": 62,
+			"uses": 2
+		},
+		"divine": {
+			"phyDmg": [77, 101]
+		}
+	},
+	{
+		"id": 18,
+		"name": "Purifier",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 25,
+			"phyDmg": [184, 241],
+			"range": [2, 4],
+			"uses": 2
+		},
+		"divine": {
+			"phyDmg": [194, 254]
+		}
+	},
+	{
+		"id": 19,
+		"name": "NightFall",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 49,
+			"phyDmg": [237, 355],
+			"phyResDmg": 11,
+			"range": [2, 4],
+			"uses": 3,
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [244, 366]
+		}
+	},
+	{
+		"id": 20,
+		"name": "BloodWeep",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 34,
+			"phyDmg": [147, 209],
+			"phyResDmg": 30,
+			"range": [2, 4],
+			"uses": 3,
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [155, 220]
+		}
+	},
+	{
+		"id": 21,
+		"name": "Terror Cry",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 46,
+			"phyDmg": [241, 358],
+			"push": 1,
+			"range": [2, 4],
+			"uses": 3,
+			"eneCost": 25,
+			"heaCost": 25
+		},
+		"divine": {
+			"phyDmg": [248, 368]
+		}
+	},
+	{
+		"id": 22,
+		"name": "Sweetie",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 42,
+			"phyDmg": [169, 256],
+			"phyResDmg": 10,
+			"range": [3, 6],
+			"uses": 3,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [179, 271]
+		}
+	},
+	{
+		"id": 23,
+		"name": "Rock Recoiler",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 65,
+			"phyDmg": [212, 423],
+			"phyResDmg": 10,
+			"push": 1,
+			"recoil": 1,
+			"range": [1, 2],
+			"uses": 3,
+			"eneCost": 25,
+			"heaCost": 38
+		},
+		"divine": {
+			"phyDmg": [218, 435]
+		}
+	},
+	{
+		"id": 24,
+		"name": "Ejection Blast",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 34,
+			"phyDmg": [228, 408],
+			"phyResDmg": 5,
+			"push": 1,
+			"retreat": 2,
+			"range": [3, 6],
+			"uses": 2,
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [241, 431]
+		}
+	},
+	{
+		"id": 25,
+		"name": "Sacrifice Cannon",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 24,
+			"phyDmg": [209, 520],
+			"phyResDmg": 12,
+			"range": [2, 4],
+			"push": 1,
+			"uses": 1,
+			"backfire": 123,
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [214, 520]
+		}
+	},
+	{
+		"id": 26,
+		"name": "Perimeter Protector",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 31,
+			"phyDmg": [152, 273],
+			"phyResDmg": 5,
+			"range": [1, 2],
+			"retreat": 6,
+			"uses": 2,
+			"heaCost": 38
+		},
+		"divine": {
+			"phyDmg": [161, 289]
+		}
+	},
+	{
+		"id": 27,
+		"name": "Dark Eagle",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 60,
+			"phyDmg": [181, 456],
+			"phyResDmg": 10,
+			"range": [2, 4],
+			"push": 1,
+			"recoil": 1,
+			"uses": 3,
+			"eneCost": 25,
+			"heaCost": 38
+		},
+		"divine": {
+			"phyDmg": [191, 482]
+		}
+	},
+	{
+		"id": 28,
+		"name": "Night Eagle",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 46,
+			"phyDmg": [209, 336],
+			"pull": 1,
+			"range": [3, 6],
+			"uses": 3,
+			"eneCost": 25,
+			"heaCost": 25
+		},
+		"divine": {
+			"phyDmg": [214, 345]
+		}
+	},
+	{
+		"id": 29,
+		"name": "Spartan Carnage",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 51,
+			"phyDmg": [226, 387],
+			"phyResDmg": 15,
+			"range": [3, 6],
+			"uses": 3,
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [238, 408]
+		}
+	},
+	{
+		"id": 30,
+		"name": "Reckless Beam",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 35,
+			"phyDmg": [235, 355],
+			"range": [4, 8],
+			"eneCost": 25,
+			"heaCost": 25
+		},
+		"divine": {
+			"phyDmg": [241, 364]
+		}
+	},
+	{
+		"id": 31,
+		"name": "Desert Fury",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 29,
+			"phyDmg": [154, 224],
+			"phyResDmg": 23,
+			"range": [4, 8],
+			"uses": 2,
+			"eneCost": 16,
+			"heaCost": 16
+		},
+		"divine": {
+			"phyDmg": [162, 236]
+		}
+	},
+	{
+		"id": 32,
+		"name": "Mighty Cannon",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 55,
+			"phyDmg": [239, 408],
+			"pull": 1,
+			"range": [4, 8],
+			"eneCost": 38,
+			"heaCost": 38
+		},
+		"divine": {
+			"phyDmg": [252, 431]
+		}
+	},
+	{
+		"id": 33,
+		"name": "Falcon",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 19,
+			"phyDmg": [596, 997],
+			"range": [8, 0],
+			"uses": 1,
+			"eneCost": 22,
+			"heaCost": 22
+		},
+		"divine": {
+			"phyDmg": [629, 1052]
+		}
+	},
+	{
+		"id": 34,
+		"name": "Frantic Brute",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 50,
+			"phyDmg": [69, 632],
+			"range": [3, 6],
+			"uses": 2,
+			"eneCost": 10,
+			"heaCost": 50
+		},
+		"divine": {
+			"phyDmg": [70, 649]
+		}
+	},
+	{
+		"id": 35,
+		"name": "Distance Shredder",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 42,
+			"phyDmg": [228, 408],
+			"phyResDmg": 5,
+			"push": 1,
+			"advance": 3,
+			"range": [4, 8],
+			"uses": 2,
+			"heaCost": 100
+		},
+		"divine": {
+			"phyDmg": [241, 431]
+		}
+	},
+	{
+		"id": 37,
+		"name": "Void",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 29,
+			"phyDmg": [143, 187],
+			"phyResDmg": 6,
+			"eneCost": 16,
+			"heaCost": 16
+		},
+		"divine": {
+			"phyDmg": [147, 192]
+		}
+	},
+	{
+		"id": 38,
+		"name": "HurlBat",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 28,
+			"phyDmg": [135, 196],
+			"heaCapDmg": 6,
+			"eneCapDmg": 6,
+			"eneCost": 16,
+			"heaCost": 16
+		},
+		"divine": {
+			"phyDmg": [139, 201]
+		}
+	},
+	{
+		"id": 39,
+		"name": "Greedy",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 20,
+			"phyDmg": [72, 117],
+			"phyResDmg": 10,
+			"eneCost": 16,
+			"heaCost": 16
+		},
+		"divine": {
+			"phyDmg": [77, 124]
+		}
+	},
+	{
+		"id": 40,
+		"name": "DustMaker",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 29,
+			"phyDmg": [120, 213],
+			"heaColDmg": 4,
+			"eneRegDmg": 4,
+			"eneCost": 16,
+			"heaCost": 16
+		},
+		"divine": {
+			"phyDmg": [126, 225]
+		}
+	},
+	{
+		"id": 41,
+		"name": "Backstabber",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 51,
+			"phyDmg": [163, 263],
+			"pull": 1,
+			"eneCost": 16,
+			"heaCost": 16
+		}
+	},
+	{
+		"id": 42,
+		"name": "Tonto",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 40,
+			"phyDmg": [184, 336],
+			"phyResDmg": 9,
+			"range": [2, 4],
+			"eneCost": 25,
+			"heaCost": 25
+		},
+		"divine": {
+			"phyDmg": [189, 345]
+		}
+	},
+	{
+		"id": 43,
+		"name": "Solar Torch",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 40,
+			"phyDmg": [193, 348],
+			"phyResDmg": 9,
+			"range": [3, 6],
+			"eneCost": 25,
+			"heaCost": 25
+		},
+		"divine": {
+			"phyDmg": [204, 368]
+		}
+	},
+	{
+		"id": 44,
+		"name": "Charge Engine",
+		"type": "CHARGE",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 20,
+			"phyDmg": [132, 174],
+			"uses": 1
+		},
+		"divine": {
+			"phyDmg": [137, 180]
+		}
+	},
+	{
+		"id": 45,
+		"name": "Platinum Grappling Hook",
+		"type": "HOOK",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 17,
+			"phyDmg": [143, 187],
+			"uses": 1
+		},
+		"divine": {
+			"phyDmg": [154, 202]
+		}
+	},
+	{
+		"id": 46,
+		"name": "Platinum Plating",
+		"type": "MODULE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 40,
+			"health": 315
+		},
+		"divine": {
+			"health": 332
+		}
+	},
+	{
+		"id": 47,
+		"name": "Iron Plating",
+		"type": "MODULE",
+		"element": "PHYSICAL",
+		"transform_range": "COMMON-EPIC",
+		"stats": {
+			"weight": 40,
+			"health": 145
+		}
+	},
+	{
+		"id": 48,
+		"name": "Mighty Protector",
+		"type": "MODULE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 28,
+			"phyRes": 59
+		},
+		"divine": {
+			"phyRes": 63
+		}
+	},
+	{
+		"id": 49,
+		"name": "Physical Protector",
+		"type": "MODULE",
+		"element": "PHYSICAL",
+		"transform_range": "COMMON-EPIC",
+		"stats": {
+			"weight": 28,
+			"phyRes": 24
+		}
+	},
+	{
+		"id": 50,
+		"name": "Maximum Protector",
+		"type": "MODULE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 51,
+			"phyRes": 39,
+			"expRes": 39,
+			"eleRes": 39
+		},
+		"divine": {
+			"phyRes": 41,
+			"expRes": 41,
+			"eleRes": 41
+		}
+	},
+	{
+		"id": 51,
+		"name": "Savior Resistance",
+		"type": "MODULE",
+		"element": "PHYSICAL",
+		"transform_range": "COMMON-EPIC",
+		"stats": {
+			"weight": 51,
+			"phyRes": 16,
+			"expRes": 16,
+			"eleRes": 16
+		}
+	},
+	{
+		"id": 52,
+		"name": "Nightmare",
+		"type": "TORSO",
+		"element": "EXPLOSIVE",
+		"transform_range": "COMMON-DIVINE",
+		"stats": {
+			"weight": 315,
+			"health": 879,
+			"eneCap": 193,
+			"eneReg": 64,
+			"heaCap": 290,
+			"heaCol": 96,
+			"phyRes": 22,
+			"expRes": 16,
+			"eleRes": 22
+		},
+		"divine": {
+			"health": 910,
+			"eneCap": 200,
+			"heaCap": 298
+		}
+	},
+	{
+		"id": 53,
+		"name": "Brutality",
+		"type": "TORSO",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 341,
+			"health": 1033,
+			"eneCap": 217,
+			"eneReg": 64,
+			"heaCap": 290,
+			"heaCol": 88,
+			"phyRes": 22,
+			"expRes": 16,
+			"eleRes": 22
+		},
+		"divine": {
+			"health": 1070,
+			"eneCap": 225,
+			"heaCap": 298
+		}
+	},
+	{
+		"id": 54,
+		"name": "Windigo",
+		"type": "TORSO",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 345,
+			"health": 982,
+			"eneCap": 217,
+			"eneReg": 72,
+			"heaCap": 301,
+			"heaCol": 112,
+			"phyRes": 22,
+			"expRes": 16,
+			"eleRes": 22
+		},
+		"divine": {
+			"health": 1017,
+			"eneCap": 225,
+			"heaCap": 310
+		}
+	},
+	{
+		"id": 55,
+		"name": "Zarkares",
+		"type": "TORSO",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 362,
+			"health": 1136,
+			"eneCap": 193,
+			"eneReg": 64,
+			"heaCap": 312,
+			"heaCol": 112,
+			"phyRes": 16,
+			"expRes": 24,
+			"eleRes": 16
+		},
+		"divine": {
+			"health": 1177,
+			"eneCap": 200,
+			"heaCap": 321
+		}
+	},
+	{
+		"id": 56,
+		"name": "Molten Platinum Vest",
+		"type": "TORSO",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 346,
+			"health": 982,
+			"eneCap": 193,
+			"eneReg": 64,
+			"heaCap": 267,
+			"heaCol": 96,
+			"phyRes": 44,
+			"expRes": 16,
+			"eleRes": 22
+		},
+		"divine": {
+			"health": 1054,
+			"eneCap": 207,
+			"heaCap": 282
+		}
+	},
+	{
+		"id": 57,
+		"name": "Sabretooth",
+		"type": "TORSO",
+		"element": "EXPLOSIVE",
+		"transform_range": "MYTHICAL-DIVINE",
+		"stats": {
+			"weight": 362,
+			"health": 1136,
+			"eneCap": 193,
+			"eneReg": 64,
+			"heaCap": 312,
+			"heaCol": 112,
+			"phyRes": 16,
+			"expRes": 24,
+			"eleRes": 16
+		},
+		"divine": {
+			"health": 1219,
+			"eneCap": 207,
+			"heaCap": 329
+		}
+	},
+	{
+		"id": 58,
+		"name": "Fractured Heat Armor",
+		"width": 210,
+		"height": 197,
+		"type": "TORSO",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 370,
+			"health": 1664,
+			"eneCap": 193,
+			"eneReg": 64,
+			"heaCap": 267,
+			"heaCol": 96
+		},
+		"divine": {
+			"health": 1786,
+			"eneCap": 207,
+			"heaCap": 282
+		}
+	},
+	{
+		"id": 59,
+		"name": "Flaming Battery Armor",
+		"width": 222,
+		"height": 226,
+		"type": "TORSO",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 346,
+			"health": 1136,
+			"eneCap": 313,
+			"eneReg": 24,
+			"heaCap": 401,
+			"heaCol": 24,
+			"phyRes": 14,
+			"expRes": 14,
+			"eleRes": 14
+		},
+		"divine": {
+			"health": 1177,
+			"eneCap": 324,
+			"heaCap": 412
+		}
+	},
+	{
+		"id": 60,
+		"name": "Scorching Feet",
+		"type": "LEGS",
+		"element": "EXPLOSIVE",
+		"transform_range": "COMMON-DIVINE",
+		"stats": {
+			"weight": 120,
+			"health": 413,
+			"expDmg": [143, 187],
+			"heaDmg": 36,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 428,
+			"expDmg": [147, 192],
+			"heaDmg": 37
+		}
+	},
+	{
+		"id": 61,
+		"name": "Devouring Paws",
+		"type": "LEGS",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 119,
+			"health": 394,
+			"expDmg": [140, 220],
+			"heaDmg": 44,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 408,
+			"expDmg": [144, 227],
+			"heaDmg": 45
+		}
+	},
+	{
+		"id": 62,
+		"name": "Dynamite Boots",
+		"type": "LEGS",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 136,
+			"health": 413,
+			"expDmg": [133, 224],
+			"heaDmg": 29,
+			"push": 2,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 428,
+			"expDmg": [136, 229],
+			"heaDmg": 30
+		}
+	},
+	{
+		"id": 63,
+		"name": "TerrorBlade",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 52,
+			"expDmg": [244, 319],
+			"heaDmg": 106,
+			"heaCapDmg": 51,
+			"push": 1,
+			"range": [1, 0],
+			"eneCost": 13,
+			"heaCost": 50
+		},
+		"divine": {
+			"expDmg": [258, 337],
+			"heaDmg": 112
+		}
+	},
+	{
+		"id": 64,
+		"name": "Flaming Hammer",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 60,
+			"expDmg": [229, 384],
+			"heaDmg": 86,
+			"heaColDmg": 20,
+			"push": 3,
+			"range": [1, 0],
+			"eneCost": 13,
+			"heaCost": 50
+		},
+		"divine": {
+			"expDmg": [236, 395],
+			"heaDmg": 88
+		}
+	},
+	{
+		"id": 65,
+		"name": "HeronMark",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 43,
+			"expDmg": [193, 311],
+			"heaDmg": 78,
+			"expResDmg": 9,
+			"range": [1, 2],
+			"eneCost": 13,
+			"heaCost": 50
+		},
+		"divine": {
+			"expDmg": [204, 329],
+			"heaDmg": 82
+		}
+	},
+	{
+		"id": 66,
+		"name": "Chaos Bringer",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 49,
+			"expDmg": [224, 286],
+			"heaDmg": 114,
+			"range": [1, 2],
+			"uses": 3,
+			"eneCost": 16,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [237, 302],
+			"heaDmg": 121
+		}
+	},
+	{
+		"id": 67,
+		"name": "Crimson Rapture",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 52,
+			"expDmg": [163, 213],
+			"heaDmg": 135,
+			"heaCapDmg": 48,
+			"range": [1, 2],
+			"uses": 3,
+			"eneCost": 31,
+			"heaCost": 93
+		},
+		"divine": {
+			"expDmg": [172, 225],
+			"heaDmg": 143
+		}
+	},
+	{
+		"id": 68,
+		"name": "Reckoning",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 86,
+			"expDmg": [182, 406],
+			"heaDmg": 50,
+			"expResDmg": 10,
+			"push": 1,
+			"range": [1, 2],
+			"uses": 3,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [193, 430],
+			"heaDmg": 53
+		}
+	},
+	{
+		"id": 69,
+		"name": "Basalt Dissolver",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 23,
+			"expDmg": [32, 65],
+			"heaDmg": 44,
+			"expResDmg": 45,
+			"range": [2, 4],
+			"uses": 1
+		},
+		"divine": {
+			"expDmg": [33, 67],
+			"heaDmg": 45
+		}
+	},
+	{
+		"id": 70,
+		"name": "Magma Blast",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 55,
+			"expDmg": [211, 403],
+			"heaDmg": 79,
+			"expResDmg": 13,
+			"heaCapDmg": 30,
+			"heaColDmg": 17,
+			"push": 1,
+			"range": [2, 4],
+			"uses": 1,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [223, 425],
+			"heaDmg": 83
+		}
+	},
+	{
+		"id": 71,
+		"name": "Sorrow",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 66,
+			"expDmg": [163, 213],
+			"heaDmg": 93,
+			"heaCapDmg": 12,
+			"range": [2, 4],
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [172, 225],
+			"heaDmg": 99
+		}
+	},
+	{
+		"id": 72,
+		"name": "Abomination",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 66,
+			"expDmg": [212, 307],
+			"heaDmg": 71,
+			"expResDmg": 12,
+			"push": 1,
+			"range": [2, 4],
+			"uses": 3,
+			"eneCost": 19,
+			"heaCost": 44
+		},
+		"divine": {
+			"expDmg": [224, 327],
+			"heaDmg": 75
+		}
+	},
+	{
+		"id": 73,
+		"name": "Heat Bomb",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 50,
+			"expDmg": [40, 59],
+			"heaDmg": 393,
+			"range": [2, 4],
+			"uses": 1,
+			"heaCost": 393
+		},
+		"divine": {
+			"expDmg": [41, 60],
+			"heaDmg": 404
+		}
+	},
+	{
+		"id": 74,
+		"name": "Corrupt Light",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "RARE-DIVINE",
+		"stats": {
+			"weight": 51,
+			"expDmg": [140, 236],
+			"heaDmg": 93,
+			"heaCapDmg": 24,
+			"range": [3, 6],
+			"eneCost": 16,
+			"heaCost": 47
+		},
+		"divine": {
+			"expDmg": [144, 243],
+			"heaDmg": 96
+		}
+	},
+	{
+		"id": 75,
+		"name": "DawnBlaze",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 52,
+			"expDmg": [210, 272],
+			"heaDmg": 71,
+			"expResDmg": 9,
+			"range": [3, 6],
+			"eneCost": 16,
+			"heaCost": 47
+		},
+		"divine": {
+			"expDmg": [216, 280],
+			"heaDmg": 73
+		}
+	},
+	{
+		"id": 76,
+		"name": "Flaminator",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 47,
+			"expDmg": [148, 228],
+			"heaDmg": 93,
+			"heaCapDmg": 24,
+			"range": [3, 6],
+			"eneCost": 110
+		},
+		"divine": {
+			"expDmg": [152, 235],
+			"heaDmg": 96
+		}
+	},
+	{
+		"id": 77,
+		"name": "Hybrid Heat Cannon",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 47,
+			"expDmg": [159, 269],
+			"heaDmg": 105,
+			"heaCapDmg": 33,
+			"range": [3, 6],
+			"eneCost": 104
+		},
+		"divine": {
+			"expDmg": [168, 285],
+			"heaDmg": 111
+		}
+	},
+	{
+		"id": 78,
+		"name": "Explosive Retreat",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 35,
+			"expDmg": [164, 337],
+			"expResDmg": 5,
+			"push": 1,
+			"retreat": 2,
+			"range": [3, 6],
+			"uses": 2,
+			"eneCost": 19,
+			"heaCost": 44
+		}
+	},
+	{
+		"id": 79,
+		"name": "Magma Recoiler",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 64,
+			"expDmg": [173, 350],
+			"heaDmg": 50,
+			"expResDmg": 10,
+			"push": 1,
+			"recoil": 1,
+			"range": [1, 2],
+			"uses": 3,
+			"eneCost": 25,
+			"heaCost": 56
+		},
+		"divine": {
+			"expDmg": [178, 360],
+			"heaDmg": 52
+		}
+	},
+	{
+		"id": 80,
+		"name": "Shadow Wolf",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 60,
+			"expDmg": [147, 376],
+			"heaDmg": 50,
+			"expResDmg": 10,
+			"range": [2, 4],
+			"push": 1,
+			"recoil": 1,
+			"uses": 3,
+			"eneCost": 25,
+			"heaCost": 56
+		},
+		"divine": {
+			"expDmg": [155, 297],
+			"heaDmg": 53
+		}
+	},
+	{
+		"id": 81,
+		"name": "Broken Devourer",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 26,
+			"expDmg": [155, 390],
+			"heaDmg": 93,
+			"expResDmg": 12,
+			"range": [2, 4],
+			"push": 1,
+			"uses": 1,
+			"backfire": 123,
+			"eneCost": 13,
+			"heaCost": 81
+		},
+		"divine": {
+			"expDmg": [159, 400],
+			"heaDmg": 96
+		}
+	},
+	{
+		"id": 82,
+		"name": "Overcooking Oven",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 43,
+			"expDmg": [144, 232],
+			"heaDmg": 177,
+			"heaCapDmg": 48,
+			"range": [1, 2],
+			"uses": 2,
+			"backfire": 152,
+			"eneCost": 31,
+			"heaCost": 19
+		},
+		"divine": {
+			"expDmg": [153, 246],
+			"heaDmg": 187
+		}
+	},
+	{
+		"id": 83,
+		"name": "Supreme Cannon",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 66,
+			"expDmg": [205, 315],
+			"heaDmg": 71,
+			"expResDmg": 11,
+			"push": 1,
+			"range": [3, 6],
+			"uses": 3,
+			"eneCost": 19,
+			"heaCost": 44
+		},
+		"divine": {
+			"expDmg": [210, 323],
+			"heaDmg": 73
+		}
+	},
+	{
+		"id": 84,
+		"name": "Vandal Rage",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 41,
+			"expDmg": [143, 187],
+			"heaDmg": 44,
+			"expResDmg": 20,
+			"heaColDmg": 46,
+			"push": 1,
+			"range": [4, 5],
+			"uses": 1,
+			"heaCost": 25
+		},
+		"divine": {
+			"expDmg": [147, 192],
+			"heaDmg": 45
+		}
+	},
+	{
+		"id": 85,
+		"name": "Desolation",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 66,
+			"expDmg": [210, 310],
+			"heaDmg": 48,
+			"expResDmg": 10,
+			"range": [4, 8],
+			"uses": 3,
+			"heaCost": 56
+		},
+		"divine": {
+			"expDmg": [216, 319],
+			"heaDmg": 49
+		}
+	},
+	{
+		"id": 86,
+		"name": "Iron Frenzy",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 52,
+			"expDmg": [203, 265],
+			"heaDmg": 71,
+			"expResDmg": 5,
+			"range": [4, 8],
+			"eneCost": 16,
+			"heaCost": 47
+		},
+		"divine": {
+			"expDmg": [215, 280],
+			"heaDmg": 75
+		}
+	},
+	{
+		"id": 87,
+		"name": "Desert Snake",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 63,
+			"expDmg": [192, 329],
+			"heaDmg": 71,
+			"heaColDmg": 7,
+			"pull": 1,
+			"range": [4, 8],
+			"eneCost": 25,
+			"heaCost": 75
+		},
+		"divine": {
+			"expDmg": [202, 346],
+			"heaDmg": 75
+		}
+	},
+	{
+		"id": 88,
+		"name": "Savagery",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 51,
+			"expDmg": [154, 232],
+			"heaDmg": 106,
+			"heaCapDmg": 30,
+			"range": [4, 8],
+			"eneCost": 16,
+			"heaCost": 47
+		},
+		"divine": {
+			"expDmg": [158, 238],
+			"heaDmg": 109
+		}
+	},
+	{
+		"id": 89,
+		"name": "Flaming Scope",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 21,
+			"expDmg": [568, 741],
+			"heaDmg": 212,
+			"expResDmg": 15,
+			"range": [8, 0],
+			"uses": 1,
+			"eneCost": 31,
+			"heaCost": 155
+		},
+		"divine": {
+			"expDmg": [600, 783],
+			"heaDmg": 224
+		}
+	},
+	{
+		"id": 90,
+		"name": "Burning Shower",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 75,
+			"expDmg": [173, 345],
+			"heaDmg": 86,
+			"expResDmg": 12,
+			"heaColDmg": 10,
+			"pull": 2,
+			"range": [4, 8],
+			"uses": 3,
+			"heaCost": 81
+		},
+		"divine": {
+			"expDmg": [183, 365],
+			"heaDmg": 90
+		}
+	},
+	{
+		"id": 91,
+		"name": "Red Rain",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 65,
+			"expDmg": [216, 341],
+			"heaDmg": 106,
+			"heaColDmg": 19,
+			"pull": 2,
+			"range": [2, 4],
+			"uses": 2,
+			"eneCost": 30,
+			"heaCost": 81
+		},
+		"divine": {
+			"expDmg": [229, 361],
+			"heaDmg": 112
+		}
+	},
+	{
+		"id": 92,
+		"name": "Frantic Flame",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 50,
+			"expDmg": [76, 470],
+			"heaDmg": 78,
+			"expResDmg": 10,
+			"range": [3, 6],
+			"uses": 2,
+			"eneCost": 10,
+			"heaCost": 81
+		},
+		"divine": {
+			"expDmg": [78, 483],
+			"heaDmg": 80
+		}
+	},
+	{
+		"id": 93,
+		"name": "Space Invader",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 41,
+			"expDmg": [203, 337],
+			"heaDmg": 36,
+			"expResDmg": 5,
+			"range": [4, 8],
+			"push": 1,
+			"advance": 3,
+			"uses": 2,
+			"heaCost": 100
+		},
+		"divine": {
+			"expDmg": [215, 356],
+			"heaDmg": 38
+		}
+	},
+	{
+		"id": 94,
+		"name": "Clash",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 43,
+			"expDmg": [103, 135],
+			"heaDmg": 36,
+			"expResDmg": 6,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [105, 138],
+			"heaDmg": 37
+		}
+	},
+	{
+		"id": 95,
+		"name": "Nemo",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 43,
+			"expDmg": [97, 141],
+			"heaDmg": 41,
+			"heaCapDmg": 20,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [100, 145],
+			"heaDmg": 42
+		}
+	},
+	{
+		"id": 96,
+		"name": "Swoop",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 22,
+			"expDmg": [55, 90],
+			"heaDmg": 58,
+			"expResDmg": 5,
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [59, 95],
+			"heaDmg": 61
+		}
+	},
+	{
+		"id": 97,
+		"name": "Murmur",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 43,
+			"expDmg": [86, 153],
+			"heaDmg": 36,
+			"heaColDmg": 7,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [90, 161],
+			"heaDmg": 38
+		}
+	},
+	{
+		"id": 98,
+		"name": "FlameWave",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 51,
+			"expDmg": [84, 154],
+			"heaDmg": 45,
+			"push": 1,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [89, 163],
+			"heaDmg": 47
+		}
+	},
+	{
+		"id": 99,
+		"name": "HeatPoint",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 51,
+			"expDmg": [161, 211],
+			"heaDmg": 48,
+			"expResDmg": 6,
+			"uses": 3,
+			"heaCost": 50
+		},
+		"divine": {
+			"expDmg": [166, 218],
+			"heaDmg": 49
+		}
+	},
+	{
+		"id": 100,
+		"name": "Fire Fly",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 50,
+			"expDmg": [134, 242],
+			"heaDmg": 48,
+			"expResDmg": 5,
+			"range": [2, 4],
+			"heaCost": 50
+		},
+		"divine": {
+			"expDmg": [138, 249],
+			"heaDmg": 49
+		}
+	},
+	{
+		"id": 101,
+		"name": "Flame Spear",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 50,
+			"expDmg": [142, 259],
+			"heaDmg": 54,
+			"expResDmg": 7,
+			"range": [3, 6],
+			"heaCost": 50
+		},
+		"divine": {
+			"expDmg": [150, 274],
+			"heaDmg": 57
+		}
+	},
+	{
+		"id": 102,
+		"name": "Flaming Grappling Hook",
+		"type": "HOOK",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 16,
+			"expDmg": [111, 145],
+			"heaDmg": 39,
+			"uses": 1,
+			"heaCost": 31
+		},
+		"divine": {
+			"expDmg": [119, 156],
+			"heaDmg": 41
+		}
+	},
+	{
+		"id": 103,
+		"name": "Heat Engine",
+		"type": "MODULE",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 25,
+			"heaCap": 89,
+			"heaCol": 42
+		},
+		"divine": {
+			"heaCap": 92,
+			"heaCol": 44
+		}
+	},
+	{
+		"id": 104,
+		"name": "Cooling Mass Booster",
+		"type": "MODULE",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 15,
+			"heaCol": 63
+		},
+		"divine": {
+			"heaCol": 65
+		}
+	},
+	{
+		"id": 105,
+		"name": "Heat Storage Unit",
+		"type": "MODULE",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 22,
+			"heaCap": 134
+		},
+		"divine": {
+			"heaCap": 141
+		}
+	},
+	{
+		"id": 106,
+		"name": "Ultrahot Protector",
+		"type": "MODULE",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 28,
+			"expRes": 59
+		},
+		"divine": {
+			"expRes": 63
+		}
+	},
+	{
+		"id": 107,
+		"name": "Heat Protector",
+		"type": "MODULE",
+		"element": "EXPLOSIVE",
+		"transform_range": "COMMON-EPIC",
+		"stats": {
+			"weight": 28,
+			"expRes": 24
+		}
+	},
+	{
+		"id": 108,
+		"name": "Sith",
+		"type": "TORSO",
+		"element": "ELECTRIC",
+		"transform_range": "COMMON-DIVINE",
+		"stats": {
+			"weight": 312,
+			"health": 930,
+			"eneCap": 245,
+			"eneReg": 112,
+			"heaCap": 193,
+			"heaCol": 64,
+			"phyRes": 22,
+			"expRes": 22,
+			"eleRes": 16
+		},
+		"divine": {
+			"health": 0,
+			"eneCap": 298,
+			"heaCap": 200
+		}
+	},
+	{
+		"id": 109,
+		"name": "Naga",
+		"type": "TORSO",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 335,
+			"health": 982,
+			"eneCap": 279,
+			"eneReg": 104,
+			"heaCap": 193,
+			"heaCol": 72,
+			"phyRes": 22,
+			"expRes": 22,
+			"eleRes": 16
+		},
+		"divine": {
+			"health": 1017,
+			"eneCap": 287,
+			"heaCap": 200
+		}
+	},
+	{
+		"id": 110,
+		"name": "GrimReaper",
+		"type": "TORSO",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 329,
+			"health": 879,
+			"eneCap": 346,
+			"eneReg": 112,
+			"heaCap": 193,
+			"heaCol": 64,
+			"phyRes": 22,
+			"expRes": 22,
+			"eleRes": 16
+		},
+		"divine": {
+			"health": 910,
+			"eneCap": 356,
+			"heaCap": 200
+		}
+	},
+	{
+		"id": 111,
+		"name": "Lightning Platinum Vest",
+		"type": "TORSO",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 346,
+			"health": 982,
+			"eneCap": 267,
+			"eneReg": 96,
+			"heaCap": 193,
+			"heaCol": 64,
+			"phyRes": 44,
+			"expRes": 22,
+			"eleRes": 16
+		},
+		"divine": {
+			"health": 1054,
+			"eneCap": 282,
+			"heaCap": 207
+		}
+	},
+	{
+		"id": 112,
+		"name": "Charged Walkers",
+		"type": "LEGS",
+		"element": "ELECTRIC",
+		"transform_range": "COMMON-DIVINE",
+		"stats": {
+			"weight": 122,
+			"health": 413,
+			"eleDmg": [143, 187],
+			"eneDmg": 48,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 413,
+			"eleDmg": [147, 192],
+			"eneDmg": 49
+		}
+	},
+	{
+		"id": 113,
+		"name": "Dynamic Stompers",
+		"type": "LEGS",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 118,
+			"health": 372,
+			"eleDmg": [154, 217],
+			"eneDmg": 58,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 386,
+			"eleDmg": [158, 223],
+			"eneDmg": 60
+		}
+	},
+	{
+		"id": 114,
+		"name": "Sparked Runners",
+		"type": "LEGS",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 114,
+			"health": 363,
+			"eleDmg": [135, 249],
+			"eneDmg": 38,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 3
+		},
+		"divine": {
+			"health": 389,
+			"eleDmg": [143, 264],
+			"eneDmg": 41
+		}
+	},
+	{
+		"id": 115,
+		"name": "Lightning Supporters",
+		"type": "LEGS",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 124,
+			"health": 413,
+			"eleDmg": [127, 192],
+			"eneDmg": 67,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 428,
+			"eleDmg": [131, 197],
+			"eneDmg": 69
+		}
+	},
+	{
+		"id": 116,
+		"name": "Recoil Stompers",
+		"type": "LEGS",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 138,
+			"health": 413,
+			"eleDmg": [140, 216],
+			"eneDmg": 38,
+			"push": 2,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 413,
+			"eleDmg": [140, 216],
+			"eneDmg": 38
+		}
+	},
+	{
+		"id": 117,
+		"name": "StormWeaver",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 56,
+			"eleDmg": [244, 319],
+			"eneDmg": 114,
+			"eneCapDmg": 32,
+			"push": 1,
+			"range": [1, 0],
+			"eneCost": 50,
+			"heaCost": 13
+		},
+		"divine": {
+			"eleDmg": [258, 337],
+			"eneDmg": 121
+		}
+	},
+	{
+		"id": 118,
+		"name": "Viking Hammer",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 63,
+			"eleDmg": [211, 354],
+			"eneDmg": 114,
+			"eneRegDmg": 17,
+			"push": 3,
+			"range": [1, 0],
+			"eneCost": 50,
+			"heaCost": 13
+		},
+		"divine": {
+			"eleDmg": [217, 364],
+			"eneDmg": 117
+		}
+	},
+	{
+		"id": 119,
+		"name": "BrightRoar",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 45,
+			"eleDmg": [193, 311],
+			"eneDmg": 103,
+			"eleResDmg": 9,
+			"range": [1, 2],
+			"eneCost": 50,
+			"heaCost": 13
+		},
+		"divine": {
+			"eleDmg": [204, 329],
+			"eneDmg": 108
+		}
+	},
+	{
+		"id": 120,
+		"name": "BigDaddy",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 53,
+			"eleDmg": [202, 265],
+			"eneDmg": 152,
+			"range": [1, 2],
+			"uses": 3,
+			"eneCost": 47,
+			"heaCost": 16
+		},
+		"divine": {
+			"eleDmg": [215, 280],
+			"eneDmg": 161
+		}
+	},
+	{
+		"id": 121,
+		"name": "Ash Creator",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 58,
+			"eleDmg": [163, 213],
+			"eneDmg": 180,
+			"eneCapDmg": 44,
+			"range": [1, 2],
+			"uses": 3,
+			"eneCost": 93,
+			"heaCost": 31
+		},
+		"divine": {
+			"eleDmg": [172, 225],
+			"eneDmg": 190
+		}
+	},
+	{
+		"id": 122,
+		"name": "BullDog",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 73,
+			"eleDmg": [182, 406],
+			"eneDmg": 67,
+			"eleResDmg": 10,
+			"push": 1,
+			"range": [1, 2],
+			"uses": 3,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [193, 430],
+			"eneDmg": 71
+		}
+	},
+	{
+		"id": 123,
+		"name": "Rusty Energy Armor",
+		"type": "TORSO",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 370,
+			"health": 1664,
+			"eneCap": 267,
+			"eneReg": 96,
+			"heaCap": 193,
+			"heaCol": 64
+		},
+		"divine": {
+			"health": 1786,
+			"eneCap": 282,
+			"heaCap": 207
+		}
+	},
+	{
+		"id": 124,
+		"name": "Blizzard Dissolver",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 24,
+			"eleDmg": [34, 70],
+			"eneDmg": 63,
+			"eleResDmg": 50,
+			"range": [2, 4],
+			"uses": 1
+		},
+		"divine": {
+			"eleDmg": [36, 73],
+			"eneDmg": 65
+		}
+	},
+	{
+		"id": 125,
+		"name": "EMP",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 70,
+			"eleDmg": [37, 61],
+			"eneDmg": 334,
+			"range": [2, 4],
+			"uses": 1,
+			"eneCost": 393
+		},
+		"divine": {
+			"eleDmg": [38, 63],
+			"eneDmg": 343
+		}
+	},
+	{
+		"id": 126,
+		"name": "Mortal Bullet",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 56,
+			"eleDmg": [168, 218],
+			"eneDmg": 133,
+			"eneCapDmg": 12,
+			"range": [2, 4],
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [177, 230],
+			"eneDmg": 140
+		}
+	},
+	{
+		"id": 127,
+		"name": "Last Words",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 63,
+			"eleDmg": [185, 285],
+			"eneDmg": 95,
+			"eneRegDmg": 13,
+			"push": 1,
+			"range": [2, 4],
+			"uses": 3,
+			"eneCost": 47,
+			"heaCost": 16
+		},
+		"divine": {
+			"eleDmg": [190, 293],
+			"eneDmg": 97
+		}
+	},
+	{
+		"id": 128,
+		"name": "Bunker Shell",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 50,
+			"eleDmg": [243, 463],
+			"eneDmg": 123,
+			"eleResDmg": 13,
+			"eneCapDmg": 30,
+			"eneRegDmg": 17,
+			"push": 1,
+			"range": [2, 4],
+			"uses": 1,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [256, 489],
+			"eneDmg": 130
+		}
+	},
+	{
+		"id": 129,
+		"name": "Malice Beam",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "RARE-DIVINE",
+		"stats": {
+			"weight": 55,
+			"eleDmg": [140, 236],
+			"eneDmg": 123,
+			"eneCapDmg": 24,
+			"range": [3, 6],
+			"eneCost": 47,
+			"heaCost": 12
+		},
+		"divine": {
+			"eleDmg": [144, 243],
+			"eneDmg": 127
+		}
+	},
+	{
+		"id": 130,
+		"name": "UltraBright",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 56,
+			"eleDmg": [203, 265],
+			"eneDmg": 95,
+			"eleResDmg": 5,
+			"range": [3, 6],
+			"eneCost": 47,
+			"heaCost": 16
+		},
+		"divine": {
+			"eleDmg": [209, 273],
+			"eneDmg": 97
+		}
+	},
+	{
+		"id": 131,
+		"name": "Hot Flash",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 66,
+			"eleDmg": [148, 228],
+			"eneDmg": 142,
+			"eneCapDmg": 24,
+			"range": [3, 6],
+			"heaCost": 110
+		},
+		"divine": {
+			"eleDmg": [152, 235],
+			"eneDmg": 146
+		}
+	},
+	{
+		"id": 132,
+		"name": "Hybrid Energy Cannon",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 66,
+			"eleDmg": [159, 269],
+			"eneDmg": 139,
+			"eneCapDmg": 39,
+			"range": [3, 6],
+			"heaCost": 104
+		},
+		"divine": {
+			"eleDmg": [168, 285],
+			"eneDmg": 147
+		}
+	},
+	{
+		"id": 133,
+		"name": "Evac Spark",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 37,
+			"eleDmg": [164, 337],
+			"eneDmg": 76,
+			"eleResDmg": 5,
+			"push": 1,
+			"retreat": 2,
+			"range": [3, 6],
+			"uses": 2,
+			"eneCost": 44,
+			"heaCost": 19
+		},
+		"divine": {
+			"eleDmg": [173, 356],
+			"eneDmg": 81
+		}
+	},
+	{
+		"id": 134,
+		"name": "Lightning Recoiler",
+		"width": 193,
+		"height": 76,
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 69,
+			"eleDmg": [173, 350],
+			"eneDmg": 67,
+			"eleResDmg": 10,
+			"push": 1,
+			"recoil": 1,
+			"range": [1, 2],
+			"uses": 3,
+			"eneCost": 56,
+			"heaCost": 25
+		},
+		"divine": {
+			"eleDmg": [178, 360],
+			"eneDmg": 69
+		}
+	},
+	{
+		"id": 135,
+		"name": "Piercing Fox",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 64,
+			"eleDmg": [147, 376],
+			"eneDmg": 67,
+			"eleResDmg": 10,
+			"range": [2, 4],
+			"push": 1,
+			"recoil": 1,
+			"uses": 3,
+			"eneCost": 56,
+			"heaCost": 25
+		},
+		"divine": {
+			"eleDmg": [155, 397],
+			"eneDmg": 71
+		}
+	},
+	{
+		"id": 136,
+		"name": "Unstable Power Cell",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 42,
+			"eleDmg": [144, 232],
+			"eneDmg": 246,
+			"eneCapDmg": 48,
+			"range": [1, 2],
+			"uses": 2,
+			"backfire": 152,
+			"eneCost": 19,
+			"heaCost": 31
+		},
+		"divine": {
+			"eleDmg": [153, 246],
+			"eneDmg": 260
+		}
+	},
+	{
+		"id": 137,
+		"name": "Grim Cobra",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 63,
+			"eleDmg": [181, 290],
+			"eneDmg": 95,
+			"eneRegDmg": 13,
+			"pull": 1,
+			"range": [3, 6],
+			"uses": 3,
+			"eneCost": 47,
+			"heaCost": 16
+		},
+		"divine": {
+			"eleDmg": [186, 298],
+			"eneDmg": 97
+		}
+	},
+	{
+		"id": 138,
+		"name": "Hysteria",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 55,
+			"eleDmg": [169, 252],
+			"eneDmg": 129,
+			"eneCapDmg": 24,
+			"range": [4, 8],
+			"eneCost": 47,
+			"heaCost": 16
+		},
+		"divine": {
+			"eleDmg": [174, 259],
+			"eneDmg": 132
+		}
+	},
+	{
+		"id": 139,
+		"name": "Valiant Sniper",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 51,
+			"eleDmg": [126, 183],
+			"eneDmg": 181,
+			"eleResDmg": 17,
+			"eneRegDmg": 13,
+			"range": [4, 8],
+			"uses": 2,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [133, 193],
+			"eneDmg": 200
+		}
+	},
+	{
+		"id": 140,
+		"name": "SpineFall",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 67,
+			"eleDmg": [192, 329],
+			"eneDmg": 105,
+			"eneRegDmg": 13,
+			"pull": 1,
+			"range": [4, 8],
+			"eneCost": 75,
+			"heaCost": 25
+		},
+		"divine": {
+			"eleDmg": [202, 346],
+			"eneDmg": 111
+		}
+	},
+	{
+		"id": 141,
+		"name": "Delerium",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 56,
+			"eleDmg": [214, 289],
+			"eneDmg": 95,
+			"eleResDmg": 12,
+			"range": [4, 8],
+			"eneCost": 47,
+			"heaCost": 16
+		},
+		"divine": {
+			"eleDmg": [226, 305],
+			"eneDmg": 100
+		}
+	},
+	{
+		"id": 142,
+		"name": "Lightning Scope",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 23,
+			"eleDmg": [568, 741],
+			"eneDmg": 283,
+			"eleResDmg": 15,
+			"range": [8, 0],
+			"uses": 1,
+			"eneCost": 155,
+			"heaCost": 31
+		},
+		"divine": {
+			"eleDmg": [600, 783],
+			"eneDmg": 299
+		}
+	},
+	{
+		"id": 143,
+		"name": "Frantic Lightning",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 50,
+			"eleDmg": [76, 451],
+			"eneDmg": 95,
+			"eleResDmg": 10,
+			"range": [3, 6],
+			"uses": 2,
+			"eneCost": 81,
+			"heaCost": 13
+		},
+		"divine": {
+			"eleDmg": [78, 463],
+			"eneDmg": 97
+		}
+	},
+	{
+		"id": 144,
+		"name": "Party Crasher",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 43,
+			"eleDmg": [203, 347],
+			"eneDmg": 48,
+			"eleResDmg": 5,
+			"push": 1,
+			"advance": 3,
+			"range": [4, 8],
+			"uses": 2,
+			"heaCost": 100
+		},
+		"divine": {
+			"eleDmg": [215, 368],
+			"eneDmg": 50
+		}
+	},
+	{
+		"id": 145,
+		"name": "Snack",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 30,
+			"eleDmg": [103, 135],
+			"eneDmg": 48,
+			"eleResDmg": 6,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [105, 138],
+			"eneDmg": 49
+		}
+	},
+	{
+		"id": 146,
+		"name": "Torment",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 29,
+			"eleDmg": [97, 141],
+			"eneDmg": 48,
+			"eneCapDmg": 12,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [100, 145],
+			"eneDmg": 49
+		}
+	},
+	{
+		"id": 147,
+		"name": "WindForge",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 27,
+			"eleDmg": [55, 90],
+			"eneDmg": 76,
+			"eleResDmg": 5,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [59, 95],
+			"eneDmg": 81
+		}
+	},
+	{
+		"id": 148,
+		"name": "Anguish",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 30,
+			"eleDmg": [86, 153],
+			"eneDmg": 48,
+			"eneRegDmg": 7,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [90, 161],
+			"eneDmg": 50
+		}
+	},
+	{
+		"id": 149,
+		"name": "Shockwave",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 51,
+			"eleDmg": [139, 183],
+			"eneDmg": 49,
+			"push": 1,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [147, 193],
+			"eneDmg": 52
+		}
+	},
+	{
+		"id": 150,
+		"name": "Face Shocker",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 41,
+			"eleDmg": [163, 213],
+			"eneDmg": 76,
+			"eleResDmg": 6,
+			"uses": 3,
+			"eneCost": 50
+		},
+		"divine": {
+			"eleDmg": [167, 219],
+			"eneDmg": 78
+		}
+	},
+	{
+		"id": 151,
+		"name": "Electrolyte",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 47,
+			"eleDmg": [134, 244],
+			"eneDmg": 76,
+			"eleResDmg": 6,
+			"range": [2, 4],
+			"eneCost": 50
+		},
+		"divine": {
+			"eleDmg": [138, 251],
+			"eneDmg": 78
+		}
+	},
+	{
+		"id": 152,
+		"name": "Rail Gun",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 50,
+			"eleDmg": [151, 276],
+			"eneDmg": 86,
+			"eleResDmg": 7,
+			"range": [3, 6],
+			"eneCost": 50
+		},
+		"divine": {
+			"eleDmg": [159, 291],
+			"eneDmg": 90
+		}
+	},
+	{
+		"id": 153,
+		"name": "Advanced Teleporter",
+		"type": "TELEPORTER",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 11,
+			"eleDmg": [103, 135],
+			"eneDmg": 48,
+			"uses": 1,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [108, 142],
+			"eneDmg": 50
+		}
+	},
+	{
+		"id": 154,
+		"name": "Double Teleporter",
+		"type": "TELEPORTER",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-LEGENDARY",
+		"stats": {
+			"weight": 26,
+			"uses": 2,
+			"eneCost": 20
+		}
+	},
+	{
+		"id": 155,
+		"name": "Shocking Grappling Hook",
+		"type": "HOOK",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 11,
+			"eleDmg": [103, 135],
+			"eneDmg": 48,
+			"uses": 1,
+			"eneCost": 31
+		},
+		"divine": {
+			"eleDmg": [108, 142],
+			"eneDmg": 50
+		}
+	},
+	{
+		"id": 156,
+		"name": "Energy Engine",
+		"type": "MODULE",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 25,
+			"eneCap": 89,
+			"eneReg": 42
+		},
+		"divine": {
+			"eneCap": 92,
+			"eneReg": 44
+		}
+	},
+	{
+		"id": 157,
+		"name": "Energy Mass Booster",
+		"type": "MODULE",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 15,
+			"eneReg": 63
+		},
+		"divine": {
+			"eneReg": 65
+		}
+	},
+	{
+		"id": 158,
+		"name": "Energy Storage Unit",
+		"type": "MODULE",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 22,
+			"eneCap": 134
+		},
+		"divine": {
+			"eneCap": 141
+		}
+	},
+	{
+		"id": 159,
+		"name": "SuperCharge Protector",
+		"type": "MODULE",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 28,
+			"eleRes": 59
+		},
+		"divine": {
+			"eleRes": 63
+		}
+	},
+	{
+		"id": 160,
+		"name": "Energy Protector",
+		"type": "MODULE",
+		"element": "ELECTRIC",
+		"transform_range": "COMMON-EPIC",
+		"stats": {
+			"weight": 28,
+			"eleRes": 24
+		}
+	},
+	{
+		"id": 161,
+		"name": "Hardened Platinum Vest",
+		"type": "TORSO",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 346,
+			"health": 908,
+			"eneCap": 193,
+			"eneReg": 64,
+			"heaCap": 289,
+			"heaCol": 96,
+			"phyRes": 16,
+			"expRes": 22,
+			"eleRes": 44
+		},
+		"divine": {
+			"health": 960,
+			"eneCap": 207,
+			"heaCap": 310
+		}
+	},
+	{
+		"id": 162,
+		"name": "Unreliable Guardian",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 48,
+			"eleDmg": [139, 252],
+			"eneDmg": 91,
+			"eleResDmg": 5,
+			"backfire": 98,
+			"eneCost": 50
+		},
+		"divine": {
+			"eleDmg": [147, 266],
+			"eneDmg": 96
+		}
+	},
+	{
+		"id": 163,
+		"name": "Backstabbing Guardian",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 48,
+			"expDmg": [134, 244],
+			"heaDmg": 58,
+			"expResDmg": 6,
+			"backfire": 101,
+			"heaCost": 62
+		},
+		"divine": {
+			"expDmg": [144, 258],
+			"heaDmg": 61
+		}
+	},
+	{
+		"id": 164,
+		"name": "Selfish Guardian",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 48,
+			"phyDmg": [215, 379],
+			"phyResDmg": 5,
+			"backfire": 130,
+			"eneCost": 16,
+			"heaCost": 16
+		},
+		"divine": {
+			"phyDmg": [227, 400]
+		}
+	},
+	{
+		"id": 165,
+		"name": "Selfish Protector",
+		"type": "DRONE",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 42,
+			"phyDmg": [201, 359],
+			"phyResDmg": 5,
+			"backfire": 108,
+			"eneCost": 16,
+			"heaCost": 16
+		},
+		"divine": {
+			"phyDmg": [206, 368]
+		}
+	},
+	{
+		"id": 166,
+		"name": "Backstabbing Protector",
+		"type": "DRONE",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 43,
+			"expDmg": [126, 226],
+			"heaDmg": 50,
+			"expResDmg": 5,
+			"backfire": 87,
+			"heaCost": 50
+		},
+		"divine": {
+			"expDmg": [130, 233],
+			"heaDmg": 52
+		}
+	},
+	{
+		"id": 167,
+		"name": "Unreliable Protector",
+		"type": "DRONE",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 42,
+			"eleDmg": [134, 237],
+			"eneDmg": 76,
+			"eleResDmg": 5,
+			"backfire": 87,
+			"eneCost": 69
+		},
+		"divine": {
+			"eleDmg": [138, 243],
+			"eneDmg": 78
+		}
+	},
+	{
+		"id": 168,
+		"name": "Lazy Falcon",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 30,
+			"phyDmg": [611, 980],
+			"phyResDmg": 10,
+			"range": [8, 0],
+			"backfire": 490
+		},
+		"divine": {
+			"phyDmg": [646, 1036]
+		}
+	},
+	{
+		"id": 169,
+		"name": "Half Burnt Scope",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 30,
+			"expDmg": [503, 807],
+			"heaDmg": 212,
+			"expResDmg": 15,
+			"range": [8, 0],
+			"backfire": 468,
+			"heaCost": 100
+		},
+		"divine": {
+			"expDmg": [531, 852],
+			"heaDmg": 224
+		}
+	},
+	{
+		"id": 170,
+		"name": "Rusty Heat Blaster",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 43,
+			"expDmg": [209, 336],
+			"heaDmg": 106,
+			"expResDmg": 7,
+			"range": [3, 6],
+			"uses": 3,
+			"backfire": 173,
+			"heaCost": 143
+		},
+		"divine": {
+			"expDmg": [220, 355],
+			"heaDmg": 112
+		}
+	},
+	{
+		"id": 171,
+		"name": "Malfunctioning Blaster",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 28,
+			"phyDmg": [244, 391],
+			"phyResDmg": 13,
+			"range": [3, 6],
+			"backfire": 159,
+			"heaCost": 162
+		},
+		"divine": {
+			"phyDmg": [258, 413]
+		}
+	},
+	{
+		"id": 172,
+		"name": "Last Resort Vulcan",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 52,
+			"phyDmg": [216, 478],
+			"phyResDmg": 20,
+			"range": [4, 8],
+			"uses": 2,
+			"backfire": 180,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [229, 506]
+		}
+	},
+	{
+		"id": 173,
+		"name": "Disintegration",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 47,
+			"phyDmg": [202, 362],
+			"phyResDmg": 15,
+			"range": [1, 2],
+			"uses": 3,
+			"backfire": 100
+		},
+		"divine": {
+			"phyDmg": [213, 382]
+		}
+	},
+	{
+		"id": 174,
+		"name": "Distance Controller",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 34,
+			"expDmg": [135, 241],
+			"heaDmg": 44,
+			"expResDmg": 5,
+			"range": [1, 2],
+			"advance": 6,
+			"uses": 2,
+			"heaCost": 38
+		},
+		"divine": {
+			"expDmg": [143, 255],
+			"heaDmg": 46
+		}
+	},
+	{
+		"id": 175,
+		"name": "Distance Generator",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 35,
+			"eleDmg": [135, 241],
+			"eneDmg": 63,
+			"eleResDmg": 5,
+			"range": [1, 2],
+			"advance": 6,
+			"uses": 2,
+			"heaCost": 38
+		},
+		"divine": {
+			"eleDmg": [143, 255],
+			"eneDmg": 0
+		}
+	},
+	{
+		"id": 36,
+		"name": "Cockpit Piercer",
+		"type": "TOP_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 27,
+			"phyDmg": [540, 866],
+			"phyResDmg": 10,
+			"range": [7],
+			"push": 1,
+			"uses": 1,
+			"eneCost": 22,
+			"heaCost": 22
+		},
+		"divine": {
+			"phyDmg": [570, 915]
+		}
+	},
+	{
+		"id": 176,
+		"name": "Cockpit Burner",
+		"type": "TOP_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 27,
+			"expDmg": [394, 654],
+			"heaDmg": 177,
+			"expResDmg": 12,
+			"range": [7, 0],
+			"push": 7,
+			"uses": 1,
+			"eneCost": 31,
+			"heaCost": 155
+		},
+		"divine": {
+			"expDmg": [417, 669],
+			"heaDmg": 187
+		}
+	},
+	{
+		"id": 177,
+		"name": "Cockpit Electrocuter",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 27,
+			"eleDmg": [414, 666],
+			"eneDmg": 218,
+			"eleResDmg": 10,
+			"range": [7, 0],
+			"push": 1,
+			"uses": 1,
+			"eneCost": 124,
+			"heaCost": 31
+		},
+		"divine": {
+			"eleDmg": [473, 703],
+			"eneDmg": 230
+		}
+	},
+	{
+		"id": 178,
+		"name": "Scrapped Energy Blaster",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 42,
+			"eleDmg": [209, 336],
+			"eneDmg": 142,
+			"eleResDmg": 7,
+			"range": [3, 6],
+			"uses": 3,
+			"backfire": 173,
+			"eneCost": 143
+		},
+		"divine": {
+			"eleDmg": [220, 355],
+			"eneDmg": 150
+		}
+	},
+	{
+		"id": 179,
+		"name": "Electrocuted Scope",
+		"type": "TOP_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 30,
+			"eleDmg": [503, 807],
+			"eneDmg": 283,
+			"eleResDmg": 15,
+			"range": [8, 0],
+			"backfire": 389,
+			"eneCost": 62
+		},
+		"divine": {
+			"eleDmg": [531, 852],
+			"eneDmg": 299
+		}
+	},
+	{
+		"id": 180,
+		"name": "Unrepaired Laser Cannon",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 27,
+			"phyDmg": [216, 347],
+			"range": [2, 4],
+			"retreat": 1,
+			"backfire": 72,
+			"eneCost": 31,
+			"heaCost": 31
+		},
+		"divine": {
+			"phyDmg": [222, 357]
+		}
+	},
+	{
+		"id": 181,
+		"name": "Energy Battery Armor",
+		"width": 222,
+		"height": 226,
+		"type": "TORSO",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 346,
+			"health": 1136,
+			"eneCap": 433,
+			"eneReg": 24,
+			"heaCap": 290,
+			"heaCol": 24,
+			"phyRes": 14,
+			"expRes": 14,
+			"eleRes": 14
+		},
+		"divine": {
+			"health": 1177,
+			"eneCap": 449,
+			"heaCap": 298
+		}
+	},
+	{
+		"id": 182,
+		"name": "Drunk Lightning",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 27,
+			"eleDmg": [155, 390],
+			"eneDmg": 123,
+			"eleResDmg": 12,
+			"range": [2, 4],
+			"push": 1,
+			"uses": 1,
+			"backfire": 123,
+			"eneCost": 81,
+			"heaCost": 62
+		},
+		"divine": {
+			"eleDmg": [159, 400],
+			"eneDmg": 127
+		}
+	},
+	{
+		"id": 183,
+		"name": "Superb Charge Engine",
+		"type": "CHARGE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 23,
+			"phyDmg": [264, 345],
+			"uses": 1
+		},
+		"divine": {
+			"phyDmg": [283, 370]
+		}
+	},
+	{
+		"id": 184,
+		"name": "Misguided Rocket Battery",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 63,
+			"expDmg": [189, 377],
+			"heaDmg": 106,
+			"expResDmg": 14,
+			"range": [4, 8],
+			"push": 1,
+			"retreat": 1,
+			"uses": 3,
+			"backfire": 180,
+			"heaCost": 75
+		},
+		"divine": {
+			"expDmg": [200, 398],
+			"heaDmg": 112
+		}
+	},
+	{
+		"id": 185,
+		"name": "Cracked Plasma Cannon",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 37,
+			"expDmg": [181, 290],
+			"heaDmg": 71,
+			"range": [2, 4],
+			"retreat": 1,
+			"backfire": 72,
+			"eneCost": 16,
+			"heaCost": 47
+			},
+		"divine": {
+			"expDmg": [186, 298],
+			"heaDmg": 73
+		}
+	},
+	{
+		"id": 186,
+		"name": "Obsolete Energy Cannon",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 43,
+			"eleDmg": [181, 290],
+			"eneDmg": 95,
+			"range": [2, 4],
+			"retreat": 1,
+			"backfire": 72,
+			"eneCost": 47,
+			"heaCost": 16
+			},
+		"divine": {
+			"eleDmg": [186, 298],
+			"eneDmg": 97
+		}
+	},
+	{
+	"id": 187,
+	"name": "Overcharged Rocket Battery",
+	"type": "SIDE_WEAPON",
+	"element": "EXPLOSIVE",
+	"transform_range": "LEGENDARY-DIVINE",
+	"stats": {
+		"weight": 63,
+		"expDmg": [202, 362],
+		"heaDmg": 106,
+		"expResDmg": 14,
+		"range": [3, 6],
+		"push": 1,
+		"retreat": 1,
+		"uses": 3,
+		"backfire": 180,
+		"heaCost": 75
+		}
+	}
+]
