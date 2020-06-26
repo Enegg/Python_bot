@@ -197,8 +197,8 @@ async def stats(args):
         if k in ['backfire', 'heaCost', 'eneCost'] and spaced == False:
             item_stats += '\n'
             spaced = True
-        pool = 'stats'
         #divine handler
+        pool = 'stats'
         if divine == True and k in item['divine']: pool = 'divine'
         #number range handler
         if isinstance(item['stats'][k], list):
@@ -212,7 +212,7 @@ async def stats(args):
     #embedding
     embed = discord.Embed(title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=WU_DB['colors'][item['element']])
     fields = []
-    fields.append(['Transform range: ', '{}'.format(''.join(WU_DB['trans_colors'][WU_DB['tiers'].index(min):WU_DB['tiers'].index(max) + 1]))])
+    fields.append(['Transform range: ', '*{}*'.format(''.join(WU_DB['trans_colors'][WU_DB['tiers'].index(min):WU_DB['tiers'].index(max) + 1]))])
     fields.append(['Stats{}:'.format(note), item_stats])
     for field in fields: embed.add_field(name=field[0], value=field[1], inline=False)
     img_url = WU_DB['sprite_path'] + item['name'].replace(' ', '') + '.png'
