@@ -3655,5 +3655,23 @@
 		"backfire": 180,
 		"heaCost": 75
 		}
+	},
+	{
+		"id": 188,
+		"name": "Rock Polisher",
+		"type": "SIDE_WEAPON",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 36,
+			"phyDmg": [212, 423],
+			"phyResDmg": 15,
+			"range": [1, 2],
+			"backfire": 144,
+			"heaCost": 62
+		},
+		"divine": {
+			"phyDmg": [224, 447]
+		}
 	}
 ]
