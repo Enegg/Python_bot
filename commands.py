@@ -21,6 +21,24 @@ def get_item_by_id_or_name(value):
       return item
   return None
 
+def abbreviator():
+    abbrevs = {}
+    for item in items_list:
+        name = item['name']
+        if len(name) < 8: continue
+        if ' ' not in name and name[1:].islower(): abbreviation = name[:5].lower()
+        else: abbreviation = re.sub('[^A-Z]+', '', name).lower()
+        if abbreviation in abbrevs:
+            if isinstance(abbrevs[abbreviation], list): abbrevs[abbreviation].append(name)
+            else:
+                assigned = abbrevs[abbreviation]
+                del abbrevs[abbreviation]
+                abbrevs[abbreviation] = [assigned, name]
+        else: abbrevs[abbreviation] = name
+    return abbrevs
+
+abbrevs = abbreviator()
+
 def permz(msg):
     '''0 - anyone, 1 - manage messages, 2 - manage guild, 3 - admin'''
     permKeys, power = ['manage_messages', 'manage_guild', 'administrator'], 0
@@ -112,8 +130,10 @@ async def purge(args, cap=purge_cap):
     else:
         botmsg = await msg.channel.send('You are going to purge {} messages, continue?'.format(count))
         await botmsg.add_reaction(purge_confirm_emote)
+        def check(reaction, user):
+            return user == msg.author and str(reaction.emoji) == purge_confirm_emote
         try:
-            reaction, user = await client.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == msg.author and reaction.emoji == purge_confirm_emote)
+            await client.wait_for('reaction_add', timeout=20.0, check=check)
         except asyncio.TimeoutError:
             await botmsg.delete()
         else:
@@ -141,7 +161,8 @@ async def epix_command(args):
     channel = client.get_channel(channelid)
     await channel.send(' '.join(cont))
 
-operation = {'add': ['health'],
+operation = {
+    'add': ['health'],
     'mult': ['eneCap','heaCap','eneReg','heaCap','heaCol','phyDmg','expDmg','eleDmg','heaDmg','eneDmg'],
     'mult+': ['phyRes','expRes','eleRes'],
     'reduce': ['backfire']}
@@ -167,6 +188,29 @@ async def stats(args):
     #solving for abbrevs
     name = ' '.join(args).lower()
     if name in WU_DB['item_dict']: name = WU_DB['item_dict'][name]
+    elif name in abbrevs:
+        if isinstance(abbrevs[name], list):
+            number = len(abbrevs[name])
+            first_item = abbrevs[name][0]
+            final_item = abbrevs[name][-1]
+            filler = ''
+            if number > 2:
+                for n in range(1, number - 1):
+                    filler += ', **{}** for **{}**'.format(n + 1, abbrevs[name][n])
+            botmsg = await msg.channel.send('Found {0} items!\nType **1** for **{1}**{2} or **{0}** for **{3}**'.format(number, first_item, filler, final_item))
+            def check(m):
+                return m.author == msg.author and m.channel == msg.channel
+            try: reply = await client.wait_for('message', timeout=20.0, check=check)
+            except asyncio.TimeoutError:
+                await botmsg.add_reaction('⏰')
+                return
+            cont = intify(reply.content) - 1
+            if cont in range(1, number):
+                name = abbrevs[name][cont]
+            else:
+                await reply.add_reaction('❌')
+                return
+        else: name = abbrevs[name]
     #getting the item
     item = get_item_by_id_or_name(name.lower())
     if item == None:
