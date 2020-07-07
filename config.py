@@ -50,22 +50,10 @@ WU_DB = {
         'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
         'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']},
     'item_dict': {
-        #'efa': 'Energy Free Armor',
-        #'pp': 'Platinum Plating',
-        #'vs': 'Valiant Sniper',
-        #'rr': 'Rock Recoiler',
-        #'mb': 'Magma Blast',
         #'recko': 'Reckoning',
         'abo': 'Abomination',
         'heron': 'HeronMark',
-        #'mpv': 'Molten Platinum Vest',
-        #'lpv': 'Lightning Platinum Vest',
-        #'hpv': 'Hardened Platinum Vest',
-        #'hsa': 'Hollow Spectral Armor',
-        #'fha': 'Fractured Heat Armor',
-        #'rea': 'Rusty Energy Armor',
         'claw': 'The Claw',
-        'zark': 'Zarkares',
-        #'upc': 'Unstable Power Cell'
+        'zark': 'Zarkares'
         }
     }

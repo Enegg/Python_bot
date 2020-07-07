@@ -205,7 +205,8 @@ async def stats(args):
                 await botmsg.add_reaction('⏰')
                 return
             cont = intify(reply.content) - 1
-            if cont in range(1, number):
+            print(cont)
+            if cont in range(0, number):
                 name = abbrevs[name][cont]
             else:
                 await reply.add_reaction('❌')
@@ -262,11 +263,28 @@ async def stats(args):
     embed.set_image(url=img_url)
     await msg.channel.send(embed=embed)
 
+async def mechbuilder(args):
+    msg = args[0]
+    #title = args[1][0]
+    #desc = ''.join(args[1][1:])
+    title = 'Mech layout'
+    desc = '''
+    1          Drone        2
+        \\           |           /
+            🏹🛰️🚀
+      3 - 🔨🤖🗡️ - 4
+            🪓🛒⛏️
+        /           |           \\
+    5           Legs          6
+    '''
+    embed = discord.Embed(title=title, description=desc)
+    await msg.channel.send(embed=embed)
+
 async def shutdown(args):
     await args[0].channel.send('I will be back')
     await client.logout()
 
-commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, 'avatar': avatar, 'roll': dice, 'roles': roles, 'purge': purge}
+commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, 'avatar': avatar, 'roll': dice, 'roles': roles, 'purge': purge, 'embed': mechbuilder}
 
 async def trigger(msg):
     if not msg.content.startswith(prefix): return
