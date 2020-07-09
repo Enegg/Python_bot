@@ -886,7 +886,7 @@
 		"id": 50,
 		"name": "Maximum Protector",
 		"type": "MODULE",
-		"element": "PHYSICAL",
+		"element": "COMBINED",
 		"transform_range": "LEGENDARY-DIVINE",
 		"stats": {
 			"weight": 51,
@@ -904,7 +904,7 @@
 		"id": 51,
 		"name": "Savior Resistance",
 		"type": "MODULE",
-		"element": "PHYSICAL",
+		"element": "COMBINED",
 		"transform_range": "COMMON-EPIC",
 		"stats": {
 			"weight": 51,
@@ -3672,6 +3672,22 @@
 		},
 		"divine": {
 			"phyDmg": [224, 447]
+		}
+	},
+	{
+		"id": 189,
+		"name": "Combined Storage Unit",
+		"type": "MODULE",
+		"element": "COMBINED",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 40,
+			"eneCap": 121,
+			"heaCap": 112
+		},
+		"divine": {
+			"eneCap": 125,
+			"heaCap": 115
 		}
 	}
 ]

@@ -6,7 +6,7 @@ authorid = 190505392504045570
 security_lvl = {'say': 3, 'sd': 2, 'roles': 1, 'purge': 1}
 #purge
 purge_cap = 2000
-purge_confirm_emote = '<:kamehameha:704775089044062278>'
+purge_confirm_emote = '🧹'
 #say
 abbreviations = {'WU': 'Workshop Unlimited', 'M': 'Matrix', 'WB': 'W&BS', 'AC': 'Axis Convergence'}
 #stats
@@ -14,7 +14,19 @@ WU_DB = {
     'trans_colors': ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪'],
     'tiers': ['COMMON', 'RARE', 'EPIC', 'LEGENDARY', 'MYTHICAL', 'DIVINE'],
     'sprite_path': 'https://workshop-unlimited.web.app/img/items/',
-    'colors': {'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'PHYSICAL': 0xffb800},
+    'colors': {'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'PHYSICAL': 0xffb800, 'COMBINED': 0x211d1d},
+    'slots': {
+        'topl': '<:topl:730115768431280238>',
+        'topr': '<:topr:730115786735091762>',
+        'dron': '<:drone:730115574763618394>',
+        'sidl': '<:sidel:730115729365663884>',
+        'sidr': '<:sider:730115747799629940>',
+        'tors': '<:torso:730115680363347968>',
+        'legs': '<:legs:730115699397361827>',
+        'chrg': '<:charge:730115557239685281>',
+        'tele': '<:tele:730115603683213423>',
+        'hook': '<:hook:730115622347735071>',
+        'modl': '<:mod:730115649866694686>'},
     'WUabbrev': {
         'weight': ['Weight', '<:weight:725870760484143174>'],
         'health': ['HP', '<:health:725870887588462652>'],

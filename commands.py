@@ -114,6 +114,10 @@ def dice(args):
     if a == 'ass' or b == 'ass': return 'Wrong syntax'
     return roll(a, b)
 
+def react(args):
+    name = args[1][0]
+    return ':{}:'.format(name)
+
 async def avatar(args):
     msg = args[0]
     user = msg.author
@@ -268,15 +272,19 @@ async def mechbuilder(args):
     #title = args[1][0]
     #desc = ''.join(args[1][1:])
     title = 'Mech layout'
-    desc = '''
-    1          Drone        2
-        \\           |           /
-            🏹🛰️🚀
-      3 - 🔨🤖🗡️ - 4
-            🪓🛒⛏️
-        /           |           \\
-    5           Legs          6
-    '''
+    slots = WU_DB['slots']
+    line0 = 'Addresing items: `Weapon[n]:` `[name]`, `Module[n]:` `[name]`, `Torso:` `[name]` etc'
+    line1 = '\n`1` – {0}{1}{2} – `2`      `1` – {3}{3} – `5`'.format(slots['topl'], slots['dron'], slots['topr'], slots['modl'])
+    line2 = '\n`3` – {0}{1}{2} – `4`      `2` – {3}{3} – `6`'.format(slots['sidl'], slots['tors'], slots['sidr'], slots['modl'])
+    line3 = '\n`5` – {0}{1}{2} – `6`      `3` – {3}{3} – `7`'.format(slots['sidl'], slots['legs'], slots['sidr'], slots['modl'])
+    line4 = '\n         {0}{1}{2}               `4` – {3}{3} – `8`'.format(slots['chrg'], slots['tele'], slots['hook'], slots['modl'])
+    chars = max(len(line1), len(line2), len(line3), len(line4))
+    print(chars)
+    line1 = line1.center(chars, ' ')
+    line2 = line2.center(chars, ' ')
+    line3 = line3.center(chars, ' ')
+    line4 = line4.center(chars, ' ')
+    desc = line0 + line1 + line2 + line3 + line4
     embed = discord.Embed(title=title, description=desc)
     await msg.channel.send(embed=embed)
 
@@ -284,7 +292,7 @@ async def shutdown(args):
     await args[0].channel.send('I will be back')
     await client.logout()
 
-commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, 'avatar': avatar, 'roll': dice, 'roles': roles, 'purge': purge, 'embed': mechbuilder}
+commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, 'avatar': avatar, 'roll': dice, 'roles': roles, 'purge': purge, 'embed': mechbuilder, 'react': react}
 
 async def trigger(msg):
     if not msg.content.startswith(prefix): return
