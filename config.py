@@ -3,7 +3,7 @@
 prefix_local = '-'
 prefix_host = ','
 authorid = 190505392504045570
-security_lvl = {'say': 3, 'sd': 2, 'roles': 1, 'purge': 1}
+security_lvl = {'say': 3, 'sd': 2, 'roles': 1, 'purge': 1, 'activity': 3}
 #purge
 purge_cap = 2000
 purge_confirm_emote = '🧹'

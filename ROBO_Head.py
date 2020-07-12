@@ -19,11 +19,6 @@ async def on_message(msg):
     if msg.author == client.user: return
     await trigger(msg)
 
-@client.event
-async def on_ready():
-    print(client.user.name + ' is here to take over the world')
-    print('----------------')
-
 loop = asyncio.get_event_loop()
 task = loop.create_task(client.run(TOKEN))
 try:
