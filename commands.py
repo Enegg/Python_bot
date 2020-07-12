@@ -9,7 +9,7 @@ from random import randint
 from config import prefix_host, prefix_local, purge_confirm_emote, purge_cap, authorid, abbreviations, WU_DB, security_lvl
 client = discord.Client()
 items_list = json.loads(open("items.json").read())
-default_activity = discord.Game('with ')
+default_activity = discord.CustomActivity(name='the leaves fall', type='WATCHING')
 
 prefix = prefix_host
 local = False
@@ -38,12 +38,11 @@ def emojifier():
                     del emojis[name]
                     emojis[name] = [assigned, emoji]
             else: emojis[name] = emoji
-    emojis['Names'], emojis['Animated'] = Names, Animated
+    emojis['Names'], emojis['Animated'] = ', '.join(Names), ', '.join(Animated)
     return emojis
 
 def common_items(lists):
-    count = len(lists)
-    if count == 0: return lists
+    if len(lists) == 0: return lists
     result, first_run = [], True
     while len(lists) >= 1:
         a = lists.pop() if first_run else result
@@ -51,8 +50,7 @@ def common_items(lists):
         if len(lists) > 0:
             b = lists.pop()
             if len(a) > len(b): a, b = b, a
-            for x in a:
-                if x in b: result.append(x)
+            result = list(filter(lambda x: x in b, a))
     return result
 
 def searcher(args):
@@ -61,12 +59,13 @@ def searcher(args):
     for arg in args:
         if len(arg) < 2: return []
         results = []
+        #results_new = []
         for name in names:
-            if ' ' in name: name_parts = name.lower().split(' ')
-            else: name_parts = [name.lower()]
-            for i in name_parts:
-                if i.startswith(arg):
-                    results.append(name)
+            name_parts = name.lower().split(' ') if ' ' in name else [name.lower()]
+            #for i in name_parts:
+            #    if i.startswith(arg):
+            #        results.append(name)
+            if any(list(map(lambda i: i.startswith(arg), name_parts))): results.append(name)
         if len(args) == 1: return results
         matches.append(results)
     return common_items(matches)
@@ -146,6 +145,7 @@ async def on_ready():
     print('----------------')
     global emojis
     emojis = emojifier()
+    await client.change_presence(activity=default_activity)
 
 #-------------------commands-------------------
 
@@ -157,7 +157,16 @@ async def wot(args):
         return
     await args[0].channel.send(channels(' '.join(args[1])))
 
-async def activity(args): await client.change_presence(activity=discord.Game(' '.join(args[1])))
+async def activity(args):
+    args = args[1]
+    ActType = discord.ActivityType
+    activities = {'watching': ActType.watching, 'listening': ActType.listening, 'playing': ActType.playing, 'streaming': ActType.streaming}
+    for k in ['watching', 'listening', 'playing', 'streaming']:
+        if k in args:
+            args.pop(args.index(k))
+            ActType = activities[k]
+    activity = discord.Activity(name=' '.join(args),type=ActType)
+    await client.change_presence(activity=activity)
 
 def roles(args): return '`{}`'.format(args[0].author.roles)
 
@@ -242,10 +251,8 @@ async def stats(args):
     if args[0] == '':
         await msg.add_reaction('❌')
         return
-    #flags
-    flags = []
-    for i in ['-d', '-b', '-r']:
-        if i in args: flags.append(args.pop(args.index(i)))
+    #flags ['-d', '-b', '-r']
+    flags = [flag for flag in map(lambda e: args.pop(args.index(e)), filter(lambda i: i in args, ['-d', '-b', '-r']))]
     buffs = '-b' in flags
     #solving for abbrevs
     name = ' '.join(args).lower()
@@ -269,14 +276,9 @@ async def stats(args):
             if number > 1:
                 first_item = matches[0]
                 final_item = matches[-1]
-                filler = ''
-                if number > 2:
-                    for n in range(1, number - 1):
-                        filler += ', **{}** for **{}**'.format(n + 1, matches[n])
+                filler = ''.join(map(lambda n: ', **{}** for **{}**'.format(n + 1, matches[n]), range(1, number - 1))) if number > 2 else ''
                 botmsg = await msg.channel.send('Found {0} items!\nType **1** for **{1}**{2} or **{0}** for **{3}**'.format(number, first_item, filler, final_item))
-                def check(m):
-                    return m.author == msg.author and m.channel == msg.channel and m.content.isdigit()
-                try: reply = await client.wait_for('message', timeout=20.0, check=check)
+                try: reply = await client.wait_for('message', timeout=20.0, check=lambda m: m.author == msg.author and m.channel == msg.channel and m.content.isdigit())
                 except asyncio.TimeoutError:
                     await botmsg.add_reaction('⏰')
                     return
@@ -307,7 +309,7 @@ async def stats(args):
     if '-d' in flags:
         divine = 'divine' in item
         note = ' (divine{})'.format(beef) if divine else ' (~~divine~~{})'.format(beef)
-    elif buffs == True: note = ' (buffed)'
+    elif buffs: note = ' (buffed)'
     #adding item stats
     item_stats = ''
     spaced = False
@@ -318,7 +320,7 @@ async def stats(args):
             spaced = True
         #divine handler
         pool = 'stats'
-        if divine == True and k in item['divine']: pool = 'divine'
+        if divine and k in item['divine']: pool = 'divine'
         #number range handler
         if isinstance(item['stats'][k], list):
             if len(item['stats'][k]) == 1: value = buff(k, item[pool][k][0], buffs, item) #handling one spot range
@@ -326,6 +328,7 @@ async def stats(args):
             else: value = str(buff(k, item[pool][k][0], buffs, item)) + '-' + str(buff(k, item[pool][k][1], buffs, item))
         else: value = buff(k, item[pool][k], buffs, item)
         item_stats += '{} **{}** {}\n'.format(WU_DB['WUabbrev'][k][1], value, WU_DB['WUabbrev'][k][0])
+    if 'advance' in item['stats'] or 'retreat' in item['stats']: item_stats += '{} **Jumping required**'.format(WU_DB['WUabbrev']['jump'][1])
     #transform range
     min, max = item['transform_range'].split('-')
     #embedding
@@ -336,6 +339,7 @@ async def stats(args):
     for field in fields: embed.add_field(name=field[0], value=field[1], inline=False)
     img_url = WU_DB['sprite_path'] + item['name'].replace(' ', '') + '.png'
     embed.set_image(url=img_url)
+    embed.set_thumbnail(url=WU_DB['type'][item['type']])
     await msg.channel.send(embed=embed)
 
 async def mechbuilder(args):
@@ -367,7 +371,7 @@ commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, '
 
 async def trigger(msg):
     if not msg.content.startswith(prefix): return
-    if local == True and permz(msg) < 3: return
+    if local and permz(msg) < 3: return
     channel = msg.channel # default channel
     cmd, args = prefix_handler(msg)
     # checking if the command is valid

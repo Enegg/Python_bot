@@ -11,6 +11,16 @@ purge_confirm_emote = '🧹'
 abbreviations = {'WU': 'Workshop Unlimited', 'M': 'Matrix', 'WB': 'W&BS', 'AC': 'Axis Convergence'}
 #stats
 WU_DB = {
+    'type': {
+        'TOP_WEAPON': 'https://i.imgur.com/LW7ZCGZ.png',
+        'SIDE_WEAPON': 'https://i.imgur.com/CBbvOnQ.png',
+        'TORSO': 'https://i.imgur.com/iNtSziV.png',
+        'LEGS': 'https://i.imgur.com/6NBLOhU.png',
+        'DRONE': 'https://i.imgur.com/oqQmXTF.png',
+        'CHARGE': 'https://i.imgur.com/UnDqJx8.png',
+        'TELEPORTER': 'https://i.imgur.com/Fnq035A.png',
+        'HOOK': 'https://i.imgur.com/8oAoPcJ.png',
+        'MODULE': 'https://i.imgur.com/dQR8UgN.png'},
     'trans_colors': ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪'],
     'tiers': ['COMMON', 'RARE', 'EPIC', 'LEGENDARY', 'MYTHICAL', 'DIVINE'],
     'sprite_path': 'https://workshop-unlimited.web.app/img/items/',
