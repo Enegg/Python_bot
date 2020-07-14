@@ -3,7 +3,7 @@ import asyncio
 import os
 import importlib
 import socket
-from commands import client, permz, trigger
+from commands import client, trigger
 TOKEN = None
 
 if socket.gethostname() == 'Mystery_machine':

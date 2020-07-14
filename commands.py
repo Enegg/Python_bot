@@ -11,11 +11,7 @@ client = discord.Client()
 items_list = json.loads(open("items.json").read())
 default_activity = discord.CustomActivity(name='the leaves fall', type='WATCHING')
 
-prefix = prefix_host
-local = False
-if socket.gethostname() == 'Mystery_machine':
-    prefix = prefix_local
-    local = True
+prefix = prefix_local if socket.gethostname() == 'Mystery_machine' else prefix_host
 
 #------------------functions-------------------
 def get_item_by_id_or_name(value):
@@ -25,12 +21,12 @@ def get_item_by_id_or_name(value):
   return None
 
 def emojifier():
-    emojis, Names, Animated = {}, [], []
+    emojis, normal, animated = {}, [], []
     for guild in client.guilds:
         for emoji in guild.emojis:
             name = emoji.name
-            if emoji.animated: Animated.append(name)
-            else: Names.append(name)
+            if emoji.animated: animated.append(emoji)
+            else: normal.append(emoji)
             if name in emojis:
                 if isinstance(emojis[name], list): emojis[name].append(emoji)
                 else:
@@ -38,7 +34,7 @@ def emojifier():
                     del emojis[name]
                     emojis[name] = [assigned, emoji]
             else: emojis[name] = emoji
-    emojis['Names'], emojis['Animated'] = ', '.join(Names), ', '.join(Animated)
+    emojis['normal'], emojis['animated'] = normal, animated
     return emojis
 
 def common_items(lists):
@@ -53,22 +49,10 @@ def common_items(lists):
             result = list(filter(lambda x: x in b, a))
     return result
 
-def searcher(args):
-    matches = []
-    args = args.split(' ') if ' ' in args else [args]
-    for arg in args:
-        if len(arg) < 2: return []
-        results = []
-        #results_new = []
-        for name in names:
-            name_parts = name.lower().split(' ') if ' ' in name else [name.lower()]
-            #for i in name_parts:
-            #    if i.startswith(arg):
-            #        results.append(name)
-            if any(list(map(lambda i: i.startswith(arg), name_parts))): results.append(name)
-        if len(args) == 1: return results
-        matches.append(results)
-    return common_items(matches)
+def search_for(phrase, iterable):
+    if not iterable: return iterable
+    phrase = phrase.replace(' ', '.+ ')
+    return list(filter(lambda i: re.search(phrase, i.lower()), list(iterable)))
 
 def abbreviator():
     names = []
@@ -79,8 +63,7 @@ def abbreviator():
         if len(name) < 8: continue
         if ' ' in name or not name[1:].islower(): abbreviation = re.sub('[^A-Z]+', '', name).lower()
         else: continue
-        if abbreviation in abbrevs: abbrevs[abbreviation].append(name)
-        else: abbrevs[abbreviation] = [name]
+        abbrevs[abbreviation].append(name) if abbreviation in abbrevs else abbrevs.update({abbreviation: [name]})
     return abbrevs, names
 
 abbrevs, names = abbreviator()
@@ -88,13 +71,13 @@ abbrevs, names = abbreviator()
 def permz(msg):
     '''0 - anyone, 1 - manage messages, 2 - manage guild, 3 - admin'''
     permKeys, power = ['manage_messages', 'manage_guild', 'administrator'], 0
+    if msg.author.id == authorid: return len(permKeys) + 1
+    if isinstance(msg.channel, discord.DMChannel): return 0 
     for key in permKeys:
         for role in msg.author.roles:
-            if getattr(role.permissions, key): 
+            if getattr(role.permissions, key):
                 power = permKeys.index(key) + 1
                 break
-    if msg.author.id == authorid:
-        return len(permKeys) + 1
     return power
 
 def intify(s, default=0):
@@ -109,12 +92,30 @@ def intify(s, default=0):
             return int(s[1:])
     return default
 
-def channels(guild_name):
+def guilds_channels(): return dict(map(lambda guild: (guild.name, guild.channels), client.guilds))
+
+def roll(a=1, b=6): return randint(min(a, b), max(a, b))
+
+def prefix_handler(msg, sep=' '):
+    '''retrieves arguments and the command itself from a command message'''
+    txt = msg.content.replace(prefix, '', 1)
+    cmd = re.match(r'(^[^\s]+)', txt)[0]
+    args = re.sub(r'(^\s+|\s+(?=\s)|\s+$)', '', txt.replace(cmd, '')).split(sep)
+    if sep != ' ': args = [arg for arg in map(lambda a: a.strip(), args)]
+    return cmd, args
+
+@client.event
+async def on_ready():
+    print(client.user.name + ' is here to take over the world')
+    print('----------------')
+    global emojis, guild_channels_cache
+    emojis = emojifier()
+    guild_channels_cache = guilds_channels()
+    await client.change_presence(activity=default_activity)
+
+def channels_id(guild_name):
     '''returns a dict of channels of a given server'''
-    guild_channels_cache = {}
     channel_id_cache = {}
-    for guild in client.guilds:
-        guild_channels_cache[guild.name] = guild.channels
     if guild_name not in guild_channels_cache:
         if guild_name not in abbreviations: return False
         guild_name = abbreviations[guild_name]
@@ -122,30 +123,6 @@ def channels(guild_name):
         if not isinstance(channel, discord.channel.TextChannel): continue
         channel_id_cache[channel.name] = channel.id
     return channel_id_cache
-
-def roll(a=1, b=6):
-    '''returns a random value between specified args, defaults to 1 - 6'''
-    min_, max_ = min(a, b), max(a, b)
-    return randint(min_, max_)
-
-def prefix_handler(msg, sep=' '):
-    '''retrieves arguments and the command itself from a command message'''
-    txt = msg.content.replace(prefix, '', 1)
-    cmd = re.match(r'(^[^\s]+)', txt)[0]
-    txt = txt.replace(cmd, '')
-    txt = re.sub(r'(^\s+|\s+(?=\s)|\s+$)', '', txt)
-    args = txt.split(sep)
-    if sep != ' ':
-        args = [arg for arg in map(lambda a: a.strip(), args)]
-    return cmd, args
-
-@client.event
-async def on_ready():
-    print(client.user.name + ' is here to take over the world')
-    print('----------------')
-    global emojis
-    emojis = emojifier()
-    await client.change_presence(activity=default_activity)
 
 #-------------------commands-------------------
 
@@ -155,7 +132,11 @@ async def wot(args):
     if args[1][0] == '':
         await args[0].add_reaction('❌')
         return
-    await args[0].channel.send(channels(' '.join(args[1])))
+    cont = channels_id(' '.join(args[1]))
+    if cont == False:
+        await args[0].add_reaction('❌')
+        return
+    await args[0].channel.send(cont)
 
 async def activity(args):
     args = args[1]
@@ -173,27 +154,39 @@ def roles(args): return '`{}`'.format(args[0].author.roles)
 def dice(args):
     if args[1] == ['']: return roll()
     cs = args[1]
-    a = intify(cs[0], 'ass')
-    if len(cs) > 1: b = intify(cs[1], 'ass')
+    a = intify(cs[0])
+    if len(cs) > 1: b = intify(cs[1])
     else: b = 0
-    if a == 'ass' or b == 'ass': return 'Wrong syntax'
     return roll(a, b)
 
-def react(args):
-    delete = True
-    emoji = ' '.join(args[1])
-    if emoji in emojis:
-        return emojis[emoji], delete
+async def react(args):
+    channel = args[0].channel
+    channel_check = isinstance(channel, discord.DMChannel)
+    if not channel_check: await args[0].delete()
+    arg = ' '.join(args[1])
+    if arg == 'animated' or arg == 'normal':
+        if not channel_check:
+            await channel.send('You can use that only in DMs.', delete_after=10.0)
+            return
+        bank = emojis[arg]
+        string = ''
+        list_strings = []
+        for item in bank:
+            emoji = '<{}:{}:{}>'.format('a' if item.animated else '', item.name, item.id)
+            if len(string + emoji) > 2000:
+                list_strings.append(string)
+                string = ''
+            string += emoji
+        list_strings.append(string)
+        for x in list_strings: await channel.send(x)
+        return
+    if arg in emojis: await channel.send(emojis[arg])
 
-async def avatar(args):
-    msg = args[0]
-    user = msg.author
-    if msg.mentions != []: user = msg.mentions[0]
-    await msg.channel.send(user.avatar_url)
+def avatar(args): return (args[0].mentions[0] if args[0].mentions != [] else args[0].author).avatar_url
 
 async def purge(args, cap=purge_cap):
     msg, cont = args
-    def purger(n): return msg.channel.purge(limit=n)
+    def purger(n): return msg.channel.purge(limit=n, check=lambda m: not m.pinned)
     await msg.delete()
     count = intify(cont[0])
     if count > cap: count = cap
@@ -201,12 +194,8 @@ async def purge(args, cap=purge_cap):
     else:
         botmsg = await msg.channel.send('You are going to purge {} messages, continue?'.format(count))
         await botmsg.add_reaction(purge_confirm_emote)
-        def check(reaction, user):
-            return user == msg.author and str(reaction.emoji) == purge_confirm_emote
-        try:
-            await client.wait_for('reaction_add', timeout=20.0, check=check)
-        except asyncio.TimeoutError:
-            await botmsg.delete()
+        try: await client.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == msg.author and str(reaction.emoji) == purge_confirm_emote)
+        except asyncio.TimeoutError: await botmsg.delete()
         else:
             await botmsg.delete()
             while count >= 100:
@@ -217,18 +206,14 @@ async def purge(args, cap=purge_cap):
 async def epix_command(args):
     msg, cont = args
     await msg.delete()
-    if cont[0] != '':
-        pass
-    elif msg.author.id == authorid:
-        cont = input().split()
-    else:
-        await msg.channel.send('Empty fields', delete_after=3.0)
-    server_name = cont.pop(0)
-    channel_name = cont.pop(0)
-    if channels(server_name) == False:
+    if cont[0] != '': pass
+    elif msg.author.id == authorid: cont = input().split()
+    else: await msg.channel.send('Empty fields', delete_after=3.0)
+    server_name, channel_name = cont.pop(0), cont.pop(0)
+    if channels_id(server_name) == False:
         await msg.channel.send('Invalid entry', delete_after=3.0)
         return
-    channelid = channels(server_name)[channel_name]
+    channelid = channels_id(server_name)[channel_name]
     channel = client.get_channel(channelid)
     await channel.send(' '.join(cont))
 
@@ -260,7 +245,7 @@ async def stats(args):
         await msg.add_reaction('❌')
         return
     if name not in names:
-        results = searcher(name)
+        results = search_for(name, names)
         abbrev_1 = True if name in abbrevs else False
         abbrev_2 = True if results != [] else False
         if abbrev_1 or abbrev_2:
@@ -319,8 +304,7 @@ async def stats(args):
             item_stats += '\n'
             spaced = True
         #divine handler
-        pool = 'stats'
-        if divine and k in item['divine']: pool = 'divine'
+        pool = 'divine' if divine and k in item['divine'] else 'stats'
         #number range handler
         if isinstance(item['stats'][k], list):
             if len(item['stats'][k]) == 1: value = buff(k, item[pool][k][0], buffs, item) #handling one spot range
@@ -371,7 +355,7 @@ commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, '
 
 async def trigger(msg):
     if not msg.content.startswith(prefix): return
-    if local and permz(msg) < 3: return
+    if prefix == prefix_local and permz(msg) < 3: return
     channel = msg.channel # default channel
     cmd, args = prefix_handler(msg)
     # checking if the command is valid
@@ -392,7 +376,7 @@ async def trigger(msg):
         else: result = commands[cmd](pack)
         if isinstance(result, tuple):
             result, delete = result
-            if delete: await msg.delete()
+            if delete and not isinstance(msg.channel, discord.DMChannel): await msg.delete()
         if result != None: await channel.send(result)
         return
     else: await commands[cmd](pack)
