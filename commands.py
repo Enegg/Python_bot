@@ -123,7 +123,9 @@ def channels_id(guild_name):
 
 #-------------------commands-------------------
 
-def ping(): return 'Pong! {}ms'.format(round(client.latency * 1000))
+def ping(): return f'Pong! {round(client.latency * 1000)}ms'
+
+def frantic(): return 'https://i.imgur.com/Bbbf4AH.mp4'
 
 async def wot(args):
     if args[1][0] == '':
@@ -358,7 +360,7 @@ async def shutdown(args):
     await args[0].channel.send('I will be back')
     await client.logout()
 
-commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, 'avatar': avatar, 'roll': dice, 'roles': roles, 'purge': purge, 'embed': mechbuilder, 'react': react, 'activity': activity, 'wot': wot}
+commands = {'ping': ping, 'say': epix_command, 'stats': stats, 'sd': shutdown, 'avatar': avatar, 'roll': dice, 'roles': roles, 'purge': purge, 'embed': mechbuilder, 'react': react, 'activity': activity, 'wot': wot, 'frantic': frantic}
 
 async def trigger(msg):
     if not msg.content.startswith(prefix): return
