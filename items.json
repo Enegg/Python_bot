@@ -3689,5 +3689,21 @@
 			"eneCap": 125,
 			"heaCap": 115
 		}
+	},
+	{
+		"id": 190,
+		"name": "Combined Engine Unit",
+		"type": "MODULE",
+		"element": "COMBINED",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 35,
+			"eneCap": 145,
+			"heaCap": 134
+		},
+		"divine": {
+			"eneCap": 155,
+			"heaCap": 141
+		}
 	}
 ]
