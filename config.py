@@ -1,9 +1,7 @@
 """Config file containing items like bot token, purge cap and prefix."""
 #general vars
-prefix_local = '-'
+prefix_local = '\''
 prefix_host = ','
-authorid = 190505392504045570
-security_lvl = {'say': 3, 'sd': 2, 'roles': 1, 'purge': 1, 'activity': 3}
 #purge
 purge_cap = 2000
 purge_confirm_emote = '🧹'
@@ -71,11 +69,4 @@ WU_DB = {
         'backfire': ['Backfire', '<:backfire:725871901062201404>'],
         'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
         'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']},
-    'item_dict': {
-        #'recko': 'Reckoning',
-        'abo': 'Abomination',
-        'heron': 'HeronMark',
-        'claw': 'The Claw',
-        'zark': 'Zarkares'
-        }
-    }
+}
