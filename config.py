@@ -1,4 +1,4 @@
-"""Config file containing items like bot token, purge cap and prefix."""
+'''Config file containing basic variables like purge cap and prefix.'''
 #general vars
 prefix_local = '\''
 prefix_host = ','

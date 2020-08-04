@@ -6,6 +6,7 @@ from discord.ext import commands
 import socket
 import json
 import inspect
+import datetime
 from random import randint
 from config import prefix_host, prefix_local, purge_confirm_emote, purge_cap, abbreviations, WU_DB
 items_list = json.loads(open("items.json").read())
@@ -19,20 +20,24 @@ default_activity = discord.Game('with portals')
 #-------------------checks---------------------
 @bot.event
 async def on_connect():
+    r'''Dynamically obtains the bot owner's ID, since it requries an async function I had to do it this way ¯\\\_(ツ)\_/¯'''
     global authorid
     authorid = (await bot.application_info()).owner.id
 
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.errors.CommandOnCooldown): await ctx.send(error, delete_after=5.0)
+    else: print(error)
 
 @bot.event
 async def on_raw_reaction_add(args):
     if args.member.bot: return
     if str(args.emoji) == '🔗':
-        print(args)
+        channel = bot.get_channel(args.channel_id)
         link = f'https://discordapp.com/channels/{args.guild_id}/{args.channel_id}/{args.message_id}'
-        await bot.get_channel(args.channel_id).send(f'Link: {link}')
+        msg = await channel.fetch_message(args.message_id)
+        async with channel.typing():
+            await channel.send(f'Link: {link}\n{msg.author.name}:\n{"> " if msg.content else ""}{msg.content}', embed=(msg.embeds[0] if msg.embeds else None), files=[await x.to_file() for x in msg.attachments])
 
 def permissions(**perms):
     original = commands.has_permissions(**perms).predicate
@@ -43,7 +48,7 @@ def permissions(**perms):
     return commands.check(extended_check)
 
 def perms(lvl):
-    '''0 - no perms, 1 - manage messages, 2 - manage guild, 3 - admin, 4 - guild owner, 5 - bot author'''
+    '''Defines a user's access to a command, following: 1 - manage messages, 2 - manage guild, 3 - admin, 4 - guild owner, 5 - bot author'''
     def extended_check(ctx):
         if ctx.guild is None:
             return False
@@ -64,9 +69,12 @@ def get_item_by_id_or_name(value):
         if str(item['id']) == str(value) or item['name'].lower() == str(value).lower(): return item
     return None
 
+def helpie(x): return [x, type(x)]
+
 #def get_item_by_id_or_name_v2(value): return tuple(filter(lambda item: str(item['id']) == str(value) or item['name'].lower() == str(value).lower(), items_list))[0]
 
 def emojifier():
+    r'''Helper func running on the bot init, caches all emojis the bot has access to in a dict{name:emoji}'''
     emojis, normal, animated = {}, [], []
     for guild in bot.guilds:
         for emoji in guild.emojis:
@@ -83,6 +91,7 @@ def emojifier():
     return emojis
 
 def common_items(lists):
+    r'''Helper func which returns a list of common items found in the input lists'''
     if len(lists) == 0: return lists
     result, first_run = [], True
     while len(lists) >= 1:
@@ -95,11 +104,13 @@ def common_items(lists):
     return result
 
 def search_for(phrase, iterable):
+    r'''Helper func capable of finding a specific string following a name rule, like "_burn_" in "Half Burnt Scope"'''
     if not iterable: return iterable
     phrase = r'\b' + re.sub('[^a-z ]+', '', phrase).replace(' ', '.+ ')
     return list(filter(lambda i: re.search(phrase, i.lower()), list(iterable)))
 
 def abbreviator():
+    r'''Helper func which creates abbrevs for items'''
     names = []
     abbrevs = {}
     for item in items_list:
@@ -114,7 +125,7 @@ def abbreviator():
 abbrevs, names = abbreviator()
 
 def intify(s, default=0):
-    r"""Takes any string and returns an integer if possible, else returns default value"""
+    r'''int() which returns the dafault value for non ints'''
     s = str(s)
     if s.isdigit():
         return int(s)
@@ -130,7 +141,7 @@ def guilds_channels(): return dict(map(lambda guild: (guild.name, guild.channels
 roll = lambda a=1, b=6: randint(min(a, b), max(a, b))
 
 def prefix_handler(msg, sep=' '):
-    '''retrieves arguments and the command itself from a command message'''
+    r'''retrieves arguments and the command itself from a command message'''
     txt = msg.content.replace(prefix, '', 1)
     cmd = re.match(r'(^[^\s]+)', txt)[0]
     args = re.sub(r'(^\s+|\s+(?=\s)|\s+$)', '', txt.replace(cmd, '')).split(sep)
@@ -138,14 +149,24 @@ def prefix_handler(msg, sep=' '):
     return cmd, args
 
 @bot.event
+async def on_guild_join(guild):
+    global emojis
+    emojis = emojifier()
+
+@bot.event
+async def on_guild_emojis_update(guild, before, after):
+    global emojis
+    emojis = emojifier()
+
+@bot.event
 async def on_ready():
     print(f'{bot.user.name} is here to take over the world')
     print('----------------')
-    global emojis, guild_channels_cache
+    global emojis
     emojis = emojifier()
-    guild_channels_cache = guilds_channels()
     await bot.change_presence(activity=default_activity)
 
+guild_channels_cache = {}
 def channels_id(guild_name):
     '''returns a dict of channels' id's of a given server'''
     if guild_name not in guild_channels_cache:
@@ -161,23 +182,30 @@ async def ping(ctx):
 @bot.command()
 async def test(ctx, *args):
     count = len(args)
-    await ctx.send(f"{count} argument{'s' if count != 1 else ''}{':' if count != 0 else ''} {', '.join(args)}")
+    #print([[x, type(x)] for x in args])
+    await ctx.send(f"{count} argument{'s' if count != 1 else ''}{':' if bool(count) else ''} {', '.join(args)}")
 
-@bot.command()
+@bot.command(brief='Ultimate argument vs a frantic user')
 async def frantic(ctx):
     await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
-@bot.command()
+@bot.group(brief='Helper command used to retrieve data about a guild')
 @perms(2)
-async def wot(ctx, *args):
-    if args == ():
-        await ctx.message.add_reaction('❌')
-        return
-    cont = channels_id(' '.join(args))
-    if cont == {}:
-        await ctx.message.add_reaction('❌')
-        return
-    await ctx.send(cont)
+async def wot(ctx):
+    if ctx.invoked_subcommand is None:
+        guild = ctx.guild
+        est = await guild.estimate_pruned_members(days=10)
+        thing = f'Text channels: {len(guild.text_channels)}\nMembers: {guild.member_count}\nActive members: {est}\nCreated at: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)'
+        embed = discord.Embed(title=guild.name, description=f'**Owner: {guild.owner.nick}** ({guild.owner})')
+        embed.add_field(name='Statistics:', value=thing, inline=False)
+        embed.set_thumbnail(url=guild.icon_url)
+        await ctx.send(embed=embed)
+
+@wot.command()
+async def channels(ctx):
+    channel_list = [x for x in filter(lambda x: isinstance(x, discord.TextChannel), ctx.guild.channels)]
+    result = ''.join(map(lambda x: f'<#{x.id}>: {x.id}\n', channel_list))
+    await ctx.send(result)
 
 @bot.command()
 @perms(5)
@@ -209,7 +237,7 @@ async def dice(ctx, *args):
         b = intify(args[1]) if len(args) > 1 else 0
     await ctx.send(roll(a, b))
 
-@bot.command()
+@bot.command(aliases=['r'],usage='[emoji] [opt: ^ to react to message above] / while in DM: [normal|animated]')
 @commands.cooldown(3, 15.0, commands.BucketType.member)
 async def react(ctx, *args):
     channel_check = isinstance(ctx.channel, discord.DMChannel)
@@ -250,32 +278,35 @@ async def react(ctx, *args):
             await msg.add_reaction(emojis[arg]) if up else await ctx.send(emojis[arg])
     if not channel_check: await ctx.message.delete()
 
-@bot.command()
-async def avatar(ctx): await ctx.send((ctx.message.mentions[0] if ctx.message.mentions != [] else ctx.author).avatar_url)
+@bot.command(usage='[optional: mention]')
+async def avatar(ctx):
+    await ctx.send((ctx.message.mentions[0] if ctx.message.mentions != [] else ctx.author).avatar_url)
 
-@bot.command()
+@bot.command(aliases=['prune','pirge','puerg','p'],usage='[count] [optional: mention]')
 @commands.has_permissions(manage_messages=True)
 async def purge(ctx, *args):
     msg = ctx.message
-    cont = args[0]
-    def purger(n): return msg.channel.purge(limit=n, check=lambda m: not m.pinned and (m.author == msg.mentions[0] if msg.mentions != [] else True))
+    has_mentions = bool(msg.mentions)
+    mention = msg.mentions[0] if has_mentions else None
+    cont = args[0] if args else 1
+    def purger(n): return ctx.channel.purge(limit=n, check=lambda m: not m.pinned and (m.author == mention if has_mentions else True))
     await msg.delete()
-    count = intify(cont[0])
+    count = intify(cont)
     if count > purge_cap: count = purge_cap
     if count <= 10: await purger(count)
     else:
-        botmsg = await msg.channel.send('You are going to purge {} messages{}, continue?'.format(count, f' of {msg.mentions[0]}' if msg.mentions[0] != [] else ''))
+        botmsg = await ctx.send(f"You are going to purge {f'messages of {mention} in the recent ' if has_mentions else ''}{count} messages, continue?")
         await botmsg.add_reaction(purge_confirm_emote)
-        try: await bot.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == msg.author and str(reaction.emoji) == purge_confirm_emote)
+        try: await bot.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == ctx.author and str(reaction.emoji) == purge_confirm_emote)
         except asyncio.TimeoutError: await botmsg.delete()
         else:
             await botmsg.delete()
             while count >= 100:
-                purger(100)
+                await purger(100)
                 count -= 100
             if count > 0: await purger(count)
 
-@bot.command(name='say')
+@bot.command(name='say',hidden=True,enabled=False)
 @perms(3)
 async def epix_command(ctx, *args):
     msg = ctx.message
@@ -305,8 +336,8 @@ def buff(stat, value, enabled, item):
     if stat in operation['reduce']: return round(value * 0.8)
     return value
 
-@bot.command()
-@commands.cooldown(2, 10.0, commands.BucketType.member)
+@bot.command(usage='[item name] [optional: -b for arena buffs and/or -d for divine]')
+@commands.cooldown(1, 15.0, commands.BucketType.member)
 async def stats(ctx, *args):
     msg = ctx.message
     if args == ():
@@ -315,25 +346,28 @@ async def stats(ctx, *args):
     args = list(args)
     #flags ['-d', '-b', '-r']
     flags = list(map(lambda e: args.pop(args.index(e)), filter(lambda i: i in args, ['-d', '-b', '-r'])))
-    buffs = '-b' in flags
+    buffs = bool('-b' in flags)
     #solving for abbrevs
     name = ' '.join(args).lower()
     if intify(name) == 0 and len(name) < 2:
         await msg.add_reaction('❌')
         return
+
+    #returning the exact item name from short user input
     if name not in names:
         results = search_for(name, names)
-        abbrev_1 = True if name in abbrevs else False
-        abbrev_2 = True if results != [] else False
-        if abbrev_1 or abbrev_2:
-            match_1 = abbrevs[name] if abbrev_1 else []
-            matches = match_1 + results
+        is_in_abbrevs = bool(name in abbrevs)
+        is_in_results = bool(results != [])
+        if is_in_abbrevs or is_in_results:
+            match = abbrevs[name] if is_in_abbrevs else []
+            matches = match + results
             for match in matches:
                 while matches.count(match) > 1: matches.remove(match)
             number = len(matches)
             if number > 10:
                 await ctx.send('Over 10 matches found, be more specific.')
                 return
+            #more than 1 match found
             if number > 1:
                 first_item = matches[0]
                 final_item = matches[-1]
@@ -343,12 +377,14 @@ async def stats(ctx, *args):
                 except asyncio.TimeoutError:
                     await botmsg.add_reaction('⏰')
                     return
-                cont = intify(reply.content) - 1
-                if cont in range(0, number): name = matches[cont]
+                choice = intify(reply.content) - 1
+                if choice in range(0, number): name = matches[choice]
                 else:
                     await reply.add_reaction('❌')
                     return
+            #only 1 match found
             else: name = matches[0]
+    
     #getting the item
     item = get_item_by_id_or_name(name.lower())
     if item == None:
@@ -362,7 +398,7 @@ async def stats(ctx, *args):
     note = ''
     divine = False
     if '-d' in flags:
-        divine = 'divine' in item
+        divine = bool('divine' in item)
         note = f" ({'divine' if divine else '~~divine~~'}{', buffed' if buffs else ''})"
     elif buffs: note = ' (buffed)'
     #adding item stats
@@ -396,7 +432,8 @@ async def stats(ctx, *args):
     embed.set_thumbnail(url=WU_DB['type'][item['type']])
     await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(hidden=True)
+@perms(3)
 async def mechbuilder(ctx):
     #title = args[1][0]
     #desc = ''.join(args[1][1:])
@@ -417,7 +454,7 @@ async def mechbuilder(ctx):
     embed = discord.Embed(title=title, description=desc)
     await ctx.send(embed=embed)
 
-@bot.command()
+@bot.command(hidden=True)
 @perms(3)
 async def shutdown(ctx):
     await ctx.send('I will be back')
