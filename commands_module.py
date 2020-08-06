@@ -71,7 +71,22 @@ def get_item_by_id_or_name(value):
 
 def helpie(x): return [x, type(x)]
 
-#def get_item_by_id_or_name_v2(value): return tuple(filter(lambda item: str(item['id']) == str(value) or item['name'].lower() == str(value).lower(), items_list))[0]
+def intify(s, default=0):
+    r'''int() which returns the dafault value for non ints'''
+    s = str(s)
+    if s.isdigit():
+        return int(s)
+    elif s[0] in '-+':
+        if s[1:].isdigit():
+            if s[0] == '-':
+                return int(s)
+            return int(s[1:])
+    return default
+
+def random_color(seed=None):
+    if seed is not None: random.seed(intify(seed))
+    rgb = tuple(map(lambda n: round(random.random() * 255), range(0, 3)))
+    return discord.Color.from_rgb(*rgb)
 
 def emojifier():
     r'''Helper func running on the bot init, caches all emojis the bot has access to in a dict{name:emoji}'''
@@ -123,18 +138,6 @@ def abbreviator():
     return abbrevs, names
 
 abbrevs, names = abbreviator()
-
-def intify(s, default=0):
-    r'''int() which returns the dafault value for non ints'''
-    s = str(s)
-    if s.isdigit():
-        return int(s)
-    elif s[0] in '-+':
-        if s[1:].isdigit():
-            if s[0] == '-':
-                return int(s)
-            return int(s[1:])
-    return default
 
 def guilds_channels(): return dict(map(lambda guild: (guild.name, guild.channels), bot.guilds))
 
@@ -224,17 +227,16 @@ async def user(ctx, *args):
         if member is None:
             await ctx.send('Invalid ID.',delete_after=5.0)
             return
-    random.seed(member.id)
-    rgb = tuple(map(lambda n: round(random.random() * 255), range(0, 3)))
-    color = discord.Color.from_rgb(*rgb)
     important = ['administrator', 'manage_guild', 'manage_channels', 'manage_messages', 'manage_roles']
-    privs = filter(lambda perm: perm[1] and perm[0] in important, dict(member.guild_permissions).items())
-    notable = '\nGuild owner' if member == ctx.guild.owner else '\n' + '\n'.join(map(lambda x: x[0].capitalize(), privs)).replace('_', ' ') or ' None'
+    if member.guild_permissions.administrator:
+        high_rank = 'Guild owner' if member == ctx.guild.owner else 'Administrator'
+    else: high_rank, privs = '', filter(lambda perm: perm[1] and perm[0] in important, dict(member.guild_permissions).items())
+    notable = high_rank or '\n'.join(map(lambda x: x[0].capitalize(), privs)).replace('_', ' ') or 'None'
     data = f'**User ID**: {member.id}\n\
         **Account created at**: {member.created_at.date()} ({(datetime.datetime.today() - member.created_at).days} days ago)\n\
         **Joined at**: {member.joined_at.date()} ({(datetime.datetime.today() - member.joined_at).days} days ago)\n\
-        **Notable privileges**:{notable}'
-    embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if member.nick is not None else ""}', description=data, color=color)
+        **Notable privileges**:\n{notable}'
+    embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if member.nick is not None else ""}', description=data, color=member.color)
     embed.set_thumbnail(url=member.avatar_url)
     await ctx.send(embed=embed)
 
@@ -319,15 +321,14 @@ async def avatar(ctx):
 async def purge(ctx, *args):
     msg = ctx.message
     has_mentions = bool(msg.mentions)
-    mention = msg.mentions[0] if has_mentions else None
-    cont = args[0] if args else 1
-    def purger(n): return ctx.channel.purge(limit=n, check=lambda m: not m.pinned and (m.author == mention if has_mentions else True))
+    mentions = msg.mentions if has_mentions else None
+    def purger(n): return ctx.channel.purge(limit=n, check=lambda m: not m.pinned and (m.author in mentions if has_mentions else True))
     await msg.delete()
-    count = intify(cont)
+    count = intify(args[0]) if bool(args) else 1
     if count > purge_cap: count = purge_cap
     if count <= 10: await purger(count)
     else:
-        botmsg = await ctx.send(f"You are going to purge {f'messages of {mention} in the recent ' if has_mentions else ''}{count} messages, continue?")
+        botmsg = await ctx.send(f"You are going to purge {'messages of {} in the recent '.format(', '.join(map(lambda x: x.name, mentions))) if has_mentions else ''}{count} messages, continue?")
         await botmsg.add_reaction(purge_confirm_emote)
         try: await bot.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == ctx.author and str(reaction.emoji) == purge_confirm_emote)
         except asyncio.TimeoutError: await botmsg.delete()
@@ -356,7 +357,7 @@ async def epix_command(ctx, *args):
     await channel.send(' '.join(cont[2:]))
 
 def buff(stat, value, enabled, item):
-    if enabled == False: return value
+    if not enabled: return value
     operation = {
         'add': ['health'],
         'mult': ['eneCap','heaCap','eneReg','heaCap','heaCol','phyDmg','expDmg','eleDmg','heaDmg','eneDmg'],
@@ -372,7 +373,7 @@ def buff(stat, value, enabled, item):
 @commands.cooldown(1, 15.0, commands.BucketType.member)
 async def stats(ctx, *args):
     msg = ctx.message
-    if args == ():
+    if not bool(args):
         await msg.add_reaction('❌')
         return
     args = list(args)
@@ -389,7 +390,7 @@ async def stats(ctx, *args):
     if name not in names:
         results = search_for(name, names)
         is_in_abbrevs = bool(name in abbrevs)
-        is_in_results = bool(results != [])
+        is_in_results = bool(results)
         if is_in_abbrevs or is_in_results:
             match = abbrevs[name] if is_in_abbrevs else []
             matches = match + results
@@ -419,7 +420,7 @@ async def stats(ctx, *args):
     
     #getting the item
     item = get_item_by_id_or_name(name.lower())
-    if item == None:
+    if item is None:
         await msg.add_reaction('❌')
         return
     #test flag
@@ -436,7 +437,7 @@ async def stats(ctx, *args):
     #adding item stats
     item_stats = ''
     spaced = False
-    WU_DB['WUabbrev']['uses'][0] = 'Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses'
+    WU_DB['WUabbrev']['uses'].insert(0, ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses'))
     for k in item['stats']:
         if k in ['backfire', 'heaCost', 'eneCost'] and not spaced:
             item_stats += '\n'

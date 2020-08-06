@@ -63,7 +63,7 @@ WU_DB = {
         'advance': ['Advance', '<:advance:725871818115907715>'],
         'walk': ['Walking', '<:walk:725871844581834774>'],
         'jump': ['Jumping', '<:jump:725871869793796116>'],
-        'uses': [None, '<:uses:725871917923303688>'],
+        'uses': ['<:uses:725871917923303688>'],
         'backfire': ['Backfire', '<:backfire:725871901062201404>'],
         'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
         'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']},
