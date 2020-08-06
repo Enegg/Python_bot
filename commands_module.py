@@ -5,10 +5,10 @@ import discord
 from discord.ext import commands
 import socket
 import json
-import inspect
 import datetime
+import random
 from random import randint
-from config import prefix_host, prefix_local, purge_confirm_emote, purge_cap, abbreviations, WU_DB
+from config import prefix_host, prefix_local, purge_confirm_emote, purge_cap, WU_DB
 items_list = json.loads(open("items.json").read())
 
 prefix = prefix_local if socket.gethostname() == 'Mystery_machine' else prefix_host
@@ -75,19 +75,19 @@ def helpie(x): return [x, type(x)]
 
 def emojifier():
     r'''Helper func running on the bot init, caches all emojis the bot has access to in a dict{name:emoji}'''
-    emojis, normal, animated = {}, [], []
+    emojis = normal_dict = animated_dict = {}
     for guild in bot.guilds:
+        normal_list = animated_list = []
         for emoji in guild.emojis:
-            name = emoji.name
-            (animated if emoji.animated else normal).append(emoji)
+            name = emoji.name.lower()
+            (animated_list if emoji.animated else normal_list).append(emoji)
             if name in emojis:
                 if isinstance(emojis[name], list): emojis[name].append(emoji)
-                else:
-                    assigned = emojis[name]
-                    del emojis[name]
-                    emojis[name] = [assigned, emoji]
-            else: emojis[name] = emoji
-    emojis.update({'normal': normal, 'animated': animated})
+                else: emojis.update({name:[emojis[name], emoji]})
+            else: emojis.update({name:emoji})
+        if bool(normal_list): normal_dict.update({guild.name:normal_list})
+        if bool(animated_list): animated_dict.update({guild.name:animated_list})
+    emojis.update({'normal': normal_dict, 'animated': animated_dict})
     return emojis
 
 def common_items(lists):
@@ -148,6 +148,23 @@ def prefix_handler(msg, sep=' '):
     if sep != ' ': args = [arg for arg in map(lambda a: a.strip(), args)]
     return cmd, args
 
+guild_channels_cache = {}
+abbreviations = {}
+def channels_id(guild_name):
+    '''returns a dict of channels' id's of a given server'''
+    if guild_name not in guild_channels_cache:
+        if guild_name not in abbreviations: return {}
+        guild_name = abbreviations[guild_name]
+    return dict(map(lambda channel: (channel.name, channel.id), filter(lambda channel: isinstance(channel, discord.channel.TextChannel), guild_channels_cache[guild_name])))
+
+@bot.event
+async def on_ready():
+    print(f'{bot.user.name} is here to take over the world')
+    print('----------------')
+    global emojis
+    emojis = emojifier()
+    await bot.change_presence(activity=default_activity)
+
 @bot.event
 async def on_guild_join(guild):
     global emojis
@@ -158,22 +175,6 @@ async def on_guild_emojis_update(guild, before, after):
     global emojis
     emojis = emojifier()
 
-@bot.event
-async def on_ready():
-    print(f'{bot.user.name} is here to take over the world')
-    print('----------------')
-    global emojis
-    emojis = emojifier()
-    await bot.change_presence(activity=default_activity)
-
-guild_channels_cache = {}
-def channels_id(guild_name):
-    '''returns a dict of channels' id's of a given server'''
-    if guild_name not in guild_channels_cache:
-        if guild_name not in abbreviations: return {}
-        guild_name = abbreviations[guild_name]
-    return dict(map(lambda channel: (channel.name, channel.id), filter(lambda channel: isinstance(channel, discord.channel.TextChannel), guild_channels_cache[guild_name])))
-     
 #-------------------commands-------------------
 @bot.command()
 async def ping(ctx):
@@ -189,23 +190,53 @@ async def test(ctx, *args):
 async def frantic(ctx):
     await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
-@bot.group(brief='Helper command used to retrieve data about a guild')
+@bot.group(aliases=['wot','ins'],brief='Helper command used to retrieve data about the guild')
 @perms(2)
-async def wot(ctx):
+async def inspect(ctx):
     if ctx.invoked_subcommand is None:
         guild = ctx.guild
         est = await guild.estimate_pruned_members(days=10)
-        thing = f'Text channels: {len(guild.text_channels)}\nMembers: {guild.member_count}\nActive members: {est}\nCreated at: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)'
+        thing = f'Text channels: {len(guild.text_channels)}\n\
+            Members: {guild.member_count}\n\
+            Active members: {est}\n\
+            Created at: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)'
         embed = discord.Embed(title=guild.name, description=f'**Owner: {guild.owner.nick}** ({guild.owner})')
         embed.add_field(name='Statistics:', value=thing, inline=False)
         embed.set_thumbnail(url=guild.icon_url)
         await ctx.send(embed=embed)
 
-@wot.command()
+@inspect.command(brief='Returns guild\'s channels and their id\'s')
 async def channels(ctx):
     channel_list = [x for x in filter(lambda x: isinstance(x, discord.TextChannel), ctx.guild.channels)]
     result = ''.join(map(lambda x: f'<#{x.id}>: {x.id}\n', channel_list))
     await ctx.send(result)
+
+@inspect.command(brief='Returns info about the invoker or pinged member (you can use his ID)')
+async def user(ctx, *args):
+    mentions = ctx.message.mentions
+    mentioned = bool(mentions)
+    provided_args = bool(args)
+    if mentioned: member = mentions[0]
+    elif not mentioned and not provided_args:
+        member = ctx.author
+    elif provided_args:
+        member = ctx.guild.get_member(intify(args[0]))
+        if member is None:
+            await ctx.send('Invalid ID.',delete_after=5.0)
+            return
+    random.seed(member.id)
+    rgb = tuple(map(lambda n: round(random.random() * 255), range(0, 3)))
+    color = discord.Color.from_rgb(*rgb)
+    important = ['administrator', 'manage_guild', 'manage_channels', 'manage_messages', 'manage_roles']
+    privs = filter(lambda perm: perm[1] and perm[0] in important, dict(member.guild_permissions).items())
+    notable = '\nGuild owner' if member == ctx.guild.owner else '\n' + '\n'.join(map(lambda x: x[0].capitalize(), privs)).replace('_', ' ') or ' None'
+    data = f'**User ID**: {member.id}\n\
+        **Account created at**: {member.created_at.date()} ({(datetime.datetime.today() - member.created_at).days} days ago)\n\
+        **Joined at**: {member.joined_at.date()} ({(datetime.datetime.today() - member.joined_at).days} days ago)\n\
+        **Notable privileges**:{notable}'
+    embed = discord.Embed(title=f'{member.display_name}{f" ({member.nick})" if member.nick is not None else ""}', description=data, color=color)
+    embed.set_thumbnail(url=member.avatar_url)
+    await ctx.send(embed=embed)
 
 @bot.command()
 @perms(5)
@@ -218,7 +249,7 @@ async def activity(ctx, *args):
             args.pop(args.index(k))
             ActType = activities[k]
             break
-    activity = discord.Activity(name=' '.join(args),type=ActType)
+    activity = discord.Activity(name=' '.join(args),type=ActType,url='https://discordapp.com/')
     await bot.change_presence(activity=activity)
 
 @bot.command()
@@ -240,8 +271,8 @@ async def dice(ctx, *args):
 @bot.command(aliases=['r'],usage='[emoji] [opt: ^ to react to message above] / while in DM: [normal|animated]')
 @commands.cooldown(3, 15.0, commands.BucketType.member)
 async def react(ctx, *args):
-    channel_check = isinstance(ctx.channel, discord.DMChannel)
-    up = '^' in args
+    channel_check = bool(isinstance(ctx.channel, discord.DMChannel))
+    up = bool('^' in args)
     args = list(args)
     msg = None
     if up:
@@ -254,22 +285,23 @@ async def react(ctx, *args):
             await ctx.message.delete()
             return
         bank = emojis[arg]
-        string = ''
-        list_strings = []
-        for item in bank:
-            emoji = f"<{'a' if item.animated else ''}:{item.name}:{item.id}>"
-            if len(string + emoji) > 2000:
-                list_strings.append(string)
-                string = ''
-            string += emoji
-        list_strings.append(string)
-        for x in list_strings: await ctx.send(x)
+        for guild in bank:
+            string = f'{guild}: '
+            list_strings = []
+            for item in bank[guild]:
+                emoji = f"<{'a' if item.animated else ''}:{item.name}:{item.id}>"
+                if len(string + emoji) > 2000:
+                    list_strings.append(string)
+                    string = ''
+                string += emoji
+            list_strings.append(string)
+            for x in list_strings: await ctx.send(x)
         return
     if arg in emojis:
         if isinstance(emojis[arg], list):
             for emoji in emojis[arg]:
                 await ctx.message.add_reaction(emoji)
-            try: reaction = await bot.wait_for('reaction_add', timeout=10.0, check=lambda reaction, user: user == msg.author and reaction.emoji in emojis[arg])
+            try: reaction = await bot.wait_for('reaction_add', timeout=10.0, check=lambda reaction, user: user == ctx.author and bool(reaction.emoji in emojis[arg]))
             except asyncio.TimeoutError:
                 await ctx.message.delete()
                 return

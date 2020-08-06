@@ -5,8 +5,6 @@ prefix_host = ','
 #purge
 purge_cap = 2000
 purge_confirm_emote = '🧹'
-#say
-abbreviations = {'WU': 'Workshop Unlimited', 'M': 'Matrix', 'WB': 'W&BS', 'AC': 'Axis Convergence'}
 #stats
 WU_DB = {
     'type': {
