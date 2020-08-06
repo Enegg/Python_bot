@@ -234,7 +234,7 @@ async def user(ctx, *args):
         **Account created at**: {member.created_at.date()} ({(datetime.datetime.today() - member.created_at).days} days ago)\n\
         **Joined at**: {member.joined_at.date()} ({(datetime.datetime.today() - member.joined_at).days} days ago)\n\
         **Notable privileges**:{notable}'
-    embed = discord.Embed(title=f'{member.display_name}{f" ({member.nick})" if member.nick is not None else ""}', description=data, color=color)
+    embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if member.nick is not None else ""}', description=data, color=color)
     embed.set_thumbnail(url=member.avatar_url)
     await ctx.send(embed=embed)
 
