@@ -90,9 +90,9 @@ def random_color(seed=None):
 
 def emojifier():
     r'''Helper func running on the bot init, caches all emojis the bot has access to in a dict{name:emoji}'''
-    emojis = normal_dict = animated_dict = {}
+    emojis, normal_dict, animated_dict = {}, {}, {}
     for guild in bot.guilds:
-        normal_list = animated_list = []
+        normal_list, animated_list = [], []
         for emoji in guild.emojis:
             name = emoji.name.lower()
             (animated_list if emoji.animated else normal_list).append(emoji)
