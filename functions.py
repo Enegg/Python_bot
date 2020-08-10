@@ -10,8 +10,8 @@ def perms(lvl: int):
         if ctx.author.id == 190505392504045570:
             return True
         permKeys = ['manage_messages', 'manage_guild', 'administrator']
-        if (lvl := int(lvl)) <= len(permKeys):
-            key = permKeys[lvl - 1]
+        if int(lvl) <= len(permKeys):
+            key = permKeys[int(lvl) - 1]
             for role in ctx.author.roles:
                 if getattr(role.permissions, key):
                     return True
