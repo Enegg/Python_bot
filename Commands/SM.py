@@ -66,12 +66,11 @@ class SuperMechs(commands.Cog):
                 'advance': ['Advance', '<:advance:725871818115907715>'],
                 'walk': ['Walking', '<:walk:725871844581834774>'],
                 'jump': ['Jumping', '<:jump:725871869793796116>'],
-                'uses': ['<:uses:725871917923303688>'],
+                'uses': ['', '<:uses:725871917923303688>'],
                 'backfire': ['Backfire', '<:backfire:725871901062201404>'],
                 'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
                 'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']}}
         self.operation = {
-            #'add': ['health'],
             'mult': ['eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'],
             'mult+': ['phyRes', 'expRes', 'eleRes'],
             'reduce': ['backfire']}
@@ -176,17 +175,13 @@ class SuperMechs(commands.Cog):
         if '-r' in flags:
             await ctx.send(item)
             return
-        #adding a note when -d or -b flag is included
-        note = ''
-        divine = False
-        if '-d' in flags:
-            divine = bool('divine' in item)
-            note = f" ({'divine' if divine else '~~divine~~'}{', buffed' if buffs else ''})"
-        elif buffs: note = ' (buffed)'
+        #adding a note when -b flag is included
+        divine = bool('-d' in flags) and bool('divine' in item)
+        note = ' (buffs applied)' if buffs else ''
         #adding item stats
         item_stats = ''
         spaced = False
-        self.WU_DB['WUabbrev']['uses'].insert(0, ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses'))
+        self.WU_DB['WUabbrev']['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
         for k in item['stats']:
             if k in ['backfire', 'heaCost', 'eneCost'] and not spaced:
                 item_stats += '\n'
@@ -218,6 +213,7 @@ class SuperMechs(commands.Cog):
         img_url = self.WU_DB['sprite_path'] + item['name'].replace(' ', '') + '.png'
         embed.set_image(url=img_url)
         embed.set_thumbnail(url=self.WU_DB['type'][item['type']])
+        embed.set_author(name=f'Requested by {ctx.author}',icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
     @commands.command(hidden=True,aliases=['MB'],brief='WIP command')

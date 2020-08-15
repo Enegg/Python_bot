@@ -15,11 +15,8 @@ class Moderation(commands.Cog):
         if ctx.invoked_subcommand is None:
             guild = ctx.guild
             est = await guild.estimate_pruned_members(days=10)
-            thing = f'Text channels: {len(guild.text_channels)}\n\
-                Members: {guild.member_count}\n\
-                Active members: {est}\n\
-                Created at: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)'
-            embed = discord.Embed(title=guild.name, description=f'**Owner: {guild.owner.nick}** ({guild.owner})')
+            thing = f'Text channels: {len(guild.text_channels)}\nMembers: {guild.member_count}\nActive members: {est}\nCreated at: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)'
+            embed = discord.Embed(title=guild.name, description=f'**Owner:** {guild.owner.mention}')
             embed.add_field(name='Statistics:', value=thing, inline=False)
             embed.set_thumbnail(url=guild.icon_url)
             await ctx.send(embed=embed)
@@ -41,17 +38,17 @@ class Moderation(commands.Cog):
         elif provided_args:
             member = ctx.guild.get_member(intify(args[0]))
             if member is None:
-                await ctx.send('Invalid ID.',delete_after=5.0)
+                await ctx.send('Invalid ID.')
                 return
         important = ['administrator', 'manage_guild', 'manage_channels', 'manage_messages', 'manage_roles']
         if member.guild_permissions.administrator:
             high_rank = 'Guild owner' if member == ctx.guild.owner else 'Administrator'
         else: high_rank, privs = '', filter(lambda perm: perm[1] and perm[0] in important, dict(member.guild_permissions).items())
         notable = high_rank or '\n'.join(x[0].capitalize() for x in privs).replace('_', ' ') or 'None'
-        data = f'**User ID**: {member.id}\n\
-            **Account created at**: {member.created_at.date()} ({(datetime.datetime.today() - member.created_at).days} days ago)\n\
-            **Joined at**: {member.joined_at.date()} ({(datetime.datetime.today() - member.joined_at).days} days ago)\n\
-            **Notable privileges**:\n{notable}'
+        creation_date = f'**Account created at**: {member.created_at.date()} ({(datetime.datetime.today() - member.created_at).days} days ago)\n'
+        join_date = f'**Joined at**: {member.joined_at.date()} ({(datetime.datetime.today() - member.joined_at).days} days ago)\n'
+        roles = ', '.join(x.mention for x in reversed(member.roles))
+        data = f'**User ID**: {member.id}\n' + creation_date + join_date + f'**Roles**: {roles}\n' + f'**Notable privileges**:\n{notable}'
         embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if member.nick is not None else ""}', description=data, color=member.color)
         embed.set_thumbnail(url=member.avatar_url)
         await ctx.send(embed=embed)

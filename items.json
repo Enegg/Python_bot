@@ -3705,5 +3705,25 @@
 			"eneCap": 155,
 			"heaCap": 141
 		}
+	},
+	{
+		"id": 191,
+		"name": "Basalt Polisher",
+		"type": "SIDE_WEAPON",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 45,
+			"expDmg": [181, 362],
+			"heaDmg": 86,
+			"expResDmg": 10,
+			"range": [1, 2],
+			"backfire": 144,
+			"heaCost": 62
+		},
+		"divine": {
+			"expDmg": [191, 382],
+			"heaDmg": 90
+		}
 	}
 ]
