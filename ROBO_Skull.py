@@ -19,6 +19,7 @@ class Setup(commands.Cog):
     @ext.command()
     @perms(5)
     async def load(self, ctx, arg):
+        await ctx.message.add_reaction('☑️')
         if '.' in arg: ext = arg
         else: ext = 'Commands.' + arg
         await ctx.send(f'Loading {ext}...', delete_after=5.0)
@@ -28,6 +29,7 @@ class Setup(commands.Cog):
     @ext.command()
     @perms(5)
     async def reload(self, ctx, arg):
+        await ctx.message.add_reaction('🔄')
         if arg == 'all':
             await ctx.send('Reloading all modules...', delete_after=5.0)
             #bot.extensions gets modified on reload so we have to pre-assign all loaded extensions
@@ -42,6 +44,7 @@ class Setup(commands.Cog):
     @ext.command()
     @perms(5)
     async def unload(self, ctx, arg):
+        await ctx.message.add_reaction('🚀')
         if '.' in arg: ext = arg
         else: ext = 'Commands.' + arg
         await ctx.send(f'Unloading {ext}...', delete_after=5.0)
@@ -63,6 +66,7 @@ bot.add_cog(Setup(bot))
 bot.load_extension('Commands.Moderation')
 bot.load_extension('Commands.Misc')
 bot.load_extension('Commands.SM')
+bot.load_extension('Commands.Testing')
 
 @bot.event
 async def on_command_error(ctx, error):

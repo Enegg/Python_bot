@@ -1,9 +1,10 @@
 from discord.ext import commands
 import discord
 import asyncio
-from functions import search_for, intify, perms
+from functions import search_for, intify, perms, supreme_listener
 import json
 import re
+from Commands.Testing import EmbedUI
 items_list = json.loads(open("items.json").read())
 
 class SuperMechs(commands.Cog):
@@ -99,11 +100,31 @@ class SuperMechs(commands.Cog):
             abbrevs[abbreviation].append(name) if abbreviation in abbrevs else abbrevs.update({abbreviation: [name]})
         self.abbrevs, self.names = abbrevs, names
 
+    # async def menu_loop(self, ctx, embed, buffed=False, divine=False):
+    #     first_run = True
+    #     while True:
+    #         if first_run:
+    #             msg = await ctx.send(embed=embed)
+    #             options = await embed.add_options(msg)
+    #         else: await embed.edit(msg)
+    #         try: selection, action_type = await supreme_listener(ctx, *options, listen_for_add=True, listen_for_remove=True, add_cancel=True)
+    #         except asyncio.TimeoutError:
+    #             await msg.clear_reactions()
+    #             break
+    #         if first_run: first_run = False
+    #         if selection == -2:
+    #             await msg.clear_reactions()
+    #             break
+    #         if selection == 0: buffed = action_type
+    #         if selection == 1: divine = action_type
+
+
+
     @commands.command(brief='Show to a frantic user where is his place')
     async def frantic(self, ctx):
         await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
-    def buff(self, stat, value, enabled, item):
+    def buff(self, stat, value, enabled, item) -> int:
         if not enabled:
             return value
         # if stat in self.operation['add'] and item['type'] == 'TORSO':
@@ -176,45 +197,67 @@ class SuperMechs(commands.Cog):
             await ctx.send(item)
             return
         #adding a note when -b flag is included
-        divine = bool('-d' in flags) and bool('divine' in item)
-        note = ' (buffs applied)' if buffs else ''
-        #adding item stats
-        item_stats = ''
-        spaced = False
-        self.WU_DB['WUabbrev']['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
-        for k in item['stats']:
-            if k in ['backfire', 'heaCost', 'eneCost'] and not spaced:
-                item_stats += '\n'
-                spaced = True
-            #divine handler
-            pool = 'divine' if divine and k in item['divine'] else 'stats'
-            #number range handler
-            if isinstance(item['stats'][k], list):
-                if len(item['stats'][k]) == 1: value = self.buff(k, item[pool][k][0], buffs, item) #handling one spot range
-                elif item[pool][k][1] == 0: value = item[pool][k][0]
-                else: value = str(self.buff(k, item[pool][k][0], buffs, item)) + '-' + str(self.buff(k, item[pool][k][1], buffs, item))
-            else: value = self.buff(k, item[pool][k], buffs, item)
-            item_stats += f"{self.WU_DB['WUabbrev'][k][1]} **{value}** {self.WU_DB['WUabbrev'][k][0]}\n"
-        if 'advance' in item['stats'] or 'retreat' in item['stats']: item_stats += f"{self.WU_DB['WUabbrev']['jump'][1]} **Jumping required**"
+        divine = (has_divine_stats := bool('divine' in item)) and bool('-d' in flags)
+        emojis = ['🇧']
+        if has_divine_stats: emojis.append('🇩')
         #embedding
-        embed = discord.Embed(title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=self.WU_DB['colors'][item['element']])
-        fields = []
-        #transform range
-        min_, max_ = item['transform_range'].split('-')
-        if (maximal := self.WU_DB['tiers'].index(max_)) < 4: selected = maximal
-        elif divine: selected = 5
-        else: selected = 4
-        colors = self.WU_DB['trans_colors'].copy()
-        colors.insert(selected, f'({colors.pop(selected)})')
-        fields.append(['Transform range: ', f"{''.join(colors[self.WU_DB['tiers'].index(min_):self.WU_DB['tiers'].index(max_) + 1])}"])
-        #the rest of the embed
-        fields.append([f'Stats{note}:', item_stats])
-        for field in fields: embed.add_field(name=field[0], value=field[1], inline=False)
+        embed = EmbedUI(ctx=ctx, emojis=emojis, title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=self.WU_DB['colors'][item['element']])
         img_url = self.WU_DB['sprite_path'] + item['name'].replace(' ', '') + '.png'
         embed.set_image(url=img_url)
         embed.set_thumbnail(url=self.WU_DB['type'][item['type']])
-        embed.set_author(name=f'Requested by {ctx.author}',icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=embed)
+        embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        embed.set_footer(text='React with B for arena buffs or D for divine stats (if applicable)')
+        self.WU_DB['WUabbrev']['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
+        #adding item stats
+        min_, max_ = item['transform_range'].split('-')
+
+        first_run = True
+        while True:
+            fields = []
+            item_stats = ''
+            spaced = False
+            note = ' (buffs applied)' if buffs else ''
+            for k in item['stats']:
+                if k in ['backfire', 'heaCost', 'eneCost'] and not spaced:
+                    item_stats += '\n'
+                    spaced = True
+                #divine handler
+                pool = 'divine' if divine and k in item['divine'] else 'stats'
+                #number range handler
+                if isinstance(item['stats'][k], list):
+                    if len(item['stats'][k]) == 1: value = self.buff(k, item[pool][k][0], buffs, item) #handling one spot range
+                    elif item[pool][k][1] == 0: value = item[pool][k][0]
+                    else: value = str(self.buff(k, item[pool][k][0], buffs, item)) + '-' + str(self.buff(k, item[pool][k][1], buffs, item))
+                else: value = self.buff(k, item[pool][k], buffs, item)
+                item_stats += f"{self.WU_DB['WUabbrev'][k][1]} **{value}** {self.WU_DB['WUabbrev'][k][0]}\n"
+            if 'advance' in item['stats'] or 'retreat' in item['stats']: item_stats += f"{self.WU_DB['WUabbrev']['jump'][1]} **Jumping required**"
+            #transform range
+            if (maximal := self.WU_DB['tiers'].index(max_)) < 4: tier = maximal
+            elif divine: tier = 5
+            else: tier = 4
+            colors = self.WU_DB['trans_colors'].copy()
+            colors.insert(tier, f'({colors.pop(tier)})')
+            fields.append({'name': 'Transform range: ', 'value': f"{''.join(colors[self.WU_DB['tiers'].index(min_):self.WU_DB['tiers'].index(max_) + 1])}", 'inline': False})
+            fields.append({'name': f'Stats{note}:', 'value': item_stats, 'inline': False})
+            for field in fields: embed.add_field(**field)
+
+            if first_run:
+                embed.set_count(len(emojis))
+                msg = await ctx.send(embed=embed)
+                options = await embed.add_options(msg, True)
+            else: await embed.edit(msg)
+            embed.clear_fields()
+            try: selection, action_type = await supreme_listener(ctx, *options, listen_for_add=True, listen_for_remove=True, add_cancel=True)
+            except asyncio.TimeoutError:
+                break
+            if first_run: first_run = False
+            if selection == -2:
+                break
+            if has_divine_stats:
+                if selection == 0: buffs = action_type
+                if selection == 1: divine = action_type
+            else: buffs = action_type
+        await msg.clear_reactions()
 
     @commands.command(hidden=True,aliases=['MB'],brief='WIP command')
     @perms(3)

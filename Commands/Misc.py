@@ -1,5 +1,6 @@
 import asyncio
 import discord
+import datetime
 from discord.ext import commands
 from functions import roll, intify
 
@@ -27,14 +28,23 @@ class Misc(commands.Cog):
         self.emojifier()
 
     @commands.Cog.listener()
-    async def on_raw_reaction_add(self, args):
-        if args.member.bot: return
-        if str(args.emoji) == '🔗':
-            #channel = bot.get_channel(args.channel_id)
-            link = f'https://discordapp.com/channels/{args.guild_id}/{args.channel_id}/{args.message_id}'
-            msg = await (channel := self.bot.get_channel(args.channel_id)).fetch_message(args.message_id)
-            async with channel.typing():
-                await channel.send(f'Link: {link}\n{msg.author.name}:\n{"> " if msg.content else ""}{msg.content}', embed=(msg.embeds[0] if msg.embeds else None), files=[await x.to_file() for x in msg.attachments])
+    async def on_raw_reaction_add(self, ctx):
+        if ctx.member.bot: return
+        if str(ctx.emoji) == '🖇️':
+            msg = await (channel := self.bot.get_channel(ctx.channel_id)).fetch_message(ctx.message_id)
+            author = msg.author
+            link = msg.jump_url
+            embed = discord.Embed(description=(f'```{msg.content}```' if msg.content else None), timestamp=datetime.datetime.now(tz=datetime.timezone.utc), color=author.color)
+            embed.set_author(name=f'Message by {author.display_name} from {msg.created_at.isoformat(sep=" ", timespec="minutes")}', url=link, icon_url=author.avatar_url)
+            embed.set_footer(text=f'Quoted by {ctx.member.display_name}', icon_url=ctx.member.avatar_url)
+            if msg.embeds:
+                quoted_embed = msg.embeds[0]
+                title_desc_field = {'name': quoted_embed.title, 'value': quoted_embed.description, 'inline': False}
+                quoted_fields = [{'name': field.name, 'value': field.value, 'inline': field.inline} for field in quoted_embed.fields]
+                embed.add_field(**title_desc_field).set_image(url=quoted_embed.image.url).set_thumbnail(url=quoted_embed.thumbnail.url)
+                [embed.add_field(**field) for field in quoted_fields]
+
+            await channel.send(embed=embed, files=[await x.to_file() for x in msg.attachments])
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -129,7 +139,7 @@ class Misc(commands.Cog):
         await botmsg.edit(content='<:none:742507182918074458><:duh:705900542001545246>\n<:gun:742508449073463328>')
         await asyncio.sleep(0.5)
         await victim.delete()
-        await botmsg.edit(content='<:epix:724331507162021959>',delete_after=3.0)
+        await botmsg.edit(content='<:epix:724331507162021959>',delete_after=2.0)
 
 def setup(bot):
     bot.add_cog(Misc(bot))
