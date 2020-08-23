@@ -4,6 +4,7 @@ import asyncio
 from functions import search_for, intify, perms, supreme_listener
 import json
 import re
+import urllib
 from Commands.Testing import EmbedUI
 items_list = json.loads(open("items.json").read())
 
@@ -77,10 +78,12 @@ class SuperMechs(commands.Cog):
             'reduce': ['backfire']}
         self.abbrevs = None
         self.names = None
+        self.image_url_cache = {}
+        self.url_template = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/public/assets/items/{}.png'
 
     def get_item_by_id_or_name(self, value: str):
         for item in items_list:
-            if str(item['id']) == str(value) or item['name'].lower() == str(value).lower():
+            if str(item['id']) == str(value) or item['name'].lower() == str(value):
                 return item
         return None
 
@@ -100,25 +103,19 @@ class SuperMechs(commands.Cog):
             abbrevs[abbreviation].append(name) if abbreviation in abbrevs else abbrevs.update({abbreviation: [name]})
         self.abbrevs, self.names = abbrevs, names
 
-    # async def menu_loop(self, ctx, embed, buffed=False, divine=False):
-    #     first_run = True
-    #     while True:
-    #         if first_run:
-    #             msg = await ctx.send(embed=embed)
-    #             options = await embed.add_options(msg)
-    #         else: await embed.edit(msg)
-    #         try: selection, action_type = await supreme_listener(ctx, *options, listen_for_add=True, listen_for_remove=True, add_cancel=True)
-    #         except asyncio.TimeoutError:
-    #             await msg.clear_reactions()
-    #             break
-    #         if first_run: first_run = False
-    #         if selection == -2:
-    #             await msg.clear_reactions()
-    #             break
-    #         if selection == 0: buffed = action_type
-    #         if selection == 1: divine = action_type
+    def get_image(self, item):
+        slot_images = self.WU_DB['type']
 
+        safe_name = item['name'].replace(' ', '')
+        url = self.url_template.format(safe_name)
 
+        if not item['id'] in self.image_url_cache:
+            try:
+                urllib.request.urlopen(url)
+            except urllib.error.HTTPError:
+                self.image_url_cache[item['id']] = slot_images[item['type']]
+            else: self.image_url_cache[item['id']] = url
+        return self.image_url_cache[item['id']]
 
     @commands.command(brief='Show to a frantic user where is his place')
     async def frantic(self, ctx):
@@ -141,22 +138,23 @@ class SuperMechs(commands.Cog):
     @commands.cooldown(2, 15.0, commands.BucketType.member)
     async def stats(self, ctx, *args):
         msg = ctx.message
+        add_x = msg.add_reaction
         if not bool(args):
-            await msg.add_reaction('❌')
+            await add_x('❌')
             return
         args = list(args)
         #flags ['-d', '-b', '-r']
-        flags = list(map(lambda e: args.pop(args.index(e)), filter(lambda i: i in args, ['-d', '-b', '-r'])))
+        flags = [args.pop(args.index(i)) for i in {'-d', '-b', '-r'} if i in args]
         buffs = bool('-b' in flags)
         #solving for abbrevs
         name = ' '.join(args).lower()
         if intify(name) == 0 and len(name) < 2:
-            await msg.add_reaction('❌')
+            await add_x('❌')
             return
 
         #returning the exact item name from short user input
         if self.abbrevs is None or self.names is None: self.abbreviator()
-        if name not in self.names:
+        if name not in self.names and not name.isdigit():
             results = search_for(name, self.names)
             is_in_abbrevs = bool(name in self.abbrevs)
             is_in_results = bool(results)
@@ -190,7 +188,7 @@ class SuperMechs(commands.Cog):
         #getting the item
         item = self.get_item_by_id_or_name(name.lower())
         if item is None:
-            await msg.add_reaction('❌')
+            await add_x('❌')
             return
         #test flag
         if '-r' in flags:
@@ -201,10 +199,12 @@ class SuperMechs(commands.Cog):
         emojis = ['🇧']
         if has_divine_stats: emojis.append('🇩')
         #embedding
-        embed = EmbedUI(ctx=ctx, emojis=emojis, title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=self.WU_DB['colors'][item['element']])
-        img_url = self.WU_DB['sprite_path'] + item['name'].replace(' ', '') + '.png'
+        embed = EmbedUI(ctx, emojis, title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=self.WU_DB['colors'][item['element']])
+        # img_url = self.WU_DB['sprite_path'] + item['name'].replace(' ', '') + '.png'
+        img_url = self.get_image(item)
+        has_image = bool('imgur' not in img_url) #yeah I know, hack
         embed.set_image(url=img_url)
-        embed.set_thumbnail(url=self.WU_DB['type'][item['type']])
+        if has_image: embed.set_thumbnail(url=self.WU_DB['type'][item['type']])
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
         embed.set_footer(text='React with B for arena buffs or D for divine stats (if applicable)')
         self.WU_DB['WUabbrev']['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')

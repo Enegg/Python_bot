@@ -9,7 +9,7 @@ prefix = prefix_local if socket.gethostname() == 'Mystery_machine' else prefix_h
 bot = commands.Bot(command_prefix=prefix)
 
 class Setup(commands.Cog):
-    @commands.group(hidden=True)
+    @commands.group(hidden=True, brief='Extensions manager')
     @perms(5)
     async def ext(self, ctx):
         if ctx.invoked_subcommand is None:
@@ -52,7 +52,7 @@ class Setup(commands.Cog):
         bot.unload_extension(ext)
 
     @commands.command(hidden=True)
-    @perms(3)
+    @perms(5)
     async def shutdown(self, ctx):
         await ctx.send('I will be back')
         await bot.logout()
