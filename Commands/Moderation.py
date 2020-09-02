@@ -59,7 +59,7 @@ class Moderation(commands.Cog):
         await ctx.send('`{}`'.format(ctx.author.roles))
 
     @commands.command(aliases=['prune','pirge','puerg','p'],usage='[count] [optional: mention]',brief='Purges messages from a channel',help='Deletes a specified number of messages from the channel it has been used in. You can specify whose messages to purge by pinging one or more users')
-    @commands.has_permissions(manage_messages=True)
+    @perms(1)
     async def purge(self, ctx, *args):
         msg = ctx.message
         mentions = msg.mentions if (has_mentions := bool(msg.mentions)) else None

@@ -94,7 +94,7 @@ class Testing(commands.Cog):
                 ui.clear_fields()
                 ui.add_field(**stuff[selection])
             if not first_run: await ui.edit(msg, add_return=(False if selection == -1 else True))
-            try: selection = (await supreme_listener(ctx, *options, listen_for_add=True, listen_for_remove=True, add_return=(False if selection == -1 else True), add_cancel=True))[0]
+            try: selection = (await supreme_listener(ctx, *options, listen_for_add=True, listen_for_remove=True, add_return=bool(selection != -1), add_cancel=True))[0]
             except asyncio.TimeoutError:
                 await msg.clear_reactions()
                 await msg.add_reaction('⏰')
@@ -119,12 +119,13 @@ class Testing(commands.Cog):
                 break
         if msg is None: return
         field = {'name': name, 'value': value, 'inline': False}
-        await self.edit(msg, field)
+        await msg.edit(embed=self.edit(msg.embeds[0], field))
+        await ctx.message.delete()
 
     @commands.command()
     async def testembed(self, ctx):
-        embed = discord.Embed(title='Embed', description='Just Embed', url='https://www.youtube.com/watch?v=qEGP0Weug3k', timestamp=datetime.datetime.now())
-        embed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url).set_footer(text='Footer',icon_url=ctx.author.avatar_url).set_thumbnail(url=ctx.bot.user.avatar_url)
+        embed = discord.Embed(title='Embed', description=f'[Just Embed]({ctx.message.jump_url})', timestamp=datetime.datetime.now())
+        embed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url).set_footer(text='Footer', icon_url=ctx.author.avatar_url).set_thumbnail(url=ctx.bot.user.avatar_url)
         await ctx.send(embed=embed)
 
 def setup(bot):

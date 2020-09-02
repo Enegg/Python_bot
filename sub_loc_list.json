@@ -1,0 +1,2205 @@
+[
+    {
+        "name": "Basement",
+        "appearances": ["sub1", "sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/9a/Basement_sub1.png/revision/latest?cb=20150811023206",
+            "sub1": "https://vignette.wikia.nocookie.net/submachine/images/b/b0/Basement_map_sub1.png/revision/latest?cb=20131016070404",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/a/a3/Basement_map_sub10.png/revision/latest?cb=20151226213534"
+        },
+        "region": "Basement"
+    },
+    {
+        "name": "Lighthouse dungeon",
+        "appearances": ["sub2", "sub10", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/24/550.png/revision/latest?cb=20131117003800",
+            "sub2": "https://vignette.wikia.nocookie.net/submachine/images/0/00/550_map_sub2.png/revision/latest?cb=20150811163921",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/8/86/550_map_sub10.png/revision/latest?cb=20151227204047",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/2/22/550_map.png/revision/latest?cb=20150811154122"
+        },
+        "region": "Lighthouse",
+        "coordinates": "550",
+        "clues_to": ["672"],
+        "parent": "232"
+    },
+    {
+        "name": "Lighthouse basement",
+        "appearances": ["sub2", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/95/304.png/revision/latest?cb=20150811160219",
+            "sub2": "https://vignette.wikia.nocookie.net/submachine/images/a/ac/Lighthouse_basement_map.png/revision/latest?cb=20150811165742",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/2/25/304_map.png/revision/latest?cb=20150811160237"
+        },
+        "region": "Lighthouse",
+        "coordinates": "304",
+        "clues_to": ["F1 - 342"],
+        "parent": "076"
+    },
+    {
+        "name": "First floor",
+        "appearances": ["sub2"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/8e/First_floor.png/revision/latest?cb=20150811191946",
+            "sub2": "https://vignette.wikia.nocookie.net/submachine/images/1/1c/First_floor_map.png/revision/latest?cb=20150811193504"
+        },
+        "region": "Lighthouse"
+    },
+    {
+        "name": "Sewers",
+        "appearances": ["sub2", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/97/461.png/revision/latest?cb=20140217042656",
+            "sub2": "https://vignette.wikia.nocookie.net/submachine/images/3/33/461_map_sub2.png/revision/latest?cb=20150811174406",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/4d/461_map.png/revision/latest?cb=20171221150024"
+        },
+        "region": "Lighthouse",
+        "coordinates": "461",
+        "clues_to": ["brk", "HG - 9**", "T - **8"],
+        "parent": "317"
+    },
+    {
+        "name": "Lighthouse tower",
+        "appearances": ["sub2", "sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/26/Lighthouse_tower.png/revision/latest?cb=20150811195627",
+            "sub2": "https://vignette.wikia.nocookie.net/submachine/images/9/90/Lighthouse_tower_map.png/revision/latest?cb=20150811200439",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/4/46/Lighthouse_tower_map_sub10.png/revision/latest?cb=20151228042351"
+        },
+        "region": "Lighthouse"
+    },
+    {
+        "name": "Second floor",
+        "appearances": ["sub2", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b6/Second_floor.png/revision/latest?cb=20150811193646",
+            "sub2": "https://vignette.wikia.nocookie.net/submachine/images/b/b4/Second_floor_map.png/revision/latest?cb=20150811194622",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/5/5a/Wiq_lighthouse_map.png/revision/latest?cb=20171108010959"
+        },
+        "region": "Lighthouse",
+        "coordinates": "wiq",
+        "parent": "966"
+    },
+    {
+        "name": "Level 0",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/63/Level_0.png/revision/latest?cb=20121109133433"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 1",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/69/Level_1.png/revision/latest?cb=20160901210844",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/a/a0/Level_1_map.png/revision/latest?cb=20110426102251"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 2",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/7f/Level_2.png/revision/latest?cb=20160901213648",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/4/4c/Level_2_map.png/revision/latest?cb=20110426104034"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 3",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/ed/Level_3.png/revision/latest?cb=20160901213737",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/4/42/Level_3_map.png/revision/latest?cb=20110426110824"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 4",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/29/Level_4.png/revision/latest?cb=20160901213752",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/5/55/Level_4_map.png/revision/latest?cb=20110426115234"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 5",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/52/Level_5.png/revision/latest?cb=20160901213815",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/0/0e/Level_5_map.png/revision/latest?cb=20110426121004"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 6",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/18/Level_6.png/revision/latest?cb=20160901213839",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/3/35/Level_6_map.png/revision/latest?cb=20110426123201"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 7",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/3/3b/Level_7.png/revision/latest?cb=20150705214550",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/2/24/Level_7_map.png/revision/latest?cb=20110426125317"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 8",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/04/Level_8.png/revision/latest?cb=20160901213935",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/1/19/Level_8_map.png/revision/latest?cb=20110426134323"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 9",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/4b/Level_9.png/revision/latest?cb=20160901213948",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/2/20/Level_9_map.png/revision/latest?cb=20150625130450"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 10",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/60/Level_10.png/revision/latest?cb=20160901214005",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/7/77/Level_10_map.png/revision/latest?cb=20110426140432"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Level 11",
+        "appearances": ["sub3"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/61/Level_11.png/revision/latest?cb=20150629030425",
+            "sub3": "https://vignette.wikia.nocookie.net/submachine/images/7/79/Level_11_map.png/revision/latest?cb=20110426142114"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Research base",
+        "appearances": ["sub4", "sub10", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/03/001.png/revision/latest?cb=20150803025357",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/2/22/001_map_sub4.png/revision/latest?cb=20150822015622",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/f/f8/001_map_sub10.png/revision/latest?cb=20151225222752",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/b/bf/001_map.png/revision/latest?cb=20171108010621"
+        },
+        "region": "Lab",
+        "coordinates": "001",
+        "clues_to": ["jul", "chr", "613"],
+        "parent": "596"
+    },
+    {
+        "name": "Second tomb",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/45/043.png/revision/latest?cb=20160407150756",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/2/25/043_map_sub4.png/revision/latest?cb=20160407141537",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/47/043_map.png/revision/latest?cb=20170213163033"
+        },
+        "coordinates": "043",
+        "clues_to": ["ixt", "V - 5**"],
+        "parent": "770"
+    },
+    {
+        "name": "Ancient section",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/48/104.png/revision/latest?cb=20150828044956",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/4/4a/104_map_sub4.png/revision/latest?cb=20150724003126",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/b/ba/104_map.png/revision/latest?cb=20170212125513"
+        },
+        "coordinates": "104",
+        "clues_to": ["800", "002", "chm", "ott"],
+        "parent": "462"
+    },
+    {
+        "name": "Statue",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/ba/Statue.png/revision/latest?cb=20140406194355",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/8/89/452_map_sub4.png/revision/latest?cb=20150724004353",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/5/51/452_map.png/revision/latest?cb=20131127023724"
+        },
+        "coordinates": "452",
+        "clues_to": ["770", "swt"],
+        "parent": "747"
+    },
+    {
+        "name": "Lighthouse digouts",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/98/462.png/revision/latest?cb=20160413171103",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/7/7c/462_map_sub4.png/revision/latest?cb=20150826183955",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/46/462_map.png/revision/latest?cb=20160413171646"
+        },
+        "region": "Lighthouse",
+        "coordinates": "462",
+        "clues_to": ["104", "fma"],
+        "parent": "551"
+    },
+    {
+        "name": "Basement section",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/95/529.png/revision/latest?cb=20160413185627",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/6/69/529_map_sub4.png/revision/latest?cb=20150826190352",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/df/529_map.png/revision/latest?cb=20170920005904"
+        },
+        "region": "Basement",
+        "coordinates": "529",
+        "clues_to": ["840", "H - *9*"]
+    },
+    {
+        "name": "Brick room",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/9d/551.png/revision/latest?cb=20160413192118",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/5/5d/551_map_sub4.png/revision/latest?cb=20150723185811",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/f/f6/551_map.png/revision/latest?cb=20160413192056"
+        },
+        "region": "The Root",
+        "coordinates": "551",
+        "clues_to": ["462", "747"],
+        "parent": "000"
+    },
+    {
+        "name": "Annex",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f5/596.png/revision/latest?cb=20160413200418",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/5/52/596_map_sub4.png/revision/latest?cb=20131105041337",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/3/35/596_map.png/revision/latest?cb=20131105034120"
+        },
+        "coordinates": "596",
+        "clues_to": ["001"]
+    },
+    {
+        "name": "Looping traps",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/9a/690.png/revision/latest?cb=20130313011006",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/2/2a/690_map_sub4.png/revision/latest?cb=20150722202331",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/4f/690_map.png/revision/latest?cb=20130317083335"
+        },
+        "coordinates": "690",
+        "clues_to": ["V - **6"],
+        "parent": "002"
+    },
+    {
+        "name": "Lucky room",
+        "appearances": ["sub4", "sub5", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f8/728.png/revision/latest?cb=20160413213341",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/6/68/728_map_sub4.png/revision/latest?cb=20160704173110",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/a/a2/728_map_sub5.png/revision/latest?cb=20150723163528",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/1d/728_map.png/revision/latest?cb=20170127212131"
+        },
+        "coordinates": "728",
+        "clues_to": ["552", "sza"],
+        "parent": "747"
+    },
+    {
+        "name": "Tomb trap",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/00/770.png/revision/latest?cb=20160413215024"
+        },
+        "coordinates": "770",
+        "clues_to": ["043"],
+        "parent": "452"
+    },
+    {
+        "name": "Ship",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/cf/800.png/revision/latest?cb=20160414184210",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/a/a0/800_map_sub4.png/revision/latest?cb=20160704162939",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/0/0f/800_map.png/revision/latest?cb=20170213163753"
+        },
+        "coordinates": "800",
+        "clues_to": ["WX - 23", "WY - 688"],
+        "parent": "104"
+    },
+    {
+        "name": "Dorm 38C",
+        "appearances": ["sub5"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/49/001_sub5.png/revision/latest?cb=20160705154332",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/0/04/001_map_sub5.png/revision/latest?cb=20150723152133"
+        },
+        "region": "Lab",
+        "coordinates": "001"
+    },
+    {
+        "name": "Root base",
+        "appearances": ["sub5", "sub10", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/fb/552.png/revision/latest?cb=20170613191813",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/1/10/552_map_sub5.png/revision/latest?cb=20160413195859",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/3/3e/552_map_sub10.png/revision/latest?cb=20151225221129",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/f/f4/552_map.png/revision/latest?cb=20170613191849"
+        },
+        "region": "The Root",
+        "coordinates": "552",
+        "clues_to": ["992", "kar", "pbu"],
+        "parent": "728"
+    },
+    {
+        "name": "Charger room",
+        "appearances": ["sub5"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/2a/%280%2C1%29.png/revision/latest?cb=20150723181613",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/2/2d/%280%2C1%29_map.png/revision/latest?cb=20150723181718"
+        },
+        "region": "The Root",
+        "coordinates": "552 + (0,1)",
+        "parent": "552"
+    },
+    {
+        "name": "Symbol room",
+        "appearances": ["sub5"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/22/%280%2C2%29.png/revision/latest?cb=20150720005840",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/2/26/%280%2C2%29_map.png/revision/latest?cb=20150720005613"
+        },
+        "region": "The Root",
+        "coordinates": "552 + (0,2)",
+        "parent": "552"
+    },
+    {
+        "name": "Citric acid room",
+        "appearances": ["sub5", "sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/c6/%281%2C0%29.png/revision/latest?cb=20150720010225",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/7/7f/%281%2C0%29_map.png/revision/latest?cb=20150719211517",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/f/fa/%281%2C0%29_map_sub10.png/revision/latest?cb=20151227194420"
+        },
+        "region": "The Root",
+        "coordinates": "552 + (1,0)",
+        "parent": "552"
+    },
+    {
+        "name": "Pipe room",
+        "appearances": ["sub5"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/eb/%282%2C0%29.png/revision/latest?cb=20150811151237",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/c/c9/%282%2C0%29_map.png/revision/latest?cb=20150720181325"
+        },
+        "region": "The Root",
+        "coordinates": "552 + (2,0)",
+        "parent": "552"
+    },
+    {
+        "name": "Metal box room",
+        "appearances": ["sub5"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/99/%281%2C2%29.png/revision/latest?cb=20160624153308",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/9/9e/%281%2C2%29_map.png/revision/latest?cb=20150720011735"
+        },
+        "region": "The Root",
+        "coordinates": "552 + (1,2)",
+        "parent": "552"
+    },
+    {
+        "name": "Ancient room",
+        "appearances": ["sub0", "sub5"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/4c/%282%2C1%29.png/revision/latest?cb=20150723185022",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/0/07/%282%2C1%29_map.png/revision/latest?cb=20170914025942"
+        },
+        "region": "The Root",
+        "coordinates": ["552 + (2,1)", "103"],
+        "clues_to": ["col", "def"],
+        "parent": "552"
+    },
+    {
+        "name": "Corridor",
+        "appearances": ["sub5", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/6c/747.png/revision/latest?cb=20150824031727",
+            "sub5": "https://vignette.wikia.nocookie.net/submachine/images/e/e7/747_map_sub5.png/revision/latest?cb=20160705151324",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/6/67/747_map.png/revision/latest?cb=20131119004450"
+        },
+        "coordinates": "747",
+        "layer": 3,
+        "clues_to": ["452", "728"],
+        "parent": "551"
+    },
+    {
+        "name": "Lobby",
+        "appearances": ["sub6"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/3/33/Lobby.png/revision/latest?cb=20160610000145",
+            "sub6": "https://vignette.wikia.nocookie.net/submachine/images/2/2e/Lobby_map.png/revision/latest?cb=20150826175816"
+        },
+        "region": "The Edge",
+        "area": "Defense System Corridors"
+    },
+    {
+        "name": "Cliffs",
+        "appearances": ["sub6", "sub10", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/03/806.png/revision/latest?cb=20131117234446",
+            "sub6": "https://vignette.wikia.nocookie.net/submachine/images/1/11/601_map_sub6.png/revision/latest?cb=20140919030112",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/2/24/601_map_sub10.png/revision/latest?cb=20151224023259",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/79/806_map.png/revision/latest?cb=20140919013452"
+        },
+        "region": "The Edge",
+        "coordinates": "806",
+        "clues_to": ["cat", "HG - **6"],
+        "parent": "317"
+    },
+    {
+        "name": "Tunnels",
+        "appearances": ["sub6", "sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b4/Tunnels.png/revision/latest?cb=20110428011038",
+            "sub6": "https://vignette.wikia.nocookie.net/submachine/images/f/fd/Tunnels_map.png/revision/latest?cb=20150826130809",
+            "sub10_right": "https://vignette.wikia.nocookie.net/submachine/images/b/b2/Tunnel_right_map.png/revision/latest?cb=20151224034154",
+            "sub10_left": "https://vignette.wikia.nocookie.net/submachine/images/8/8f/Tunnel_left_map.png/revision/latest?cb=20151224034238"
+        },
+        "region": "The Edge",
+        "parent": "Cliffs"
+    },
+    {
+        "name": "Defense system entrance",
+        "appearances": ["sub6"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/fa/Defense_system_entrance.png/revision/latest?cb=20150827025512",
+            "sub6": "https://vignette.wikia.nocookie.net/submachine/images/3/33/Defense_system_entrance_map.png/revision/latest?cb=20131130182756"
+        },
+        "region": "The Edge",
+        "parent": "Tunnels"
+    },
+    {
+        "name": "Chronon",
+        "appearances": ["sub6"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/4c/Chronon.png/revision/latest?cb=20150827030721",
+            "sub6": "https://vignette.wikia.nocookie.net/submachine/images/3/3b/Chronon_map.png/revision/latest?cb=20091017113858"
+        },
+        "region": "The Edge",
+        "parent": "Tunnels"
+    },
+    {
+        "name": "Mainframe",
+        "appearances": ["sub6"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/6e/Mainframe.png/revision/latest?cb=20170915122610",
+            "sub6": "https://vignette.wikia.nocookie.net/submachine/images/4/41/Mainframe_map.png/revision/latest?cb=20170915115650"
+        },
+        "region": "The Edge",
+        "parent": "Area 8"
+    },
+    {
+        "name": "Area 4",
+        "appearances": ["sub6"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/a/ae/Area_4.png/revision/latest?cb=20150824175440",
+            "sub6": "https://vignette.wikia.nocookie.net/submachine/images/c/c4/Area_4_map.png/revision/latest?cb=20150824175635"
+        },
+        "region": "The Edge",
+        "area": "Defense System Corridors"
+    },
+    {
+        "name": "Area 5",
+        "appearances": ["sub6"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/61/Area_5.png/revision/latest?cb=20150824180038"
+        },
+        "region": "The Edge",
+        "area": "Defense System Corridors"
+    },
+    {
+        "name": "Area 8",
+        "appearances": ["sub6"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/41/Area_8.png/revision/latest?cb=20150825034910",
+            "sub6": "https://vignette.wikia.nocookie.net/submachine/images/d/db/Area_8_map.png/revision/latest?cb=20150825034951"
+        },
+        "region": "The Edge",
+        "area": "Defense System Corridors"
+    },
+    {
+        "name": "Sanctuary",
+        "appearances": ["sub7", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/99/291.png/revision/latest?cb=20150823204048",
+            "sub7": "https://vignette.wikia.nocookie.net/submachine/images/b/b5/291_map_sub7.png/revision/latest?cb=20150823205319",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/42/291_map.png/revision/latest?cb=20171221145841"
+        },
+        "region": "The Core",
+        "coordinates": "291",
+        "clues_to": ["kim", "mnt"],
+        "parent": "355"
+    },
+    {
+        "name": "Winter Palace",
+        "appearances": ["sub7", "sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/d/db/Winter_Palace.png/revision/latest?cb=20150827040726",
+            "sub7_exterior": "https://vignette.wikia.nocookie.net/submachine/images/e/e3/Winter_Palace_exterior_map.png/revision/latest?cb=20161104005112",
+            "sub7_interior": "https://vignette.wikia.nocookie.net/submachine/images/6/6e/Winter_Palace_interior_map.png/revision/latest?cb=20161104021631",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/5/50/Winter_Palace_map_sub10.png/revision/latest?cb=20151227232803"
+        },
+        "region": "The Core"
+    },
+    {
+        "name": "Small island",
+        "appearances": ["sub7", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/10/Oxt.png/revision/latest?cb=20191218033636"
+        },
+        "region": "Winter Palace",
+        "coordinates": "oxt",
+        "parent": "hpl"
+    },
+    {
+        "name": "South Garden",
+        "appearances": ["sub7"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/a/a8/South_Garden.png/revision/latest?cb=20160703212812"
+        },
+        "region": "The Core"
+    },
+    {
+        "name": "Lamppost section",
+        "appearances": ["sub7"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/80/South_Garden_lamppost_section_map.png/revision/latest?cb=20161104020658"
+        },
+        "region": "South Garden"
+    },
+    {
+        "name": "Tile section",
+        "appearances": ["sub7"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/cb/South_Garden_tile_section_map.png/revision/latest?cb=20161104020637"
+        },
+        "region": "South Garden"
+    },
+    {
+        "name": "Monolith section",
+        "appearances": ["sub7"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/23/South_Garden_monolith_section_map.png/revision/latest?cb=20161104020933"
+        },
+        "region": "South Garden"
+    },
+    {
+        "name": "Tree trunk section",
+        "appearances": ["sub7", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/e2/Zwo.png/revision/latest?cb=20150821032649",
+            "sub7": "https://vignette.wikia.nocookie.net/submachine/images/f/fb/Zwo_map_sub7.png/revision/latest?cb=20161104015344",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/e/e7/Zwo_map.png/revision/latest?cb=20160705210502"
+        },
+        "region": "South Garden",
+        "coordinates": "zwo",
+        "parent": "232"
+    },
+    {
+        "name": "Plaza",
+        "appearances": ["sub7"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/c5/South_Garden_plaza_map.png/revision/latest?cb=20160831191521"
+        },
+        "region": "South Garden"
+    },
+    {
+        "name": "Liz's ship",
+        "appearances": ["sub7"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/cc/Liz%27s_ship.png/revision/latest?cb=20160609233623",
+            "sub7": "https://vignette.wikia.nocookie.net/submachine/images/0/06/Liz%27s_ship_map.png/revision/latest?cb=20160609234722"
+        },
+        "region": "The Core"
+    },
+    {
+        "name": "Super secret bonus section",
+        "appearances": ["sub7"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/e8/Super_secret_bonus_section.png/revision/latest?cb=20160403201202",
+            "sub7": "https://vignette.wikia.nocookie.net/submachine/images/1/16/Super_secret_bonus_section_map.png/revision/latest?cb=20101217171652"
+        },
+        "region": "The Core"
+    },
+    {
+        "name": "Dock",
+        "appearances": ["sub8", "sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b8/L1_sub8.png/revision/latest?cb=20150827033937",
+            "sub8": "https://vignette.wikia.nocookie.net/submachine/images/6/68/L1_map_sub8.png/revision/latest?cb=20160118172825",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/0/0a/L1_map_sub10.png/revision/latest?cb=20151227210218"
+        },
+        "region": "Sector 9",
+        "layer": 1
+    },
+    {
+        "name": "Cardinal mosque",
+        "appearances": ["sub8"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/cd/L2_sub8.png/revision/latest?cb=20150827033938",
+            "sub8": "https://vignette.wikia.nocookie.net/submachine/images/7/7f/L2_map_sub8.png/revision/latest?cb=20160118172833"
+        },
+        "region": "Sector 9",
+        "layer": 2
+    },
+    {
+        "name": "Cog trees",
+        "appearances": ["sub8"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/2d/L3_sub8.png/revision/latest?cb=20150827033939",
+            "sub8": "https://vignette.wikia.nocookie.net/submachine/images/4/4d/L3_map_sub8.png/revision/latest?cb=20190621022153"
+        },
+        "region": "Sector 9",
+        "layer": 3
+    },
+    {
+        "name": "Large sewers",
+        "appearances": ["sub8"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/15/L4_sub8.png/revision/latest?cb=20150827033940",
+            "sub8": "https://vignette.wikia.nocookie.net/submachine/images/2/20/L4_map_sub8.png/revision/latest?cb=20160118172855"
+        },
+        "region": "Sector 9",
+        "layer": 4
+    },
+    {
+        "name": "Water pantheon",
+        "appearances": ["sub8"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/76/L5_sub8.png/revision/latest?cb=20150827033942",
+            "sub8": "https://vignette.wikia.nocookie.net/submachine/images/e/e5/L5_map_sub8.png/revision/latest?cb=20160118172909"
+        },
+        "region": "Sector 9",
+        "layer": 5
+    },
+    {
+        "name": "Armory",
+        "appearances": ["sub8", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/53/L6_sub8.png/revision/latest?cb=20150827033943",
+            "sub8": "https://vignette.wikia.nocookie.net/submachine/images/e/ee/L6_map_sub8.png/revision/latest?cb=20160118172921",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/73/Wiq_armory_map.png/revision/latest?cb=20140921003712"
+        },
+        "region": "Sector 9",
+        "coordinates": "wiq",
+        "layer": 6,
+        "parent": "966"
+    },
+    {
+        "name": "Bamboo town",
+        "appearances": ["sub8"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/60/L7_sub8.png/revision/latest?cb=20150827033944",
+            "sub8": "https://vignette.wikia.nocookie.net/submachine/images/8/8b/L7_map_sub8.png/revision/latest?cb=20160118172933"
+        },
+        "region": "Sector 9",
+        "layer": 7
+    },
+    {
+        "name": "Garden",
+        "appearances": ["sub9"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/77/Garden.png/revision/latest?cb=20150804235154",
+            "sub9": "https://vignette.wikia.nocookie.net/submachine/images/3/3f/Garden_map.png/revision/latest?cb=20150803142312"
+        },
+        "region": "Knot",
+        "layer": "all"
+    },
+    {
+        "name": "Pyramid",
+        "appearances": ["sub9"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f1/Pyramid.png/revision/latest?cb=20160703183115",
+            "sub9": "https://vignette.wikia.nocookie.net/submachine/images/6/61/Pyramid_map.png/revision/latest?cb=20150804042434"
+        },
+        "region": "Knot",
+        "layer": "all"
+    },
+    {
+        "name": "Temple",
+        "appearances": ["sub9", "sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/49/Temple.png/revision/latest?cb=20150827033735",
+            "sub9": "https://vignette.wikia.nocookie.net/submachine/images/3/35/Temple_map_sub9.png/revision/latest?cb=20150804135627",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/f/f2/Temple_map_sub10.png/revision/latest?cb=20151224001444"
+        },
+        "region": "Knot",
+        "layer": "all"
+    },
+    {
+        "name": "Shiva section",
+        "appearances": ["sub9"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/79/Shiva_section.png/revision/latest?cb=20160901005548",
+            "sub9": "https://vignette.wikia.nocookie.net/submachine/images/0/0b/Shiva_section_map.png/revision/latest?cb=20150804045717"
+        },
+        "region": "Knot",
+        "layer": "all"
+    },
+    {
+        "name": "Nataraja room",
+        "appearances": ["sub9"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/ce/Nataraja_room.png/revision/latest?cb=20150804043008",
+            "sub9": "https://vignette.wikia.nocookie.net/submachine/images/7/7c/Nataraja_room_map.png/revision/latest?cb=20150804044003"
+        },
+        "region": "Knot",
+        "layer": "all"
+    },
+    {
+        "name": "Northern Garden docks",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/0c/Northern_Garden_docks.png/revision/latest?cb=20151222120332",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/d/da/Northern_garden_docks_map.png/revision/latest?cb=20160221174234"
+        },
+        "region": "The Core"
+    },
+    {
+        "name": "Captain's ship",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/ff/Captain%27s_ship.png/revision/latest?cb=20151222120525",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/4/41/Captain%27s_ship_map.png/revision/latest?cb=20180719022749"
+        },
+        "region": "Northern Garden docks"
+    },
+    {
+        "name": "Angel ruins",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/67/OOO.png/revision/latest?cb=20151222120543",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/2/29/OOO_map.png/revision/latest?cb=20151226223328"
+        },
+        "coordinates": "OOO"
+    },
+    {
+        "name": "Royal storage facilities",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/4f/IOO.png/revision/latest?cb=20151228051530",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/4/4c/IOO_map.png/revision/latest?cb=20151223030848"
+        },
+        "coordinates": "IOO"
+    },
+    {
+        "name": "Storage unit 32/1",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/a/ab/Storage_unit_32_1.png/revision/latest?cb=20151223200907",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/a/a0/Storage_unit_32_1_map.png/revision/latest?cb=20151223210013"
+        },
+        "region": "Royal storage facilities",
+        "coordinates": "IOO"
+    },
+    {
+        "name": "Storage unit 33/1",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/27/Storage_unit_33_1.png/revision/latest?cb=20151223175335",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/9/9f/Storage_unit_33_1_map.png/revision/latest?cb=20151223175409"
+        },
+        "region": "Royal storage facilities",
+        "coordinates": "IOO"
+    },
+    {
+        "name": "Storage unit 33/2",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/02/Storage_unit_33_2.png/revision/latest?cb=20151223182237",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/4/4c/Storage_unit_33_2_map.png/revision/latest?cb=20151223182954"
+        },
+        "region": "Royal storage facilities",
+        "coordinates": "IOO"
+    },
+    {
+        "name": "Storage unit 33/3",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/8c/Storage_unit_33_3.png/revision/latest?cb=20151223194222",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/8/81/Storage_unit_33_3_map.png/revision/latest?cb=20151223194257"
+        },
+        "region": "Royal storage facilities",
+        "coordinates": "IOO"
+    },
+    {
+        "name": "Storage unit 33/4",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/55/Storage_unit_33_4.png/revision/latest?cb=20151223195410",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/e/ea/Storage_unit_33_4_map.png/revision/latest?cb=20151223195517"
+        },
+        "region": "Royal storage facilities",
+        "coordinates": "IOO"
+    },
+    {
+        "name": "Resin mine",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b7/OIO.png/revision/latest?cb=20151228051619",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/1/1c/OIO_map.png/revision/latest?cb=20151224181610"
+        },
+        "coordinates": "OIO"
+    },
+    {
+        "name": "Iron pyramid",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/88/OOI.png/revision/latest?cb=20151228051636",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/3/36/OOI_map.png/revision/latest?cb=20151227195545"
+        },
+        "coordinates": "OOI"
+    },
+    {
+        "name": "Karma studies facility",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/3/33/IIO.png/revision/latest?cb=20151228051652",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/5/5d/IIO_map.png/revision/latest?cb=20151227194859"
+        },
+        "region": "lab",
+        "coordinates": "IIO"
+    },
+    {
+        "name": "S.H.I.V.A. access point",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/42/OII.png/revision/latest?cb=20151228051723",
+            "sub10_exterior": "https://vignette.wikia.nocookie.net/submachine/images/a/ab/OII_map_exterior.png/revision/latest?cb=20151225214330",
+            "sub10_interior": "https://vignette.wikia.nocookie.net/submachine/images/5/5c/OII_map_interior.png/revision/latest?cb=20151227200341"
+        },
+        "coordinates": "OII"
+    },
+    {
+        "name": "Stabilizer bay",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/fc/IOI.png/revision/latest?cb=20151228051710",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/e/e2/IOI_map.png/revision/latest?cb=20151223233932"
+        },
+        "coordinates": "IOI"
+    },
+    {
+        "name": "Meditation temple",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/75/III.png/revision/latest?cb=20151228051740",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/e/e9/III_map.png/revision/latest?cb=20151223233113"
+        },
+        "coordinates": "III"
+    },
+    {
+        "name": "S.H.I.V.A. override corridor",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/a/a9/Shiva_override.png/revision/latest?cb=20151224061325",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/b/b9/Shiva_override_map.png/revision/latest?cb=20151224041745"
+        },
+        "region": "The Edge",
+        "area": "Defense System Corridors"
+    },
+    {
+        "name": "Rooftop",
+        "appearances": ["sub4", "sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b5/Rooftop.png/revision/latest?cb=20150811040659",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/9/9a/Rooftop_map.png/revision/latest?cb=20111027133745",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/7/75/Rooftop_map_sub10.png/revision/latest?cb=20151225222609"
+        }
+    },
+    {
+        "name": "Level X",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/d/da/Level_x.png/revision/latest?cb=20151223215614",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/4/42/Level_x_map.png/revision/latest?cb=20151224202824"
+        },
+        "region": "Loop"
+    },
+    {
+        "name": "Basement exit",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/25/Basement_exit.png/revision/latest?cb=20151223132548",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/e/e1/Basement_exit_map.png/revision/latest?cb=20151227205655"
+        },
+        "region": "Basement"
+    },
+    {
+        "name": "Infernal basement",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/4d/Infernal_basement.png/revision/latest?cb=20151223093816",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/b/b4/Infernal_basement_map.png/revision/latest?cb=20151226210552"
+        },
+        "region": "Basement"
+    },
+    {
+        "name": "Metal section",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/fb/Metal_section.png/revision/latest?cb=20151223132534",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/c/c6/Metal_section_map.png/revision/latest?cb=20160704005612"
+        }
+    },
+    {
+        "name": "Tile room A",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/d/d4/Tile_a_room.png/revision/latest?cb=20151224121012"
+        }
+    },
+    {
+        "name": "Tile room B",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/25/Tile_b_room.png/revision/latest?cb=20151224084344"
+        }
+    },
+    {
+        "name": "Tile room C",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/3/33/Tile_c_room.png/revision/latest?cb=20151224084404"
+        }
+    },
+    {
+        "name": "Tile room D",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/9f/Tile_d_room.png/revision/latest?cb=20151224084427"
+        }
+    },
+    {
+        "name": "Little island",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f6/Little_island.png/revision/latest?cb=20151224084654"
+        },
+        "region": "Winter Palace"
+    },
+    {
+        "name": "S3C area",
+        "appearances": ["sub10"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/d/da/S3c.png/revision/latest?cb=20151224195244",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/a/a5/S3c_map.png/revision/latest?cb=20151228044343"
+        },
+        "region": "The Edge",
+        "area": "Defense System Corridors"
+    },
+    {
+        "name": "Desert",
+        "appearances": ["sub10", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/6d/Desert.png/revision/latest?cb=20151224084714",
+            "sub10": "https://vignette.wikia.nocookie.net/submachine/images/7/7a/Desert_map.png/revision/latest?cb=20151227222352",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/81/Desert_subu.png/revision/latest?cb=20171221085404"
+        }
+    },
+    {
+        "name": "Ward",
+        "appearances": ["subflf"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f5/Ward_flfhd.png/revision/latest?cb=20150515104120",
+            "subflf": "https://vignette.wikia.nocookie.net/submachine/images/b/b0/Ward_map_flfhd.png/revision/latest?cb=20150514221742"
+        }
+    },
+    {
+        "name": "Memory bank",
+        "appearances": ["subflf"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/7c/Memory_bank_flfhd.png/revision/latest?cb=20150515104216",
+            "subflf": "https://vignette.wikia.nocookie.net/submachine/images/1/1c/Memory_bank_map_flfhd.png/revision/latest?cb=20150515002533"
+        }
+    },
+    {
+        "name": "32 chambers",
+        "appearances": ["sub32"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/63/Portal_sub32.png/revision/latest?cb=20100814115507",
+            "sub32": "https://vignette.wikia.nocookie.net/submachine/images/7/72/32_chambers_map.png/revision/latest?cb=20150828044423"
+        }
+    },
+    {
+        "name": "Lab facility 32 m",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/2b/000.png/revision/latest?cb=20140613222537",
+            "subverse_exterior": "https://vignette.wikia.nocookie.net/submachine/images/9/97/000_lab_map.png/revision/latest?cb=20170211193134",
+            "subverse_interior": "https://vignette.wikia.nocookie.net/submachine/images/f/fc/000_bathroom_map.png/revision/latest?cb=20171221145630"
+        },
+        "region": "Lab",
+        "coordinates": "000",
+        "clues_to": ["051", "076", "541", "551", "628", "642"]
+    },
+    {
+        "name": "Rusty pit",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b0/002.png/revision/latest?cb=20150824025320"
+        },
+        "coordinates": "002",
+        "clues_to": ["690"],
+        "parent": "104"
+    },
+    {
+        "name": "Stone loop",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/18/006.png/revision/latest?cb=20150824025541",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/75/006_map.png/revision/latest?cb=20131206044908"
+        },
+        "coordinates": "006",
+        "clues_to": ["404"],
+        "parent": "218"
+    },
+    {
+        "name": "Tri-gem room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/5c/010.png/revision/latest?cb=20150824025944",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/1b/010_map.png/revision/latest?cb=20150824025951"
+        },
+        "coordinates": "010",
+        "clues_to": ["HG - *6*"],
+        "parent": "404"
+    },
+    {
+        "name": "Clockwork corridor",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/96/011.png/revision/latest?cb=20150726002353",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/46/011_map.png/revision/latest?cb=20130210232943"
+        },
+        "coordinates": "011",
+        "clues_to": ["128", "317"],
+        "parent": "917"
+    },
+    {
+        "name": "Ouroboros tunnel",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/81/051.png/revision/latest?cb=20150726030959",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/2/21/051_map.png/revision/latest?cb=20160407151600"
+        },
+        "coordinates": "051",
+        "clues_to": ["523", "917", "mlp"],
+        "parent": "000"
+    },
+    {
+        "name": "Road room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/e6/076.png/revision/latest?cb=20140615204751",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/a/ae/076_map.png/revision/latest?cb=20131127025338"
+        },
+        "coordinates": "076",
+        "clues_to": ["304", "875"],
+        "parent": "000"
+    },
+    {
+        "name": "Sub-bot research room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/7c/100.png/revision/latest?cb=20171221145725",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/5/53/100_map.png/revision/latest?cb=20171221145702"
+        },
+        "coordinates": "100",
+        "clues_to": ["442", "fur"],
+        "parent": "642"
+    },
+    {
+        "name": "Subnet editing center",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/3/32/128.png/revision/latest?cb=20150617212520",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/cf/128_map.png/revision/latest?cb=20160407181438"
+        },
+        "coordinates": "128",
+        "clues_to": ["987", "sbl"],
+        "parent": "011"
+    },
+    {
+        "name": "Laser room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/49/157.png/revision/latest?cb=20160901144100",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/83/157_map.png/revision/latest?cb=20160407182227"
+        },
+        "coordinates": "157",
+        "clues_to": ["Q1 - 632"],
+        "parent": "613"
+    },
+    {
+        "name": "Paired gem room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b6/185.png/revision/latest?cb=20160407182645",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/2/23/185_map.png/revision/latest?cb=20171108010329"
+        },
+        "coordinates": "185",
+        "clues_to": ["T1 - 322"],
+        "parent": "757"
+    },
+    {
+        "name": "Stone room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/90/192.png/revision/latest?cb=20130125234020",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/3/34/192_map.png/revision/latest?cb=20160407183032"
+        },
+        "coordinates": "192",
+        "clues_to": ["ptl"],
+        "parent": "jul"
+    },
+    {
+        "name": "Church",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/9a/218.png/revision/latest?cb=20160407194751",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/a/ad/218_map.png/revision/latest?cb=20171221145821"
+        },
+        "coordinates": "218",
+        "clues_to": ["006", "616", "666"],
+        "parent": "541"
+    },
+    {
+        "name": "Kent Falls room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f2/232.png/revision/latest?cb=20150811032846",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/a/af/232_map.png/revision/latest?cb=20140607054643"
+        },
+        "coordinates": "232",
+        "clues_to": ["550", "731", "zwo"],
+        "parent": "875"
+    },
+    {
+        "name": "Searchlight room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/0b/241.png/revision/latest?cb=20160407200021",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/e/e4/241_map.png/revision/latest?cb=20160407200026"
+        },
+        "coordinates": "241",
+        "clues_to": ["601"],
+        "parent": "902"
+    },
+    {
+        "name": "Cake loop",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/0f/245.png/revision/latest?cb=20140919032329",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/46/245_map.png/revision/latest?cb=20171108010435"
+        },
+        "coordinates": "245",
+        "parent": "gzb"
+    },
+    {
+        "name": "Nazca room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/3/36/258.png/revision/latest?cb=20150824165113",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/2/2a/258_map.png/revision/latest?cb=20170212171656"
+        },
+        "coordinates": "258",
+        "clues_to": ["947", "S - **8", "v12"],
+        "parent": "712"
+    },
+    {
+        "name": "Radio lab",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/45/277.png/revision/latest?cb=20160407203448",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/7f/277_map.png/revision/latest?cb=20171108010533"
+        },
+        "coordinates": "277",
+        "parent": "523"
+    },
+    {
+        "name": "Pi room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/ec/314.png/revision/latest?cb=20150824165351",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/14/314_map.png/revision/latest?cb=20150826181508"
+        },
+        "coordinates": "314"
+    },
+    {
+        "name": "Winter room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/ca/316.png/revision/latest?cb=20150824020752",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/71/316_map.png/revision/latest?cb=20150824020747"
+        },
+        "coordinates": "316",
+        "parent": "chr"
+    },
+    {
+        "name": "Mover room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/02/317.png/revision/latest?cb=20160407210121",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/d3/317_map.png/revision/latest?cb=20160407210114"
+        },
+        "coordinates": "317",
+        "clues_to": ["461", "806"],
+        "parent": "011"
+    },
+    {
+        "name": "Murtaugh's communication room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/ef/355.png/revision/latest?cb=20160407215822",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/9/99/355_map.png/revision/latest?cb=20171221145913"
+        },
+        "coordinates": "355",
+        "clues_to": ["291", "jvp"],
+        "parent": "987"
+    },
+    {
+        "name": "Ziggurat",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/76/378.png/revision/latest?cb=20150824165548",
+            "subverse_exterior": "https://vignette.wikia.nocookie.net/submachine/images/3/32/378_map.png/revision/latest?cb=20130128232828",
+            "subverse_interior": "https://vignette.wikia.nocookie.net/submachine/images/1/1a/378_interior.png/revision/latest?cb=20130128232412"
+        },
+        "coordinates": "378",
+        "clues_to": ["hpl", "B1 - 5", "B2 - 7"]
+    },
+    {
+        "name": "Stalagmite room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/6c/399.png/revision/latest?cb=20160408165732",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/49/399_map.png/revision/latest?cb=20171107194222"
+        },
+        "coordinates": "399",
+        "clues_to": ["712", "spn"],
+        "parent": "628"
+    },
+    {
+        "name": "Error room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/bc/404.png/revision/latest?cb=20150824165753",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/87/404_map.png/revision/latest?cb=20170213163528"
+        },
+        "coordinates": "404",
+        "clues_to": ["010", "rcr"],
+        "parent": "006"
+    },
+    {
+        "name": "Escher room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/87/411.png/revision/latest?cb=20150824165939",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/5/55/411_map.png/revision/latest?cb=20170213213421"
+        },
+        "coordinates": "411",
+        "clues_to": ["553", "btn"],
+        "parent": "580"
+    },
+    {
+        "name": "Brainwave basement",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/09/438.png/revision/latest?cb=20170211162025",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/a/ab/438_map.png/revision/latest?cb=20170211154230"
+        },
+        "region": "Jatsko cluster",
+        "coordinates": "438",
+        "clues_to": ["jat"],
+        "parent": "jsk"
+    },
+    {
+        "name": "Pit",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/bf/442.png/revision/latest?cb=20150824170044",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/87/442_map.png/revision/latest?cb=20170213164133"
+        },
+        "coordinates": "442",
+        "clues_to": ["103", "wrt"],
+        "parent": "100"
+    },
+    {
+        "name": "Listeners room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/5b/472.png/revision/latest?cb=20150824171858",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/3/3f/472_map.png/revision/latest?cb=20150826180421"
+        },
+        "coordinates": "472",
+        "clues_to": ["291"]
+    },
+    {
+        "name": "Halloween room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/8c/513.png/revision/latest?cb=20171107131839",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/4f/513_map.png/revision/latest?cb=20171107131950"
+        },
+        "coordinates": "513",
+        "parent": "840"
+    },
+    {
+        "name": "Ionic portal hub",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/71/523.png/revision/latest?cb=20140420175845",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/89/523_map.png/revision/latest?cb=20191218032306"
+        },
+        "coordinates": "523",
+        "clues_to": ["277", "npg", "aqa"],
+        "parent": "051"
+    },
+    {
+        "name": "Observation center",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/c8/541.png/revision/latest?cb=20150824172108",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/b/b7/541_map.png/revision/latest?cb=20160409001524"
+        },
+        "coordinates": "541",
+        "clues_to": ["218", "757"],
+        "parent": "000"
+    },
+    {
+        "name": "Root extension",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/ef/553.png/revision/latest?cb=20160413193530",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/8a/553_map.png/revision/latest?cb=20160413193534"
+        },
+        "region": "The Root",
+        "coordinates": "553",
+        "clues_to": ["HR - 8**"],
+        "parent": "411"
+    },
+    {
+        "name": "Violet loop",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/c8/555.png/revision/latest?cb=20130130000700",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/cc/555_map.png/revision/latest?cb=20151224231810"
+        },
+        "coordinates": "555",
+        "parent": "672"
+    },
+    {
+        "name": "End ruins",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/61/580.png/revision/latest?cb=20150824172325",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/9/92/580_map.png/revision/latest?cb=20150826180715"
+        },
+        "coordinates": "580",
+        "clues_to": ["411", "902"],
+        "parent": "875"
+    },
+    {
+        "name": "Zero depths",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/ba/601.png/revision/latest?cb=20150824172530",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/8a/601_map.png/revision/latest?cb=20170212172057"
+        },
+        "coordinates": "601",
+        "clues_to": ["HR - *3*", "S - 4**"],
+        "parent": "241"
+    },
+    {
+        "name": "Left chasm",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/0d/613.png/revision/latest?cb=20150724211359",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/2/2f/613_map.png/revision/latest?cb=20160413203006"
+        },
+        "coordinates": "613",
+        "clues_to": ["157"],
+        "parent": "001"
+    },
+    {
+        "name": "Right chasm",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/8e/614.png/revision/latest?cb=20130125234557",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/8a/614_map.png/revision/latest?cb=20150822135923"
+        },
+        "coordinates": "614",
+        "clues_to": ["glx"],
+        "parent": "kol"
+    },
+    {
+        "name": "Hell loop",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/86/616.png/revision/latest?cb=20171221150129",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/46/616_map.png/revision/latest?cb=20171221150153"
+        },
+        "coordinates": "616",
+        "parent": "218"
+    },
+    {
+        "name": "Study",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/01/628.png/revision/latest?cb=20150726043536",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/d3/628_map.png/revision/latest?cb=20170920010846"
+        },
+        "coordinates": "628",
+        "clues_to": ["gzb"],
+        "parent": "000"
+    },
+    {
+        "name": "Clockwork room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/57/642.png/revision/latest?cb=20160413205233",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/b/bb/642_map.png/revision/latest?cb=20160413205238"
+        },
+        "coordinates": "642",
+        "clues_to": ["100"],
+        "parent": "000"
+    },
+    {
+        "name": "Hell",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b6/666.png/revision/latest?cb=20171221150636",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/0/07/666_map.png/revision/latest?cb=20171221150714"
+        },
+        "coordinates": "666",
+        "parent": "218"
+    },
+    {
+        "name": "New basement",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/53/672.png/revision/latest?cb=20130128165855",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/5/5c/672_map.png/revision/latest?cb=20171108010724"
+        },
+        "region": "Basement",
+        "coordinates": "672",
+        "clues_to": ["555", "HR - **7"],
+        "parent": "550"
+    },
+    {
+        "name": "Watch station",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/25/712.png/revision/latest?cb=20160413212359",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/4d/712_map.png/revision/latest?cb=20160413212354"
+        },
+        "coordinates": "712",
+        "clues_to": ["258"],
+        "parent": "399"
+    },
+    {
+        "name": "Escape from Jay Is Games room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b4/731.png/revision/latest?cb=20140606212212",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/6/6d/731_map.png/revision/latest?cb=20150827131132"
+        },
+        "coordinates": "731",
+        "clues_to": ["awy", "lcr"],
+        "parent": "232"
+    },
+    {
+        "name": "Turret trap",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/d/d1/757.png/revision/latest?cb=20160413214747",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/79/757_map.png/revision/latest?cb=20160413214752"
+        },
+        "coordinates": "757",
+        "area": "Defense System Corridors",
+        "clues_to": ["185"],
+        "parent": "541"
+    },
+    {
+        "name": "Barracks",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/b8/777.png/revision/latest?cb=20131117233958",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/c3/777_map.png/revision/latest?cb=20151002031150"
+        },
+        "coordinates": "777",
+        "clues_to": ["R1 - 352"],
+        "parent": "947"
+    },
+    {
+        "name": "Lost plane",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/4d/815.png/revision/latest?cb=20131117235024",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/7e/815_map.png/revision/latest?cb=20170213212553"
+        },
+        "coordinates": "815"
+    },
+    {
+        "name": "UVB-76 room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/b/be/837.png/revision/latest?cb=20131111235914",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/1b/837_map.png/revision/latest?cb=20170211223101"
+        },
+        "coordinates": "837",
+        "clues_to": ["C1 - 9", "C2 - 2"]
+    },
+    {
+        "name": "Semotus basement",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/15/840.png/revision/latest?cb=20170919190836",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/d2/840_map.png/revision/latest?cb=20171108003856"
+        },
+        "coordinates": "840",
+        "clues_to": ["513"],
+        "parent": "529"
+    },
+    {
+        "name": "Collector's room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/64/859.png/revision/latest?cb=20161228045433",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/b/bb/859_map.png/revision/latest?cb=20171108010919"
+        },
+        "coordinates": "859",
+        "clues_to": ["G1 - 95"]
+    },
+    {
+        "name": "Prison cells",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/d/d1/875.png/revision/latest?cb=20131114004253",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/11/875_map.png/revision/latest?cb=20100825150439"
+        },
+        "coordinates": "875",
+        "clues_to": ["232", "580"],
+        "parent": "076"
+    },
+    {
+        "name": "Cube loop",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/6a/888.png/revision/latest?cb=20130125235147",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/d5/888_map.png/revision/latest?cb=20150822140706"
+        },
+        "coordinates": "888",
+        "parent": "btn"
+    },
+    {
+        "name": "Vista",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/99/902.png/revision/latest?cb=20131117235808",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/6/66/902_map.png/revision/latest?cb=20150826182101"
+        },
+        "coordinates": "902",
+        "clues_to": ["241"],
+        "parent": "580"
+    },
+    {
+        "name": "Looping sphere",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f5/917.png/revision/latest?cb=20100919142353",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/c4/917_map.png/revision/latest?cb=20160902004559"
+        },
+        "coordinates": "917",
+        "clues_to": ["011"],
+        "parent": "051"
+    },
+    {
+        "name": "Solitary confinement",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/e7/923.png/revision/latest?cb=20131113023220",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/4a/923_map.png/revision/latest?cb=20170213162015"
+        },
+        "coordinates": "923",
+        "clues_to": ["T - 3**"],
+        "parent": "947"
+    },
+    {
+        "name": "Gem harvester",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/94/947.png/revision/latest?cb=20140610010038",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/8c/947_map.png/revision/latest?cb=20140610010154"
+        },
+        "coordinates": "947",
+        "clues_to": ["777", "923"],
+        "parent": "258"
+    },
+    {
+        "name": "Binary chambers",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/a/a9/950.png/revision/latest?cb=20170919190438",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/f/f3/950_map.png/revision/latest?cb=20171108010923"
+        },
+        "coordinates": "950",
+        "parent": "thb"
+    },
+    {
+        "name": "Altar",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/0f/966.png/revision/latest?cb=20131020015308",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/6/68/966_map.png/revision/latest?cb=20140921120225"
+        },
+        "coordinates": "966",
+        "clues_to": ["wiq", "N1 - 842", "A1 - 8", "A2 - 4"]
+    },
+    {
+        "name": "Broken clock room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/56/987.png/revision/latest?cb=20160414191434",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/da/987_map.png/revision/latest?cb=20170920011221"
+        },
+        "coordinates": "987",
+        "clues_to": ["355"],
+        "parent": "128"
+    },
+    {
+        "name": "Excavation site",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/4c/992.png/revision/latest?cb=20170613192200",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/2/28/992_map.png/revision/latest?cb=20170613192232"
+        },
+        "coordinates": "992",
+        "clues_to": ["K1 - D1-G1"],
+        "parent": "552"
+    },
+    {
+        "name": "Aeolic corridor",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/e6/Ael.png/revision/latest?cb=20170613192936",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/7d/Ael_map.png/revision/latest?cb=20170613204622"
+        },
+        "region": "The Edge",
+        "coordinates": "ael",
+        "parent": "cat"
+    },
+    {
+        "name": "Antenna control room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/9a/Aqa.png/revision/latest?cb=20171107132901",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/41/Aqa_map.png/revision/latest?cb=20171107132934"
+        },
+        "coordinates": "aqa",
+        "clues_to": ["jts"],
+        "parent": "523"
+    },
+    {
+        "name": "Dimensional tomb",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/86/Awy.png/revision/latest?cb=20140607155734",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/7c/Awy_map.png/revision/latest?cb=20171221150756"
+        },
+        "coordinates": "awy",
+        "parent": "731"
+    },
+    {
+        "name": "False loop",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/59/Brg.png/revision/latest?cb=20171221150842",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/8d/Brg_map.png/revision/latest?cb=20171221151025"
+        },
+        "coordinates": "brg",
+        "parent": "def"
+    },
+    {
+        "name": "Watcher's outpost",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/81/Brk.png/revision/latest?cb=20140204004847",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/b/bb/Brk_map.png/revision/latest?cb=20140204004927"
+        },
+        "coordinates": "brk",
+        "parent": "461"
+    },
+    {
+        "name": "Lustrous ladder",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/e5/Btn.png/revision/latest?cb=20160428191857",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/d5/Btn_map.png/revision/latest?cb=20160428191736"
+        },
+        "coordinates": "btn",
+        "clues_to": ["888"],
+        "parent": "411"
+    },
+    {
+        "name": "Resin room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/05/Cat.png/revision/latest?cb=20170613192332",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/dc/Cat_map.png/revision/latest?cb=20170920005342"
+        },
+        "coordinates": "cat",
+        "clues_to": ["ael"],
+        "parent": "806"
+    },
+    {
+        "name": "Stele's chambers",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/9e/Chm.png/revision/latest?cb=20121030211143",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/c3/Chm_map.png/revision/latest?cb=20160517015342"
+        },
+        "coordinates": "chm",
+        "parent": "104"
+    },
+    {
+        "name": "Snow room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/3/3e/Chr.png/revision/latest?cb=20121230181349",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/5/5b/Chr_map.png/revision/latest?cb=20121230180255"
+        },
+        "coordinates": "chr",
+        "clues_to": ["316"],
+        "parent": "001"
+    },
+    {
+        "name": "Gate access room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/53/Def.png/revision/latest?cb=20171221151417",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/c1/Def_map.png/revision/latest?cb=20171221151443"
+        },
+        "coordinates": "def",
+        "clues_to": ["brg"],
+        "parent": "103"
+    },
+    {
+        "name": "Purple lever room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/ea/Far.png/revision/latest?cb=20171222025616",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/6/6d/Far_map.png/revision/latest?cb=20171222025657"
+        },
+        "coordinates": "far",
+        "parent": "gzb"
+    },
+    {
+        "name": "Light bridge",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f4/Fma.png/revision/latest?cb=20120426151338",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/9/99/Fma_map.png/revision/latest?cb=20160609151953"
+        },
+        "coordinates": "fma",
+        "parent": "462"
+    },
+    {
+        "name": "Blue lever room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/81/Fsr.png/revision/latest?cb=20171221152055",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/b/b5/Fsr_map.png/revision/latest?cb=20171221152117"
+        },
+        "coordinates": "fsr",
+        "parent": "swt"
+    },
+    {
+        "name": "Orange lever room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/0/00/Fur.png/revision/latest?cb=20171222025751",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/e/e3/Fur_map.png/revision/latest?cb=20171222025754"
+        },
+        "coordinates": "fur",
+        "parent": "100"
+    },
+    {
+        "name": "Mover complex",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/e6/Glo.png/revision/latest?cb=20171221152705",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/1b/Glo_map.png/revision/latest?cb=20171221152732"
+        },
+        "coordinates": "glo",
+        "parent": "npg"
+    },
+    {
+        "name": "Cosmic dawn room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/74/Glx.png/revision/latest?cb=20130125235858",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/77/Glx_map.png/revision/latest?cb=20130128171144"
+        },
+        "coordinates": "glx",
+        "parent": "614"
+    },
+    {
+        "name": "Photographer's quarters",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/cf/Hpl.png/revision/latest?cb=20150821031644",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/d2/Hpl_map.png/revision/latest?cb=20171107193344"
+        },
+        "coordinates": "hpl",
+        "clues_to": ["oxt", "lav"],
+        "parent": "378"
+    },
+    {
+        "name": "Ixtab's chambers",
+        "appearances": ["sub32", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/e/e8/Ixt.png/revision/latest?cb=20121029050330",
+            "sub32": "https://vignette.wikia.nocookie.net/submachine/images/8/89/Ixt_map_sub32.png/revision/latest?cb=20150814183622",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/c4/Ixt_map.png/revision/latest?cb=20160609175836"
+        },
+        "coordinates": "ixt",
+        "parent": "043"
+    },
+    {
+        "name": "Solemn column",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/17/Jat.png/revision/latest?cb=20170211165552",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/f/fd/Jat_map.png/revision/latest?cb=20170210171443"
+        },
+        "region":"Jatsko cluster",
+        "coordinates": "jat",
+        "clues_to": ["jko"],
+        "parent": "438"
+    },
+    {
+        "name": "Lighthouse annex",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/1b/Jko.png/revision/latest?cb=20170211170915",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/18/Jko_map.png/revision/latest?cb=20170210171610"
+        },
+        "region": "Jatsko cluster",
+        "coordinates": "jko",
+        "clues_to": ["jsk"],
+        "parent": "jat"
+    },
+    {
+        "name": "Fragment field",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/6/6e/Jsk.png/revision/latest?cb=20170211173143",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/3/3e/Jsk_map.png/revision/latest?cb=20170211154523"
+        },
+        "region": "Jatsko cluster",
+        "coordinates": "jsk",
+        "clues_to": ["438"],
+        "parent": "jko"
+    },
+    {
+        "name": "Fragment extension",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/cb/Jts.png/revision/latest?cb=20171107134652",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/2/2b/Jts_map.png/revision/latest?cb=20171107134746"
+        },
+        "coordinates": "jts",
+        "parent": "aqa"
+    },
+    {
+        "name": "Contrast room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/1b/Jul.png/revision/latest?cb=20130126000338",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/46/Jul_map.png/revision/latest?cb=20130128163422"
+        },
+        "coordinates": "jul",
+        "clues_to": ["192"],
+        "parent": "001"
+    },
+    {
+        "name": "Primary gate control",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/a/ad/Jvp.png/revision/latest?cb=20171221152922",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/8c/Jvp_map.png/revision/latest?cb=20171221152946"
+        },
+        "coordinates": "355",
+        "parent": "jvp"
+    },
+    {
+        "name": "Gate sewer",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/84/Kar.png/revision/latest?cb=20140920175751",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/a/aa/Kar_map.png/revision/latest?cb=20160609182408"
+        },
+        "coordinates": "kar",
+        "parent": "552"
+    },
+    {
+        "name": "Infusion parlor",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/82/Kim.png/revision/latest?cb=20171221153226",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/11/Kim_map.png/revision/latest?cb=20171221153251"
+        },
+        "coordinates": "kim",
+        "parent": "291"
+    },
+    {
+        "name": "Resin temple",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/1/12/Kol.png/revision/latest?cb=20160609183855",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/dd/Kol_map.png/revision/latest?cb=20130126210108"
+        },
+        "coordinates": "kol",
+        "clues_to": ["614"],
+        "parent": "103"
+    },
+    {
+        "name": "Lavender room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/3/34/Lav.png/revision/latest?cb=20171107134128",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/1/1b/Lav_map.png/revision/latest?cb=20171107134242"
+        },
+        "coordinates": "lav",
+        "parent": "hpl"
+    },
+    {
+        "name": "Pyramidion",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/2b/Lcr.png/revision/latest?cb=20140606223053",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/81/Lcr_map.png/revision/latest?cb=20160609185721"
+        },
+        "coordinates": "lcr",
+        "parent": "731"
+    },
+    {
+        "name": "Pony room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/c5/Mlp.png/revision/latest?cb=20140919174000",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/3/3b/Mlp_map.png/revision/latest?cb=20171221153400"
+        },
+        "coordinates": "mlp",
+        "parent": "051"
+    },
+    {
+        "name": "Mountain",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/8/83/Mnt.png/revision/latest?cb=20130126000502",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/3/3f/Mnt_map.png/revision/latest?cb=20171221153423"
+        },
+        "coordinates": "mnt",
+        "parent": "291"
+    },
+    {
+        "name": "Prince room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/24/Npg.png/revision/latest?cb=20170126174453",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/e/e7/Npg_map.png/revision/latest?cb=20170127214208"
+        },
+        "coordinates": "npg",
+        "clues_to": ["glo"],
+        "parent": "523"
+    },
+    {
+        "name": "Observatory",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/25/Obs.png/revision/latest?cb=20171221153551",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/ca/Obs_map_1.png/revision/latest?cb=20171221153622",
+            "subverse_alternate": "https://vignette.wikia.nocookie.net/submachine/images/a/a7/Obs_map_2.png/revision/latest?cb=20171221153714"
+        },
+        "coordinates": "obs",
+        "clues_to": ["tbk"],
+        "parent": "wiq"
+    },
+    {
+        "name": "Lamp tunnel",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/f9/Ott.png/revision/latest?cb=20140920171448",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/e/e9/Ott_map.png/revision/latest?cb=20160624171631"
+        },
+        "coordinates": "ott",
+        "parent": "104"
+    },
+    {
+        "name": "Edge filtration corridor",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/9/99/Pbu.png/revision/latest?cb=20170613193050",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/e/e9/Pbu_map.png/revision/latest?cb=20170613211142",
+            "subverse_alternate": "https://vignette.wikia.nocookie.net/submachine/images/e/e6/Pbu_map_filtered.png/revision/latest?cb=20170613211156"
+        },
+        "coordinates": "pbu",
+        "clues_to": ["thb"],
+        "parent": "552"
+    },
+    {
+        "name": "Cake room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/59/Ptl.png/revision/latest?cb=20130126000055",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/d/d3/Ptl_map.png/revision/latest?cb=20171227053240"
+        },
+        "coordinates": "ptl",
+        "parent": "192"
+    },
+    {
+        "name": "Watchtower",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/45/Rcr.png/revision/latest?cb=20140914183936",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/4/4b/Rcr_map.png/revision/latest?cb=20140915060643"
+        },
+        "coordinates": "rcr",
+        "parent": "404"
+    },
+    {
+        "name": "Rabbit hole",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/cf/Sbl.png/revision/latest?cb=20150617195558",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/e/ee/Sbl_map.png/revision/latest?cb=20150617200129"
+        },
+        "coordinates": "sbl",
+        "parent": "128"
+    },
+    {
+        "name": "Arch wall",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/51/Spn.png/revision/latest?cb=20171107133247",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/c1/Spn_map.png/revision/latest?cb=20171107133351"
+        },
+        "coordinates": "spn",
+        "parent": "399"
+    },
+    {
+        "name": "Ruin ring",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/c/cf/Swt.png/revision/latest?cb=20171221153948",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/6/66/Swt_map.png/revision/latest?cb=20171221154013"
+        },
+        "coordinates": "swt",
+        "clues_to": ["fsr"],
+        "parent": "452"
+    },
+    {
+        "name": "Ladder release chamber",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/5f/Sza.png/revision/latest?cb=20170126174118",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/c0/Sza_map.png/revision/latest?cb=20170127213836"
+        },
+        "coordinates": "sza",
+        "parent": "728"
+    },
+    {
+        "name": "Pump room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/7/7a/Tbk.png/revision/latest?cb=20171221154352",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/a/aa/Tbk_map.png/revision/latest?cb=20171221154432"
+        },
+        "coordinates": "tbk",
+        "parent": "obs"
+    },
+    {
+        "name": "Lattice room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/4/42/V12.png/revision/latest?cb=20150821025430",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/b/b4/V12_map.png/revision/latest?cb=20150821025422"
+        },
+        "coordinates": "v12",
+        "parent": "258"
+    },
+    {
+        "name": "Quiet rooms",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/5/57/Wiq.png/revision/latest?cb=20140921000142",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/7/73/Wiq_armory_map.png/revision/latest?cb=20140921003712"
+        },
+        "coordinates": "wiq",
+        "clues_to": ["obs"],
+        "parent": "966"
+    },
+    {
+        "name": "Attic",
+        "appearances": ["sub4", "subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/2/21/001_attic_sub4.png/revision/latest?cb=20150811031326",
+            "sub4": "https://vignette.wikia.nocookie.net/submachine/images/f/f9/001_attic_map_sub4.png/revision/latest?cb=20111026130541",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/8/81/Wiq_attic_map.png/revision/latest?cb=20171221144640"
+        },
+        "region": "Lab",
+        "coordinates": ["001", "966 + wiq"],
+        "area": "Research base"
+    },
+    {
+        "name": "Spike room",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/a/a5/Wrt.png/revision/latest?cb=20160705205806",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/c/c0/Wrt_map.png/revision/latest?cb=20160705203920"
+        },
+        "coordinates": "wrt",
+        "parent": "442"
+    },
+    {
+        "name": "Dharma alcove",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/f/fc/Gzb.png/revision/latest?cb=20170613192853",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/e/e4/Gzb_map.png/revision/latest?cb=20170613203634"
+        },
+        "coordinates": "gzb",
+        "clues_to": ["far"],
+        "parent": "628"
+    },
+    {
+        "name": "Plant research center",
+        "appearances": ["subverse"],
+        "links": {
+            "img": "https://vignette.wikia.nocookie.net/submachine/images/a/a8/Thb.png/revision/latest?cb=20170613193140",
+            "subverse": "https://vignette.wikia.nocookie.net/submachine/images/9/90/Thb_map.png/revision/latest?cb=20170920010322"
+        },
+        "coordinates": "thb",
+        "clues_to": ["950"],
+        "parent": "pbu"
+    }
+]

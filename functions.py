@@ -3,22 +3,20 @@ import asyncio
 import random
 import re
 
-def perms(lvl: int) -> bool:
+def perms(lvl: int):
     '''Defines required user's lvl to access a command, following: 1 - manage messages, 2 - manage guild, 3 - admin, 4 - guild owner, 5 - bot author'''
-    def extended_check(ctx):
-        if ctx.guild is None:
-            return False
+    def extended_check(ctx) -> bool:
         if ctx.author.id == 190505392504045570:
             return True
-        if int(lvl) == 4: return ctx.guild.owner_id == ctx.author.id
+        if ctx.guild is None:
+            return False
+        if int(lvl) <= 4 and ctx.guild.owner_id == ctx.author.id:
+            return True
         permKeys = ['manage_messages', 'manage_guild', 'administrator']
         if int(lvl) <= len(permKeys):
             key = permKeys[int(lvl) - 1]
-            for perm in ctx.author.guild_permissions:
-                if getattr(perm, key):
-                    return True
-            return False
-        raise 'There was no match for user perms'
+            return getattr(ctx.author.guild_permissions, key)
+        return False
     return commands.check(extended_check)
 
 def intify(s, default=0) -> int:
