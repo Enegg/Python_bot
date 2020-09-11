@@ -14,8 +14,7 @@ class Moderation(commands.Cog):
     async def inspect(self, ctx):
         if ctx.invoked_subcommand is None:
             guild = ctx.guild
-            #est = await guild.estimate_pruned_members(days=10)\nActive members: {est}
-            thing = f'Text channels: {len(guild.text_channels)}\nMembers: {guild.member_count}\nCreated at: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)'
+            thing = f'**Text channels**: {len(guild.text_channels)}\n**Members**: {guild.member_count}\n**Created at**: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)'
             embed = discord.Embed(title=guild.name, description=f'**Owner:** {guild.owner.mention}', color=guild.owner.color)
             embed.add_field(name='Statistics:', value=thing, inline=False)
             embed.set_thumbnail(url=guild.icon_url)

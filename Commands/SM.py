@@ -6,7 +6,9 @@ import json
 import re
 import urllib
 from Commands.Testing import EmbedUI
-items_list = json.loads(open("items.json").read())
+
+with open("items.json") as file:
+    items_list = json.loads(file.read())
 
 class SuperMechs(commands.Cog):
     def __init__(self, bot):
@@ -24,7 +26,6 @@ class SuperMechs(commands.Cog):
                 'MODULE': 'https://i.imgur.com/dQR8UgN.png'},
             'trans_colors': ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪'],
             'tiers': ['COMMON', 'RARE', 'EPIC', 'LEGENDARY', 'MYTHICAL', 'DIVINE'],
-            'sprite_path': 'https://workshop-unlimited.web.app/img/items/',
             'colors': {'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'PHYSICAL': 0xffb800, 'COMBINED': 0x211d1d},
             'slots': {
                 'topl': '<:topl:730115768431280238>',
@@ -37,7 +38,8 @@ class SuperMechs(commands.Cog):
                 'chrg': '<:charge:730115557239685281>',
                 'tele': '<:tele:730115603683213423>',
                 'hook': '<:hook:730115622347735071>',
-                'modl': '<:mod:730115649866694686>'},
+                'modl': '<:mod:730115649866694686>',
+                'none': '<:none:742507182918074458>'},
             'WUabbrev': {
                 'weight': ['Weight', '<:weight:725870760484143174>'],
                 'health': ['HP', '<:health:725870887588462652>'],
@@ -122,10 +124,8 @@ class SuperMechs(commands.Cog):
         await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
     def buff(self, stat, value, enabled, item) -> int:
-        if not enabled:
+        if not enabled: # the function is always called, that probably could be improved
             return value
-        # if stat in self.operation['add'] and item['type'] == 'TORSO':
-        #     return value + 350
         if stat in self.operation['mult']:
             return round(value * 1.2)
         if stat in self.operation['mult+']:
@@ -200,7 +200,6 @@ class SuperMechs(commands.Cog):
         if has_divine_stats: emojis.append('🇩')
         #embedding
         embed = EmbedUI(ctx, emojis, title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=self.WU_DB['colors'][item['element']])
-        # img_url = self.WU_DB['sprite_path'] + item['name'].replace(' ', '') + '.png'
         img_url = self.get_image(item)
         has_image = bool('imgur' not in img_url) #yeah I know, hack
         embed.set_image(url=img_url)
@@ -209,35 +208,42 @@ class SuperMechs(commands.Cog):
         embed.set_footer(text='React with B for arena buffs or D for divine stats (if applicable)')
         self.WU_DB['WUabbrev']['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
         #adding item stats
-        min_, max_ = item['transform_range'].split('-')
+        _min, _max = item['transform_range'].split('-')
 
         first_run = True
         while True:
-            fields = []
             item_stats = ''
             spaced = False
-            note = ' (buffs applied)' if buffs else ''
-            for k in item['stats']:
-                if k in ['backfire', 'heaCost', 'eneCost'] and not spaced:
+            for stat in item['stats']:
+                if stat in {'backfire', 'heaCost', 'eneCost'} and not spaced:
                     item_stats += '\n'
                     spaced = True
                 #divine handler
-                pool = 'divine' if divine and k in item['divine'] else 'stats'
+                pool = 'divine' if divine and stat in item['divine'] else 'stats'
                 #number range handler
-                if isinstance(item['stats'][k], list):
-                    if len(item['stats'][k]) == 1: value = self.buff(k, item[pool][k][0], buffs, item) #handling one spot range
-                    elif item[pool][k][1] == 0: value = item[pool][k][0]
-                    else: value = str(self.buff(k, item[pool][k][0], buffs, item)) + '-' + str(self.buff(k, item[pool][k][1], buffs, item))
-                else: value = self.buff(k, item[pool][k], buffs, item)
-                item_stats += f"{self.WU_DB['WUabbrev'][k][1]} **{value}** {self.WU_DB['WUabbrev'][k][0]}\n"
+                if isinstance(item['stats'][stat], list):
+                    if len(item['stats'][stat]) == 1:
+                        value = self.buff(stat, item[pool][stat][0], buffs, item) #handling one spot range
+
+                    elif item[pool][stat][1] == 0:
+                        value = item[pool][stat][0]
+
+                    else:
+                        value = str(self.buff(stat, item[pool][stat][0], buffs, item)) + '-' + str(self.buff(stat, item[pool][stat][1], buffs, item))
+                else:
+                    value = self.buff(stat, item[pool][stat], buffs, item)
+
+                item_stats += f"{self.WU_DB['WUabbrev'][stat][1]} **{value}** {self.WU_DB['WUabbrev'][stat][0]}\n"
             if 'advance' in item['stats'] or 'retreat' in item['stats']: item_stats += f"{self.WU_DB['WUabbrev']['jump'][1]} **Jumping required**"
             #transform range
-            if (maximal := self.WU_DB['tiers'].index(max_)) < 4: tier = maximal
+            if (maximal := self.WU_DB['tiers'].index(_max)) < 4: tier = maximal
             elif divine: tier = 5
             else: tier = 4
             colors = self.WU_DB['trans_colors'].copy()
             colors.insert(tier, f'({colors.pop(tier)})')
-            fields.append({'name': 'Transform range: ', 'value': f"{''.join(colors[self.WU_DB['tiers'].index(min_):self.WU_DB['tiers'].index(max_) + 1])}", 'inline': False})
+            fields = []
+            note = ' (buffs applied)' if buffs else ''
+            fields.append({'name': 'Transform range: ', 'value': f"{''.join(colors[self.WU_DB['tiers'].index(_min):self.WU_DB['tiers'].index(_max) + 1])}", 'inline': False})
             fields.append({'name': f'Stats{note}:', 'value': item_stats, 'inline': False})
             for field in fields: embed.add_field(**field)
 
@@ -257,24 +263,25 @@ class SuperMechs(commands.Cog):
                 if selection == 0: buffs = action_type
                 if selection == 1: divine = action_type
             else: buffs = action_type
+        await embed.set_footer().edit(msg)
         await msg.clear_reactions()
 
     @commands.command(hidden=True,aliases=['MB'],brief='WIP command')
     @perms(3)
     async def mechbuilder(self, ctx, *args):
-        title = 'Mech layout'
-        slots = self.WU_DB['slots']
+        title = 'Mech builder'
+        slots = self.WU_DB['slots'] #'      '
         line0 = 'Addresing items: `Weapon[n]:` `[name]`, `Module[n]:` `[name]`, `Torso:` `[name]` etc'
-        line1 = '\n`1` – {0}{1}{2} – `2`      `1` – {3}{3} – `5`'.format(slots['topl'], slots['dron'], slots['topr'], slots['modl'])
-        line2 = '\n`3` – {0}{1}{2} – `4`      `2` – {3}{3} – `6`'.format(slots['sidl'], slots['tors'], slots['sidr'], slots['modl'])
-        line3 = '\n`5` – {0}{1}{2} – `6`      `3` – {3}{3} – `7`'.format(slots['sidl'], slots['legs'], slots['sidr'], slots['modl'])
-        line4 = '\n`C` – {0}{1}{2} – `H`      `4` – {3}{3} – `8`'.format(slots['chrg'], slots['tele'], slots['hook'], slots['modl'])
-        chars = max(len(line1), len(line2), len(line3), len(line4))
-        print(chars)
-        line1 = line1.center(chars, ' ')
-        line2 = line2.center(chars, ' ')
-        line3 = line3.center(chars, ' ')
-        line4 = line4.center(chars, ' ')
+        line1 = '\n`1` – {0}{1}{2} – `2`{4}`1` – {3}{3} – `5`'.format(slots['topl'], slots['dron'], slots['topr'], slots['modl'], slots['none'])
+        line2 = '\n`3` – {0}{1}{2} – `4`{4}`2` – {3}{3} – `6`'.format(slots['sidl'], slots['tors'], slots['sidr'], slots['modl'], slots['none'])
+        line3 = '\n`5` – {0}{1}{2} – `6`{4}`3` – {3}{3} – `7`'.format(slots['sidl'], slots['legs'], slots['sidr'], slots['modl'], slots['none'])
+        line4 = '\n`C` – {0}{1}{2} – `H`{4}`4` – {3}{3} – `8`'.format(slots['chrg'], slots['tele'], slots['hook'], slots['modl'], slots['none'])
+        # chars = max(len(line1), len(line2), len(line3), len(line4))
+        # print(chars)
+        # line1 = line1.center(chars, ' ')
+        # line2 = line2.center(chars, ' ')
+        # line3 = line3.center(chars, ' ')
+        # line4 = line4.center(chars, ' ')
         desc = line0 + line1 + line2 + line3 + line4
         embed = discord.Embed(title=title, description=desc)
         await ctx.send(embed=embed)

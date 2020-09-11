@@ -124,7 +124,7 @@ class Testing(commands.Cog):
 
     @commands.command()
     async def testembed(self, ctx):
-        embed = discord.Embed(title='Embed', description=f'[Just Embed]({ctx.message.jump_url})', timestamp=datetime.datetime.now())
+        embed = discord.Embed(title='Yeah embed', description=f'[Embed nothing else]({ctx.message.jump_url})', timestamp=ctx.message.created_at)
         embed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url).set_footer(text='Footer', icon_url=ctx.author.avatar_url).set_thumbnail(url=ctx.bot.user.avatar_url)
         await ctx.send(embed=embed)
 

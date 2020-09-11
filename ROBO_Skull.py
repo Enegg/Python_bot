@@ -9,6 +9,10 @@ prefix = prefix_local if socket.gethostname() == 'Mystery_machine' else prefix_h
 bot = commands.Bot(command_prefix=prefix)
 
 class Setup(commands.Cog):
+    def __init__(self):
+        super().__init__()
+        self.last_reload = None
+
     @commands.group(hidden=True, brief='Extensions manager')
     @perms(5)
     async def ext(self, ctx):
@@ -26,17 +30,27 @@ class Setup(commands.Cog):
         print(f'Loading {ext}...')
         bot.load_extension(ext)
 
-    @ext.command()
+    @commands.command(hidden=True)
     @perms(5)
-    async def reload(self, ctx, arg):
+    async def reload(self, ctx, arg=None):
+        if arg is None:
+            if self.last_reload is not None:
+                arg = self.last_reload
+            else:
+                await ctx.send('No module cached.')
+                return
         await ctx.message.add_reaction('🔄')
         if arg == 'all':
             await ctx.send('Reloading all modules...', delete_after=5.0)
             #bot.extensions gets modified on reload so we have to pre-assign all loaded extensions
-            [bot.reload_extension(ext) for ext in [ext for ext in bot.extensions]]
+            [bot.reload_extension(ext) for ext in (ext for ext in bot.extensions)]
             return
         if '.' in arg: ext = arg
         else: ext = 'Commands.' + arg
+        if ext not in bot.extensions:
+            await ctx.send(f'No extension "{ext}" found.')
+            return
+        self.last_reload = ext
         await ctx.send(f'Reloading {ext}...', delete_after=5.0)
         print(f'Reloading {ext}...')
         bot.reload_extension(ext)
@@ -62,7 +76,7 @@ class Setup(commands.Cog):
         count = len(args)
         await ctx.send(f"{count} argument{'s' if count != 1 else ''}{':' if bool(count) else ''} {', '.join(args)}")
 
-bot.add_cog(Setup(bot))
+bot.add_cog(Setup())
 bot.load_extension('Commands.Moderation')
 bot.load_extension('Commands.Misc')
 bot.load_extension('Commands.SM')

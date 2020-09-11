@@ -4,7 +4,9 @@ from Commands.Testing import EmbedUI
 import json
 import asyncio
 from functions import intify, supreme_listener, random_color
-loc_list = json.loads(open("sub_loc_list.json").read())
+
+with open("sub_loc_list.json") as file:
+    loc_list = json.loads(file.read())
 
 class Subverse(commands.Cog):
     def __init__(self, bot):
@@ -35,7 +37,7 @@ class Subverse(commands.Cog):
         if str(key) in swap_dict: return swap_dict[key]
         return key
 
-    @commands.command()
+    @commands.command(brief='Get info about certain location from Submachine')
     async def loc(self, ctx, *args):
         if ctx.invoked_subcommand is None:
             keywords = ['path', 'noimg']
@@ -150,27 +152,26 @@ class Subverse(commands.Cog):
                     await embed_msg.remove_reaction(embed.numbers[selection], ctx.author)
             else: await ctx.send(embed=embed)
 
-    @commands.command(name='list')
+    @commands.command(name='list', brief='Get names of locations from given Submachine game')
     async def locator(self, ctx, game):
-        keys = ['sub0', 'sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6', 'sub7', 'sub8', 'sub9', 'sub10', 'subflf', 'sub32', 'subverse']
+        keys = {'sub0', 'sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6', 'sub7', 'sub8', 'sub9', 'sub10', 'subflf', 'sub32', 'subverse'}
         game = game.lower()
         if game not in keys:
             await ctx.message.add_reaction('❌')
             return
         locs = [x['name'] for x in loc_list if game in x['appearances']]
         if len(locs) > 20:
-            copy = locs.copy()
-            copy.sort(reverse=True, key=lambda x: len(x))
-            longest_entry = copy[0]
-            even, odd = [], []
-            for x in locs:
-                if locs.index(x) % 2: odd.append(x)
-                else: even.append(x.ljust(len(longest_entry)))
+            longest_entry = max(locs, key=len)
+            right, left = [], []
+            # for x in locs:
+            #     if locs.index(x) % 2: left.append(x)
+            #     else: right.append(x.ljust(len(longest_entry)))
+            [(left.append(x) if locs.index(x) % 2 else right.append(x.ljust(len(longest_entry)))) for x in locs]
 
             result = ''
             limit = 2048
             fields = []
-            for x in zip(even, odd):
+            for x in zip(right, left):
                 if len(result + str(x)) > limit:
                     limit = 1024
                     result = '```' + result + '```'
@@ -178,8 +179,8 @@ class Subverse(commands.Cog):
                     result = ''
                 result += f'{x[0]} {x[1]}\n'
 
-            if len(even) != len(odd):
-                uneven = max(even, odd)
+            if len(right) != len(left):
+                uneven = max(right, left)
                 last = uneven.pop(-1)
                 result += last
             result = '```' + result + '```'
@@ -187,7 +188,7 @@ class Subverse(commands.Cog):
         else: fields = ['```' + '\n'.join(locs) + '```']
         embed = discord.Embed(title='Locations list:', description=fields.pop(0), color=discord.Color.from_rgb(*random_color()))
         for field in fields:
-            embed.add_field(name='v', value=field, inline=True)
+            embed.add_field(name='<:none:742507182918074458>', value=field, inline=True)
         await ctx.send(embed=embed)
 
 def setup(bot):
