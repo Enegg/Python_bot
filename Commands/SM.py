@@ -252,13 +252,13 @@ class SuperMechs(commands.Cog):
                 msg = await ctx.send(embed=embed)
                 options = await embed.add_options(msg, True)
             else: await embed.edit(msg)
-            embed.clear_fields()
             try: selection, action_type = await supreme_listener(ctx, *options, listen_for_add=True, listen_for_remove=True, add_cancel=True)
             except asyncio.TimeoutError:
                 break
             if first_run: first_run = False
             if selection == -2:
                 break
+            embed.clear_fields()
             if has_divine_stats:
                 if selection == 0: buffs = action_type
                 if selection == 1: divine = action_type
