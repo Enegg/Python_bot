@@ -3725,5 +3725,41 @@
 			"expDmg": [191, 382],
 			"heaDmg": 90
 		}
+	},
+	{
+		"id": 192,
+		"name": "Overload Preventor",
+		"type": "MODULE",
+		"element": "COMBINED",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 25,
+			"eneReg": 68,
+			"heaCol": 68
+		},
+		"divine": {
+			"eneReg": 70,
+			"heaCol": 70
+		}
+	},
+	{
+		"id": 193,
+		"name": "Lightning Cutter",
+		"type": "SIDE_WEAPON",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 49,
+			"eleDmg": [181, 362],
+			"eneDmg": 114,
+			"eleResDmg": 10,
+			"range": [1, 2],
+			"backfire": 144,
+			"heaCost": 62
+		},
+		"divine": {
+			"eleDmg": [191, 382],
+			"eneDmg": 121
+		}
 	}
 ]
