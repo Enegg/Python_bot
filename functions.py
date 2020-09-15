@@ -95,3 +95,6 @@ async def supreme_listener(ctx, msg, emojis: list, listen_for_add=True, listen_f
     if add_return and str(reaction.emoji) == '↩️': return -1, action_type
     if add_cancel and str(reaction.emoji) == '❌': return -2, action_type
     return emojis.index(reaction.emoji), action_type
+
+def set_default(embed, ctx):
+    embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)

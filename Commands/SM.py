@@ -1,7 +1,7 @@
 from discord.ext import commands
 import discord
 import asyncio
-from functions import search_for, intify, perms, supreme_listener
+from functions import search_for, intify, perms, supreme_listener, random_color
 import json
 import re
 import urllib
@@ -9,6 +9,22 @@ from Commands.Testing import EmbedUI
 
 with open("items.json") as file:
     items_list = json.loads(file.read())
+
+operation_lookup = {
+    'mult': ['eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'],
+    'mult+': ['phyRes', 'expRes', 'eleRes'],
+    'reduce': ['backfire']}
+common_item_data = {'type', 'element', 'tier'}
+item_type_to_slot = {
+    'TOP_WEAPON': 'topr',
+    'SIDE_WEAPON': 'sidr',
+    'TORSO': 'tors',
+    'LEGS': 'legs',
+    'DRONE': 'dron',
+    'CHARGE': 'chrg',
+    'TELEPORTER': 'tele',
+    'HOOK': 'hook',
+    'MODULE': 'modl'}
 
 class SuperMechs(commands.Cog):
     def __init__(self, bot):
@@ -74,14 +90,11 @@ class SuperMechs(commands.Cog):
                 'backfire': ['Backfire', '<:backfire:725871901062201404>'],
                 'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
                 'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']}}
-        self.operation = {
-            'mult': ['eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'],
-            'mult+': ['phyRes', 'expRes', 'eleRes'],
-            'reduce': ['backfire']}
         self.abbrevs = None
         self.names = None
         self.image_url_cache = {}
         self.url_template = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/public/assets/items/{}.png'
+        self.item_element = {'PHYSICAL': self.WU_DB['WUabbrev']['phyDmg'][1], 'EXPLOSIVE': self.WU_DB['WUabbrev']['expDmg'][1], 'ELECTRIC': self.WU_DB['WUabbrev']['eleDmg'][1], 'COMBINED': '🔰'}
 
     def get_item_by_id_or_name(self, value: str):
         for item in items_list:
@@ -105,7 +118,7 @@ class SuperMechs(commands.Cog):
             abbrevs[abbreviation].append(name) if abbreviation in abbrevs else abbrevs.update({abbreviation: [name]})
         self.abbrevs, self.names = abbrevs, names
 
-    def get_image(self, item):
+    def get_image(self, item: object) -> str:
         slot_images = self.WU_DB['type']
 
         safe_name = item['name'].replace(' ', '')
@@ -119,22 +132,51 @@ class SuperMechs(commands.Cog):
             else: self.image_url_cache[item['id']] = url
         return self.image_url_cache[item['id']]
 
+    def ressolve_args(self, args: tuple):
+        '''Takes command arguments as an input and tries to match them as key item pairs'''
+        args = [a.lower() for a in args]
+        specs = {}  # dict of data type: desired data, like 'element': 'explosive'
+        ingored_args = set()
+        for arg in args:
+            print(arg)
+            if ':' not in arg:
+                ingored_args.add(arg)
+            if arg.endswith(':'):  # if True, the next item in args should be treated as a value
+                index = args.index(arg)
+                if index + 1 >= len(args):
+                    raise Exception(f'Obscure argument "{arg}"')
+                value = args.pop(index + 1).lower()
+                if ':' in value:
+                    raise SyntaxError(f'"{value}" preceeding "{arg}"')
+                specs.update({arg.replace(':', ''): value})
+            else:
+                arg, value = arg.lower().split(':')
+                specs.update({arg: value.strip()})
+        return specs, ingored_args
+
+    def specs(self, item: object):
+        return {'type': self.WU_DB['slots'][item_type_to_slot[item['type']]], 'element': self.item_element[item['element']], 'transform_range': self.WU_DB['trans_colors'][self.WU_DB['tiers'].index(item['transform_range'].split('-')[0])]}
+
+    def emoji_for_browseitems(self, item: object, spec_filter: dict):
+        specs = self.specs(item)
+        return ''.join(specs[spec] for spec in specs if spec not in spec_filter)
+
     @commands.command(brief='Show to a frantic user where is his place')
     async def frantic(self, ctx):
         await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
-    def buff(self, stat, value, enabled, item) -> int:
+    def buff(self, stat, value: int, enabled: bool, item) -> int:
         if not enabled: # the function is always called, that probably could be improved
             return value
-        if stat in self.operation['mult']:
+        if stat in operation_lookup['mult']:
             return round(value * 1.2)
-        if stat in self.operation['mult+']:
+        if stat in operation_lookup['mult+']:
             return round(value * 1.4)
-        if stat in self.operation['reduce']:
+        if stat in operation_lookup['reduce']:
             return round(value * 0.8)
         return value
 
-    @commands.command(usage='[item name] [optional: -b for arena buffs and/or -d for divine]',brief='Inspect an item\'s stats',help='To use the command, type in desired item\'s name or it\'s abbreviation, like "efa" for "energy free armor". Include a flag "-b" to enable arena buffs and "-d" to set the tier to divine (if applicable)')
+    @commands.command(usage='[item name / part of the name]', brief='Inspect an item\'s stats', help='To use the command, type in desired item\'s name or its abbreviation, like "efa" for "energy free armor".')
     @commands.cooldown(2, 15.0, commands.BucketType.member)
     async def stats(self, ctx, *args):
         msg = ctx.message
@@ -143,9 +185,8 @@ class SuperMechs(commands.Cog):
             await add_x('❌')
             return
         args = list(args)
-        #flags ['-d', '-b', '-r']
-        flags = [args.pop(args.index(i)) for i in {'-d', '-b', '-r'} if i in args]
-        buffs = bool('-b' in flags)
+        #flags {'-r'}
+        flags = [args.pop(args.index(i)) for i in {'-r'} if i in args]
         #solving for abbrevs
         name = ' '.join(args).lower()
         if intify(name) == 0 and len(name) < 2:
@@ -195,9 +236,8 @@ class SuperMechs(commands.Cog):
             await ctx.send(item)
             return
         #adding a note when -b flag is included
-        divine = (has_divine_stats := bool('divine' in item)) and bool('-d' in flags)
         emojis = ['🇧']
-        if has_divine_stats: emojis.append('🇩')
+        if bool('divine' in item): emojis.append('🇩')
         #embedding
         embed = EmbedUI(ctx, emojis, title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=self.WU_DB['colors'][item['element']])
         img_url = self.get_image(item)
@@ -210,7 +250,7 @@ class SuperMechs(commands.Cog):
         #adding item stats
         _min, _max = item['transform_range'].split('-')
 
-        first_run = True
+        first_run, divine, buffs = True, False, False
         while True:
             item_stats = ''
             spaced = False
@@ -259,14 +299,57 @@ class SuperMechs(commands.Cog):
             if selection == -2:
                 break
             embed.clear_fields()
-            if has_divine_stats:
+            if bool('divine' in item):
                 if selection == 0: buffs = action_type
                 if selection == 1: divine = action_type
             else: buffs = action_type
         await embed.set_footer().edit(msg)
         await msg.clear_reactions()
 
-    @commands.command(hidden=True,aliases=['MB'],brief='WIP command')
+    @commands.command(aliases=['bi'], brief='WIP command')
+    async def browseitems(self, ctx, *args):
+        args = list(args)
+        flags = [args.pop(args.index(flag)) for flag in {'-reverse'} if flag in args]
+        reverse = bool('-reverse' in flags)
+        try:
+            specs, ingored_args = self.ressolve_args(args)
+        except Exception as error:
+            await ctx.send(error)
+            return
+        valid_specs = {}
+        for key, value in specs.items():
+            result = search_for(key, common_item_data)
+            if not result or len(result) > 1:
+                await ctx.send(f'Argument must match exactly one data type; "{key}" matched {result or "nothing"}')
+                return
+            key = result[0]
+            keyname = key
+            if key == 'tier':
+                keyname = 'tiers'
+                key = 'transform_range'
+            if key == 'element':
+                keyname = 'colors'
+            values = search_for(value, self.WU_DB[keyname])
+            if not values or len(values) > 1:
+                await ctx.send(f'Key "{key}" got no or more than 1 value: {values}')
+                return
+            valid_specs.update({key: values[0]})
+        if not valid_specs:
+            await ctx.send('No valid arguments were given.')
+            return
+        items = [item for item in items_list if all((bool(item[key] != value) if reverse else bool(item[key] == value)) for key, value in valid_specs.items())]
+        print(len(items))
+        text = '\n'.join(self.emoji_for_browseitems(item, valid_specs) + ' ' + item['name'] for item in items)
+
+        color = self.WU_DB['colors'][valid_specs['element']] if 'element' in valid_specs else discord.Color.from_rgb(*random_color())
+
+        embed = discord.Embed(title=f'Matching items ({len(items)}):', description=text, color=color).set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+        new_specs = self.specs(items[0])
+        embed.add_field(name=f'Match criteria{" (inverted)" if reverse else ""}:', value='\n'.join(spec.capitalize().replace('_', ' ') + ': ' + new_specs[spec] for spec in valid_specs), inline=False)
+        await ctx.send(embed=embed)
+
+
+    @commands.command(hidden=True, aliases=['MB'], brief='WIP command')
     @perms(3)
     async def mechbuilder(self, ctx, *args):
         title = 'Mech builder'

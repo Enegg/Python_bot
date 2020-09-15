@@ -3761,5 +3761,75 @@
 			"eleDmg": [191, 382],
 			"eneDmg": 121
 		}
+	},
+	{
+		"id": 194,
+		"name": "Massive Stone Feet",
+		"type": "LEGS",
+		"element": "PHYSICAL",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 132,
+			"health": 526,
+			"phyRes": 10,
+			"phyDmg": [144, 232],
+			"phyResDmg": 10,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 541,
+			"phyDmg": [148, 239]
+		}
+	},
+	{
+		"id": 195,
+		"name": "Massive Lava Feet",
+		"type": "LEGS",
+		"element": "EXPLOSIVE",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 117,
+			"health": 466,
+			"expRes": 10,
+			"expDmg": [127, 205],
+			"heaDmg": 36,
+			"expResDmg": 10,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 483,
+			"expDmg": [131, 211],
+			"heaDmg": 37
+		}
+	},
+	{
+		"id": 196,
+		"name": "Massive Shocker Feet",
+		"type": "LEGS",
+		"element": "ELECTRIC",
+		"transform_range": "EPIC-DIVINE",
+		"stats": {
+			"weight": 118,
+			"health": 466,
+			"eleRes": 10,
+			"eleDmg": [127, 205],
+			"eneDmg": 48,
+			"eleResDmg": 10,
+			"push": 1,
+			"range": [1, 0],
+			"walk": 1,
+			"jump": 2
+		},
+		"divine": {
+			"health": 483,
+			"eleDmg": [131, 211],
+			"eneDmg": 49
+		}
 	}
 ]
