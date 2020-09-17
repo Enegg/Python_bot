@@ -14,87 +14,79 @@ operation_lookup = {
     'mult': ['eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'],
     'mult+': ['phyRes', 'expRes', 'eleRes'],
     'reduce': ['backfire']}
-common_item_data = {'type', 'element', 'tier'}
-item_type_to_slot = {
-    'TOP_WEAPON': 'topr',
-    'SIDE_WEAPON': 'sidr',
-    'TORSO': 'tors',
-    'LEGS': 'legs',
-    'DRONE': 'dron',
-    'CHARGE': 'chrg',
-    'TELEPORTER': 'tele',
-    'HOOK': 'hook',
-    'MODULE': 'modl'}
+item_type = {
+    'TOP_WEAPON': ['https://i.imgur.com/LW7ZCGZ.png', '<:topr:730115786735091762>'],
+    'SIDE_WEAPON': ['https://i.imgur.com/CBbvOnQ.png', '<:sider:730115747799629940>'],
+    'TORSO': ['https://i.imgur.com/iNtSziV.png', '<:torso:730115680363347968>'],
+    'LEGS': ['https://i.imgur.com/6NBLOhU.png', '<:legs:730115699397361827>'],
+    'DRONE': ['https://i.imgur.com/oqQmXTF.png', '<:drone:730115574763618394>'],
+    'CHARGE': ['https://i.imgur.com/UnDqJx8.png', '<:charge:730115557239685281>'],
+    'TELEPORTER': ['https://i.imgur.com/Fnq035A.png', '<:tele:730115603683213423>'],
+    'HOOK': ['https://i.imgur.com/8oAoPcJ.png', '<:hook:730115622347735071>'],
+    'MODULE': ['https://i.imgur.com/dQR8UgN.png', '<:mod:730115649866694686>']}
+tier_colors = ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪']
+item_tiers = ['COMMON', 'RARE', 'EPIC', 'LEGENDARY', 'MYTHICAL', 'DIVINE']
+element_colors = {'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'PHYSICAL': 0xffb800, 'COMBINED': 0x211d1d}
+slot_emojis = {
+    'topl': '<:topl:730115768431280238>',
+    'topr': '<:topr:730115786735091762>',
+    'dron': '<:drone:730115574763618394>',
+    'sidl': '<:sidel:730115729365663884>',
+    'sidr': '<:sider:730115747799629940>',
+    'tors': '<:torso:730115680363347968>',
+    'legs': '<:legs:730115699397361827>',
+    'chrg': '<:charge:730115557239685281>',
+    'tele': '<:tele:730115603683213423>',
+    'hook': '<:hook:730115622347735071>',
+    'modl': '<:mod:730115649866694686>',
+    'none': '<:none:742507182918074458>'}
+stat_abbrev = {
+    'weight': ['Weight', '<:weight:725870760484143174>'],
+    'health': ['HP', '<:health:725870887588462652>'],
+    'eneCap': ['Energy', '<:energy:725870941883859054>'],
+    'eneReg': ['Regeneration', '<:regen:725871003665825822>'],
+    'heaCap': ['Heat', '<:heat:725871043767435336>'],
+    'heaCol': ['Cooling', '<:cooling:725871075778363422>'],
+    'phyRes': ['Physical resistance', '<:phyres:725871121051811931>'],
+    'expRes': ['Explosive resistance', '<:expres:725871136935772294>'],
+    'eleRes': ['Electric resistance', '<:elecres:725871146716758077>'],
+    'phyDmg': ['Damage', '<:phydmg:725871208830074929>'],
+    'phyResDmg': ['Resistance drain', '<:phyresdmg:725871259635679263>'],
+    'expDmg': ['Damage', '<:expdmg:725871223338172448>'],
+    'heaDmg': ['Heat damage', '<:headmg:725871613639393290>'],
+    'heaCapDmg': ['Heat capacity drain', '<:heatcapdmg:725871478083551272>'],
+    'heaColDmg': ['Cooling damage', '<:coolingdmg:725871499281563728>'],
+    'expResDmg': ['Resistance drain', '<:expresdmg:725871281311842314>'],
+    'eleDmg': ['Damage', '<:eledmg:725871233614479443>'],
+    'eneDmg': ['Energy drain', '<:enedmg:725871599517171719>'],
+    'eneCapDmg': ['Energy capacity drain', '<:enecapdmg:725871420126789642>'],
+    'eneRegDmg': ['Regeneration damage', '<:regendmg:725871443815956510>'],
+    'eleResDmg': ['Resistance drain', '<:eleresdmg:725871296381976629>'],
+    'range': ['Range', '<:range:725871752072134736>'],
+    'push': ['Knockback', '<:push:725871716613488843>'],
+    'pull': ['Pull', '<:pull:725871734141616219>'],
+    'recoil': ['Recoil', '<:recoil:725871778282340384>'],
+    'retreat': ['Retreat', '<:retreat:725871804236955668>'],
+    'advance': ['Advance', '<:advance:725871818115907715>'],
+    'walk': ['Walking', '<:walk:725871844581834774>'],
+    'jump': ['Jumping', '<:jump:725871869793796116>'],
+    'uses': ['', '<:uses:725871917923303688>'],
+    'backfire': ['Backfire', '<:backfire:725871901062201404>'],
+    'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
+    'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']}
+url_template = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/public/assets/items/{}.png'
+item_element = {
+    'PHYSICAL': stat_abbrev['phyDmg'][1],
+    'EXPLOSIVE': stat_abbrev['expDmg'][1],
+    'ELECTRIC': stat_abbrev['eleDmg'][1],
+    'COMBINED': '🔰'}
 
 class SuperMechs(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.WU_DB = {
-            'type': {
-                'TOP_WEAPON': 'https://i.imgur.com/LW7ZCGZ.png',
-                'SIDE_WEAPON': 'https://i.imgur.com/CBbvOnQ.png',
-                'TORSO': 'https://i.imgur.com/iNtSziV.png',
-                'LEGS': 'https://i.imgur.com/6NBLOhU.png',
-                'DRONE': 'https://i.imgur.com/oqQmXTF.png',
-                'CHARGE': 'https://i.imgur.com/UnDqJx8.png',
-                'TELEPORTER': 'https://i.imgur.com/Fnq035A.png',
-                'HOOK': 'https://i.imgur.com/8oAoPcJ.png',
-                'MODULE': 'https://i.imgur.com/dQR8UgN.png'},
-            'trans_colors': ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪'],
-            'tiers': ['COMMON', 'RARE', 'EPIC', 'LEGENDARY', 'MYTHICAL', 'DIVINE'],
-            'colors': {'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'PHYSICAL': 0xffb800, 'COMBINED': 0x211d1d},
-            'slots': {
-                'topl': '<:topl:730115768431280238>',
-                'topr': '<:topr:730115786735091762>',
-                'dron': '<:drone:730115574763618394>',
-                'sidl': '<:sidel:730115729365663884>',
-                'sidr': '<:sider:730115747799629940>',
-                'tors': '<:torso:730115680363347968>',
-                'legs': '<:legs:730115699397361827>',
-                'chrg': '<:charge:730115557239685281>',
-                'tele': '<:tele:730115603683213423>',
-                'hook': '<:hook:730115622347735071>',
-                'modl': '<:mod:730115649866694686>',
-                'none': '<:none:742507182918074458>'},
-            'WUabbrev': {
-                'weight': ['Weight', '<:weight:725870760484143174>'],
-                'health': ['HP', '<:health:725870887588462652>'],
-                'eneCap': ['Energy', '<:energy:725870941883859054>'],
-                'eneReg': ['Regeneration', '<:regen:725871003665825822>'],
-                'heaCap': ['Heat', '<:heat:725871043767435336>'],
-                'heaCol': ['Cooling', '<:cooling:725871075778363422>'],
-                'phyRes': ['Physical resistance', '<:phyres:725871121051811931>'],
-                'expRes': ['Explosive resistance', '<:expres:725871136935772294>'],
-                'eleRes': ['Electric resistance', '<:elecres:725871146716758077>'],
-                'phyDmg': ['Damage', '<:phydmg:725871208830074929>'],
-                'phyResDmg': ['Resistance drain', '<:phyresdmg:725871259635679263>'],
-                'expDmg': ['Damage', '<:expdmg:725871223338172448>'],
-                'heaDmg': ['Heat damage', '<:headmg:725871613639393290>'],
-                'heaCapDmg': ['Heat capacity drain', '<:heatcapdmg:725871478083551272>'],
-                'heaColDmg': ['Cooling damage', '<:coolingdmg:725871499281563728>'],
-                'expResDmg': ['Resistance drain', '<:expresdmg:725871281311842314>'],
-                'eleDmg': ['Damage', '<:eledmg:725871233614479443>'],
-                'eneDmg': ['Energy drain', '<:enedmg:725871599517171719>'],
-                'eneCapDmg': ['Energy capacity drain', '<:enecapdmg:725871420126789642>'],
-                'eneRegDmg': ['Regeneration damage', '<:regendmg:725871443815956510>'],
-                'eleResDmg': ['Resistance drain', '<:eleresdmg:725871296381976629>'],
-                'range': ['Range', '<:range:725871752072134736>'],
-                'push': ['Knockback', '<:push:725871716613488843>'],
-                'pull': ['Pull', '<:pull:725871734141616219>'],
-                'recoil': ['Recoil', '<:recoil:725871778282340384>'],
-                'retreat': ['Retreat', '<:retreat:725871804236955668>'],
-                'advance': ['Advance', '<:advance:725871818115907715>'],
-                'walk': ['Walking', '<:walk:725871844581834774>'],
-                'jump': ['Jumping', '<:jump:725871869793796116>'],
-                'uses': ['', '<:uses:725871917923303688>'],
-                'backfire': ['Backfire', '<:backfire:725871901062201404>'],
-                'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
-                'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']}}
-        self.abbrevs = None
-        self.names = None
+        self.abbrevs = {}
+        self.names = []
         self.image_url_cache = {}
-        self.url_template = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/public/assets/items/{}.png'
-        self.item_element = {'PHYSICAL': self.WU_DB['WUabbrev']['phyDmg'][1], 'EXPLOSIVE': self.WU_DB['WUabbrev']['expDmg'][1], 'ELECTRIC': self.WU_DB['WUabbrev']['eleDmg'][1], 'COMBINED': '🔰'}
 
     def get_item_by_id_or_name(self, value: str):
         for item in items_list:
@@ -119,16 +111,14 @@ class SuperMechs(commands.Cog):
         self.abbrevs, self.names = abbrevs, names
 
     def get_image(self, item: object) -> str:
-        slot_images = self.WU_DB['type']
-
         safe_name = item['name'].replace(' ', '')
-        url = self.url_template.format(safe_name)
+        url = url_template.format(safe_name)
 
         if not item['id'] in self.image_url_cache:
             try:
                 urllib.request.urlopen(url)
             except urllib.error.HTTPError:
-                self.image_url_cache[item['id']] = slot_images[item['type']]
+                self.image_url_cache[item['id']] = item_type[item['type']][0]
             else: self.image_url_cache[item['id']] = url
         return self.image_url_cache[item['id']]
 
@@ -141,6 +131,7 @@ class SuperMechs(commands.Cog):
             print(arg)
             if ':' not in arg:
                 ingored_args.add(arg)
+                continue
             if arg.endswith(':'):  # if True, the next item in args should be treated as a value
                 index = args.index(arg)
                 if index + 1 >= len(args):
@@ -155,7 +146,7 @@ class SuperMechs(commands.Cog):
         return specs, ingored_args
 
     def specs(self, item: object):
-        return {'type': self.WU_DB['slots'][item_type_to_slot[item['type']]], 'element': self.item_element[item['element']], 'transform_range': self.WU_DB['trans_colors'][self.WU_DB['tiers'].index(item['transform_range'].split('-')[0])]}
+        return {'type': item_type[item['type']][1], 'element': item_element[item['element']], 'tier': tier_colors[item_tiers.index(item['transform_range'].split('-')[0])]}
 
     def emoji_for_browseitems(self, item: object, spec_filter: dict):
         specs = self.specs(item)
@@ -194,7 +185,7 @@ class SuperMechs(commands.Cog):
             return
 
         #returning the exact item name from short user input
-        if self.abbrevs is None or self.names is None: self.abbreviator()
+        if not self.abbrevs or not self.names: self.abbreviator()
         if name not in self.names and not name.isdigit():
             results = search_for(name, self.names)
             is_in_abbrevs = bool(name in self.abbrevs)
@@ -239,14 +230,14 @@ class SuperMechs(commands.Cog):
         emojis = ['🇧']
         if bool('divine' in item): emojis.append('🇩')
         #embedding
-        embed = EmbedUI(ctx, emojis, title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=self.WU_DB['colors'][item['element']])
+        embed = EmbedUI(ctx, emojis, title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=element_colors[item['element']])
         img_url = self.get_image(item)
         has_image = bool('imgur' not in img_url) #yeah I know, hack
         embed.set_image(url=img_url)
-        if has_image: embed.set_thumbnail(url=self.WU_DB['type'][item['type']])
+        if has_image: embed.set_thumbnail(url=item_type[item['type']][0])
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
         embed.set_footer(text='React with B for arena buffs or D for divine stats (if applicable)')
-        self.WU_DB['WUabbrev']['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
+        stat_abbrev['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
         #adding item stats
         _min, _max = item['transform_range'].split('-')
 
@@ -273,17 +264,17 @@ class SuperMechs(commands.Cog):
                 else:
                     value = self.buff(stat, item[pool][stat], buffs, item)
 
-                item_stats += f"{self.WU_DB['WUabbrev'][stat][1]} **{value}** {self.WU_DB['WUabbrev'][stat][0]}\n"
-            if 'advance' in item['stats'] or 'retreat' in item['stats']: item_stats += f"{self.WU_DB['WUabbrev']['jump'][1]} **Jumping required**"
+                item_stats += f"{stat_abbrev[stat][1]} **{value}** {stat_abbrev[stat][0]}\n"
+            if 'advance' in item['stats'] or 'retreat' in item['stats']: item_stats += f"{stat_abbrev['jump'][1]} **Jumping required**"
             #transform range
-            if (maximal := self.WU_DB['tiers'].index(_max)) < 4: tier = maximal
+            if (maximal := item_tiers.index(_max)) < 4: tier = maximal
             elif divine: tier = 5
             else: tier = 4
-            colors = self.WU_DB['trans_colors'].copy()
+            colors = tier_colors.copy()
             colors.insert(tier, f'({colors.pop(tier)})')
             fields = []
             note = ' (buffs applied)' if buffs else ''
-            fields.append({'name': 'Transform range: ', 'value': f"{''.join(colors[self.WU_DB['tiers'].index(_min):self.WU_DB['tiers'].index(_max) + 1])}", 'inline': False})
+            fields.append({'name': 'Transform range: ', 'value': f"{''.join(colors[item_tiers.index(_min):item_tiers.index(_max) + 1])}", 'inline': False})
             fields.append({'name': f'Stats{note}:', 'value': item_stats, 'inline': False})
             for field in fields: embed.add_field(**field)
 
@@ -312,59 +303,84 @@ class SuperMechs(commands.Cog):
         flags = [args.pop(args.index(flag)) for flag in {'-reverse'} if flag in args]
         reverse = bool('-reverse' in flags)
         try:
-            specs, ingored_args = self.ressolve_args(args)
+            specs, ignored_args = self.ressolve_args(args)
         except Exception as error:
             await ctx.send(error)
             return
         valid_specs = {}
+        search_keys = ['type', 'element', 'tier']
         for key, value in specs.items():
-            result = search_for(key, common_item_data)
+            result = search_for(key, search_keys)
             if not result or len(result) > 1:
                 await ctx.send(f'Argument must match exactly one data type; "{key}" matched {result or "nothing"}')
                 return
             key = result[0]
-            keyname = key
-            if key == 'tier':
-                keyname = 'tiers'
-                key = 'transform_range'
-            if key == 'element':
-                keyname = 'colors'
-            values = search_for(value, self.WU_DB[keyname])
+            spec = [item_type, element_colors, item_tiers][search_keys.index(key)]
+
+            values = search_for(value, spec)
             if not values or len(values) > 1:
-                await ctx.send(f'Key "{key}" got no or more than 1 value: {values}')
+                val = bool(values)
+                await ctx.send(f'Value "{value}" for parameter "{key}" has {("no", "too many")[val]} matches{("", ": ")[val]}{", ".join(values).lower()}')
                 return
             valid_specs.update({key: values[0]})
         if not valid_specs:
             await ctx.send('No valid arguments were given.')
             return
-        items = [item for item in items_list if all((bool(item[key] != value) if reverse else bool(item[key] == value)) for key, value in valid_specs.items())]
+        items = []
+        for item in items_list:
+            matching_specs = set()
+            for key, value in valid_specs.items():
+                if key == 'tier':
+                    _min, _max = item['transform_range'].split('-')
+                    _range = item_tiers[item_tiers.index(_min):item_tiers.index(_max) + 1]
+                    matching_specs.add(value in _range and not _range.index(value))
+                    continue
+                matching_specs.add(item[key] == value)
+            if all(matching_specs): items.append(item)
+        
+        sort_by_tier = lambda item: list(reversed(item_tiers)).index(item['transform_range'].split('-')[0])
+        sort_by_elem = lambda item: list(element_colors.keys()).index(item['element'])
+        sort_by_type = lambda item: list(item_type.keys()).index(item['type'])
+        sort_by_name = lambda item: item['name']
+
+        if len(valid_specs) == 3: algo = sort_by_name
+        else:
+            if 'type' in valid_specs:
+                if 'tier' in valid_specs:
+                    algo = sort_by_elem
+                else:
+                    algo = sort_by_tier # will work both for type as well as type + element
+            elif 'element' in valid_specs:
+                algo = sort_by_type
+            else:
+                algo = sort_by_elem
+
+        items.sort(key=algo)
+
         print(len(items))
         text = '\n'.join(self.emoji_for_browseitems(item, valid_specs) + ' ' + item['name'] for item in items)
+        print(len(text))
+        if len(text) > 2048: text = 'Results exceeded character limit.'
 
-        color = self.WU_DB['colors'][valid_specs['element']] if 'element' in valid_specs else discord.Color.from_rgb(*random_color())
+        color = element_colors[valid_specs['element']] if 'element' in valid_specs else discord.Color.from_rgb(*random_color())
 
         embed = discord.Embed(title=f'Matching items ({len(items)}):', description=text, color=color).set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
         new_specs = self.specs(items[0])
-        embed.add_field(name=f'Match criteria{" (inverted)" if reverse else ""}:', value='\n'.join(spec.capitalize().replace('_', ' ') + ': ' + new_specs[spec] for spec in valid_specs), inline=False)
+        embed.add_field(name=f'Match criteria{" (inverted)" if reverse else ""}:', value='\n'.join(spec.capitalize().replace('_', ' ') + ': ' + new_specs[spec] for spec in valid_specs), inline=True)
         await ctx.send(embed=embed)
 
 
     @commands.command(hidden=True, aliases=['MB'], brief='WIP command')
     @perms(3)
     async def mechbuilder(self, ctx, *args):
-        title = 'Mech builder'
-        slots = self.WU_DB['slots'] #'      '
+        title = 'Mech builder' #'      '
+        icon = slot_emojis
+        none, mods = icon['none'], icon['modl']*2
         line0 = 'Addresing items: `Weapon[n]:` `[name]`, `Module[n]:` `[name]`, `Torso:` `[name]` etc'
-        line1 = '\n`1` – {0}{1}{2} – `2`{4}`1` – {3}{3} – `5`'.format(slots['topl'], slots['dron'], slots['topr'], slots['modl'], slots['none'])
-        line2 = '\n`3` – {0}{1}{2} – `4`{4}`2` – {3}{3} – `6`'.format(slots['sidl'], slots['tors'], slots['sidr'], slots['modl'], slots['none'])
-        line3 = '\n`5` – {0}{1}{2} – `6`{4}`3` – {3}{3} – `7`'.format(slots['sidl'], slots['legs'], slots['sidr'], slots['modl'], slots['none'])
-        line4 = '\n`C` – {0}{1}{2} – `H`{4}`4` – {3}{3} – `8`'.format(slots['chrg'], slots['tele'], slots['hook'], slots['modl'], slots['none'])
-        # chars = max(len(line1), len(line2), len(line3), len(line4))
-        # print(chars)
-        # line1 = line1.center(chars, ' ')
-        # line2 = line2.center(chars, ' ')
-        # line3 = line3.center(chars, ' ')
-        # line4 = line4.center(chars, ' ')
+        line1 = '\n' + f"`1` – {icon['topl']}{icon['dron']}{icon['topr']} – `2`{none}`1` – {mods} – `5`"
+        line2 = '\n' + f"`3` – {icon['sidl']}{icon['tors']}{icon['sidr']} – `4`{none}`2` – {mods} – `6`"
+        line3 = '\n' + f"`5` – {icon['sidl']}{icon['legs']}{icon['sidr']} – `6`{none}`3` – {mods} – `7`"
+        line4 = '\n' + f"`C` – {icon['chrg']}{icon['tele']}{icon['hook']} – `H`{none}`4` – {mods} – `8`"
         desc = line0 + line1 + line2 + line3 + line4
         embed = discord.Embed(title=title, description=desc)
         await ctx.send(embed=embed)
