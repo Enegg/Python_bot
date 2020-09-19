@@ -160,32 +160,42 @@ class Subverse(commands.Cog):
             await ctx.message.add_reaction('❌')
             return
         locs = [x['name'] for x in loc_list if game in x['appearances']]
-        if len(locs) > 20:
-            longest_entry = max(locs, key=len)
-            right, left = [], []
-            # for x in locs:
-            #     if locs.index(x) % 2: left.append(x)
-            #     else: right.append(x.ljust(len(longest_entry)))
-            [(left.append(x) if locs.index(x) % 2 else right.append(x.ljust(len(longest_entry)))) for x in locs]
+        if (count := len(locs)) > 20:
+            locs.sort(key=lambda i: (len(i), i))
+            uneven = ''
+            if count % 2:
+                uneven = locs.pop()
+                count -= 1
+            count //= 2
+            left, right = locs[:count], locs[count:]
+            longest_entry = left[-1]
+            left = [x.ljust(len(longest_entry)) for x in left]
 
-            result = ''
+
+            # longest_entry = max(locs, key=len)
+            # right, left = [], []
+            # [(left.append(x) if locs.index(x) % 2 else right.append(x.ljust(len(longest_entry)))) for x in locs]
+
+            result = '```'
             limit = 2048
             fields = []
-            for x in zip(right, left):
+            for x in zip(left, right):
                 if len(result + str(x)) > limit:
                     limit = 1024
-                    result = '```' + result + '```'
+                    result += '```'
                     fields.append(result)
-                    result = ''
-                result += f'{x[0]} {x[1]}\n'
+                    result = '```'
+                result += f'{x[0]}  {x[1]}\n'
 
-            if len(right) != len(left):
-                uneven = max(right, left)
-                last = uneven.pop(-1)
-                result += last
-            result = '```' + result + '```'
+            # if len(right) != len(left):
+            #     uneven = max(right, left, key=len)
+            #     last = uneven.pop(-1).strip()
+            #     result += last
+
+            result += f'{uneven}```'
+
             fields.append(result)
-        else: fields = ['```' + '\n'.join(locs) + '```']
+        else: fields = ['```{}```'.format('\n'.join(locs))]
         embed = discord.Embed(title='Locations list:', description=fields.pop(0), color=discord.Color.from_rgb(*random_color()))
         for field in fields:
             embed.add_field(name='<:none:742507182918074458>', value=field, inline=True)

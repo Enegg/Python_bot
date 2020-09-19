@@ -3,9 +3,21 @@ from discord.ext import commands
 import socket
 from functions import perms
 from config import prefix_local, prefix_host
-default_activity = discord.Game('with portals')
 
-prefix = prefix_local if socket.gethostname() == 'Mystery_machine' else prefix_host
+TOKEN = None
+if socket.gethostname() == 'Mystery_machine':
+    import importlib
+    TOKEN = importlib.import_module('TOKEN').TOKEN
+
+    prefix = prefix_local
+else:
+    from os import environ
+    TOKEN = environ.get('TOKEN')
+
+    prefix = prefix_host
+
+if not TOKEN: raise Exception('Not running localy and TOKEN is not an environment variable')
+
 bot = commands.Bot(command_prefix=prefix)
 
 class Setup(commands.Cog):
@@ -92,16 +104,6 @@ async def on_command_error(ctx, error):
 async def on_ready():
     print(f'{bot.user.name} is here to take over the world')
     print('----------------')
-    await bot.change_presence(activity=default_activity)
-
-TOKEN = None
-if socket.gethostname() != 'Mystery_machine':
-    import os
-    TOKEN = os.environ.get('TOKEN')
-else:
-    import importlib
-    TOKEN = importlib.import_module('TOKEN').TOKEN
-if not TOKEN:
-    raise 'Not running localy and TOKEN is not an environment variable'
+    await bot.change_presence(activity=discord.Game('with portals'))
 
 bot.run(TOKEN)

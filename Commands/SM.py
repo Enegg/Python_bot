@@ -1,11 +1,12 @@
 from discord.ext import commands
 import discord
 import asyncio
-from functions import search_for, intify, perms, supreme_listener, random_color
+from functions import search_for, intify, perms, supreme_listener, random_color, split_to_fields
 import json
 import re
 import urllib
 from Commands.Testing import EmbedUI
+from typing import Dict, Iterable
 
 with open("items.json") as file:
     items_list = json.loads(file.read())
@@ -26,7 +27,7 @@ item_type = {
     'MODULE': ['https://i.imgur.com/dQR8UgN.png', '<:mod:730115649866694686>']}
 tier_colors = ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪']
 item_tiers = ['COMMON', 'RARE', 'EPIC', 'LEGENDARY', 'MYTHICAL', 'DIVINE']
-element_colors = {'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'PHYSICAL': 0xffb800, 'COMBINED': 0x211d1d}
+element_colors = {'PHYSICAL': 0xffb800, 'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'COMBINED': 0x211d1d}
 slot_emojis = {
     'topl': '<:topl:730115768431280238>',
     'topr': '<:topr:730115786735091762>',
@@ -110,7 +111,7 @@ class SuperMechs(commands.Cog):
             abbrevs[abbreviation].append(name) if abbreviation in abbrevs else abbrevs.update({abbreviation: [name]})
         self.abbrevs, self.names = abbrevs, names
 
-    def get_image(self, item: object) -> str:
+    def get_image(self, item) -> str('ItemImageLink'):
         safe_name = item['name'].replace(' ', '')
         url = url_template.format(safe_name)
 
@@ -122,13 +123,12 @@ class SuperMechs(commands.Cog):
             else: self.image_url_cache[item['id']] = url
         return self.image_url_cache[item['id']]
 
-    def ressolve_args(self, args: tuple):
+    def ressolve_args(self, args: Iterable):
         '''Takes command arguments as an input and tries to match them as key item pairs'''
         args = [a.lower() for a in args]
         specs = {}  # dict of data type: desired data, like 'element': 'explosive'
         ingored_args = set()
         for arg in args:
-            print(arg)
             if ':' not in arg:
                 ingored_args.add(arg)
                 continue
@@ -145,10 +145,10 @@ class SuperMechs(commands.Cog):
                 specs.update({arg: value.strip()})
         return specs, ingored_args
 
-    def specs(self, item: object):
+    def specs(self, item):
         return {'type': item_type[item['type']][1], 'element': item_element[item['element']], 'tier': tier_colors[item_tiers.index(item['transform_range'].split('-')[0])]}
 
-    def emoji_for_browseitems(self, item: object, spec_filter: dict):
+    def emoji_for_browseitems(self, item, spec_filter: Dict['ItemStat', 'StatValue']):
         specs = self.specs(item)
         return ''.join(specs[spec] for spec in specs if spec not in spec_filter)
 
@@ -300,8 +300,8 @@ class SuperMechs(commands.Cog):
     @commands.command(aliases=['bi'], brief='WIP command')
     async def browseitems(self, ctx, *args):
         args = list(args)
-        flags = [args.pop(args.index(flag)) for flag in {'-reverse'} if flag in args]
-        reverse = bool('-reverse' in flags)
+        # flags = [args.pop(args.index(flag)) for flag in {'-reverse'} if flag in args]
+        # reverse = bool('-reverse' in flags)
         try:
             specs, ignored_args = self.ressolve_args(args)
         except Exception as error:
@@ -337,38 +337,34 @@ class SuperMechs(commands.Cog):
                     continue
                 matching_specs.add(item[key] == value)
             if all(matching_specs): items.append(item)
-        
-        sort_by_tier = lambda item: list(reversed(item_tiers)).index(item['transform_range'].split('-')[0])
-        sort_by_elem = lambda item: list(element_colors.keys()).index(item['element'])
-        sort_by_type = lambda item: list(item_type.keys()).index(item['type'])
-        sort_by_name = lambda item: item['name']
 
-        if len(valid_specs) == 3: algo = sort_by_name
-        else:
-            if 'type' in valid_specs:
-                if 'tier' in valid_specs:
-                    algo = sort_by_elem
-                else:
-                    algo = sort_by_tier # will work both for type as well as type + element
-            elif 'element' in valid_specs:
-                algo = sort_by_type
-            else:
-                algo = sort_by_elem
+        def sort_by_tier_elem_name(item):
+            return (
+                list(reversed(item_tiers)).index(item['transform_range'].split('-')[0]),
+                list(element_colors.keys()).index(item['element']),
+                # list(item_type.keys()).index(item['type']),
+                item['name'])
 
-        items.sort(key=algo)
+        items.sort(key=sort_by_tier_elem_name)
 
-        print(len(items))
-        text = '\n'.join(self.emoji_for_browseitems(item, valid_specs) + ' ' + item['name'] for item in items)
-        print(len(text))
-        if len(text) > 2048: text = 'Results exceeded character limit.'
+        item_names = [self.emoji_for_browseitems(item, valid_specs) + ' ' + item['name'] for item in items]
+        fields = split_to_fields(item_names, '\n', field_limit=1024)
 
         color = element_colors[valid_specs['element']] if 'element' in valid_specs else discord.Color.from_rgb(*random_color())
 
-        embed = discord.Embed(title=f'Matching items ({len(items)}):', description=text, color=color).set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        new_specs = self.specs(items[0])
-        embed.add_field(name=f'Match criteria{" (inverted)" if reverse else ""}:', value='\n'.join(spec.capitalize().replace('_', ' ') + ': ' + new_specs[spec] for spec in valid_specs), inline=True)
-        await ctx.send(embed=embed)
+        embed = discord.Embed(title=f'Matching items ({len(items)})', description='\n'.join(spec.capitalize().replace('_', ' ') + ': ' + self.specs(items[0])[spec] for spec in valid_specs), color=color)
 
+        embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+
+        for field in fields:
+            embed.add_field(name='<:none:742507182918074458>', value='\n'.join(field), inline=True)
+            if len(embed) > 6000:
+                x = sum(len(field) for field in fields[fields.index(field):])
+                embed.set_field_at(index=-1, name='<:none:742507182918074458>', value=f'...and {x} more', inline=False)
+                break
+
+        embed.set_footer(text=f'Character count: {len(embed) + 17}')
+        await ctx.send(embed=embed)
 
     @commands.command(hidden=True, aliases=['MB'], brief='WIP command')
     @perms(3)

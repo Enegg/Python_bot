@@ -98,3 +98,29 @@ async def supreme_listener(ctx, msg, emojis: list, listen_for_add=True, listen_f
 
 def set_default(embed, ctx):
     embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+
+def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
+    '''Helper func designed to split a long list of items into discord embed fields so that they stay under character limit. field_limit should be an int or a tuple of two ints; in case of the latter the first int will be applied to the first field, and the second to any following field.'''
+    if isinstance(field_limit, tuple):
+        if len(field_limit) != 2:
+            raise ValueError(f'Expected 2 integers, got {len(field_limit)} {field_limit}')
+        main_limit, extra_limit = field_limit
+    else: main_limit, extra_limit = int(field_limit), 0
+    sliced_list = []
+    
+    all_items = list(all_items)
+
+    while True:
+        counter = 0
+        if sliced_list and extra_limit: main_limit = extra_limit
+        for i in all_items:
+            if counter + len(i) > main_limit:
+                index = all_items.index(i)
+                sliced_list.append(all_items[:index])
+                all_items = all_items[index:]
+                break
+            counter += len(i) + len(splitter)
+        else:
+            sliced_list.append(all_items)
+            break
+    return sliced_list
