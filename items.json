@@ -3831,5 +3831,25 @@
 			"eleDmg": [131, 211],
 			"eneDmg": 49
 		}
+	},
+	{
+		"id": 197,
+		"name": "Quad Core Booster",
+		"type": "MODULE",
+		"element": "COMBINED",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 40,
+			"eneCap": 97,
+			"eneReg": 46,
+			"heaCap": 89,
+			"heaCol": 46
+		},
+		"divine": {
+			"eneCap": 104,
+			"eneReg": 49,
+			"heaCap": 94,
+			"heaCol": 49
+		}
 	}
 ]
