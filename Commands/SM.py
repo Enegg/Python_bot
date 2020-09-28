@@ -203,14 +203,14 @@ class SuperMechs(commands.Cog):
                 if number > 1:
                     first_item = matches[0]
                     final_item = matches[-1]
-                    filler = ''.join(map(lambda n: ', **{}** for **{}**'.format(n + 1, matches[n]), range(1, number - 1))) if number > 2 else ''
+                    filler = ''.join(f', **{n}** for **{matches[n-1]}**' for n in range(2, number)) if number > 2 else ''
                     botmsg = await ctx.send(f'Found {number} items!\nType **1** for **{first_item}**{filler} or **{number}** for **{final_item}**')
                     try: reply = await ctx.bot.wait_for('message', timeout=20.0, check=lambda m: m.author == msg.author and m.channel == ctx.channel and m.content.isdigit())
                     except asyncio.TimeoutError:
                         await botmsg.add_reaction('⏰')
                         return
                     choice = intify(reply.content) - 1
-                    if choice in range(0, number): name = matches[choice]
+                    if choice in range(number): name = matches[choice]
                     else:
                         await reply.add_reaction('❌')
                         return
