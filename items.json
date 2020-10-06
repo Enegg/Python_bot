@@ -3165,7 +3165,7 @@
 		"stats": {
 			"weight": 48,
 			"phyDmg": [215, 379],
-			"phyResDmg": 5,
+			"phyResDmg": 8,
 			"backfire": 130,
 			"eneCost": 16,
 			"heaCost": 16
@@ -3850,6 +3850,54 @@
 			"eneReg": 49,
 			"heaCap": 94,
 			"heaCol": 49
+		}
+	},
+	{
+		"id": 198,
+		"name": "Energy Fortress",
+		"type": "MODULE",
+		"element": "ELECTRIC",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 40,
+			"health": 158,
+			"eleRes": 64
+		},
+		"divine": {
+			"health": 166,
+			"eleRes": 69
+		}
+	},
+	{
+		"id": 199,
+		"name": "Heat Fortress",
+		"type": "MODULE",
+		"element": "EXPLOSIVE",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 40,
+			"health": 158,
+			"expRes": 64
+		},
+		"divine": {
+			"health": 166,
+			"expRes": 69
+		}
+	},
+	{
+		"id": 200,
+		"name": "Physical Fortress",
+		"type": "MODULE",
+		"element": "PHYSICAL",
+		"transform_range": "LEGENDARY-DIVINE",
+		"stats": {
+			"weight": 40,
+			"health": 158,
+			"phyRes": 64
+		},
+		"divine": {
+			"health": 166,
+			"phyRes": 69
 		}
 	}
 ]
