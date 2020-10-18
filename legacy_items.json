@@ -1,0 +1,4166 @@
+[
+    {
+        "name": "Ultraspade",
+        "type": "TORSO",
+        "tier": "M",
+        "stats": {
+            "weight": 364,
+            "health": 408,
+            "eneCap": 150,
+            "eneReg": 40,
+            "heaCap": 110,
+            "heaCol": 20
+        }
+    },
+    {
+        "name": "Lava Scope",
+        "type": "TORSO",
+        "tier": "M",
+        "stats": {
+            "weight": 369,
+            "health": 380,
+            "eneCap": 90,
+            "eneReg": 25,
+            "heaCap": 150,
+            "heaCol": 50
+        }
+    },
+    {
+        "name": "Electron Defence",
+        "type": "TORSO",
+        "tier": "M",
+        "stats": {
+            "weight": 382,
+            "health": 400,
+            "eneCap": 100,
+            "eneReg": 30,
+            "heaCap": 120,
+            "heaCol": 40,
+            "eleRes": 8
+        }
+    },
+    {
+        "name": "Metrolens",
+        "type": "TORSO",
+        "tier": "M",
+        "stats": {
+            "weight": 379,
+            "health": 400,
+            "eneCap": 115,
+            "eneReg": 30,
+            "heaCap": 115,
+            "heaCol": 30,
+            "phyRes": 8
+        }
+    },
+    {
+        "name": "USA Mark I",
+        "type": "TORSO",
+        "tier": "M",
+        "stats": {
+            "weight": 380,
+            "health": 450,
+            "eneCap": 90,
+            "eneReg": 30,
+            "heaCap": 140,
+            "heaCol": 15,
+            "phyRes": 4,
+            "expRes": 2,
+            "eleRes": 2
+        }
+    },
+    {
+        "name": "Yoshimo X",
+        "type": "TORSO",
+        "tier": "M",
+        "stats": {
+            "weight": 380,
+            "health": 450,
+            "eneCap": 140,
+            "eneReg": 15,
+            "heaCap": 90,
+            "heaCol": 30,
+            "phyRes": 2,
+            "expRes": 4,
+            "eleRes": 2
+        }
+    },
+    {
+        "name": "Rino Boots",
+        "type": "LEGS",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 56,
+            "health": 36,
+            "phyDmg": 80,
+            "push": 1,
+            "range": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Flame Boots",
+        "type": "LEGS",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 71,
+            "health": 36,
+            "expDmg": 40,
+            "heaDmg": 54,
+            "push": 1,
+            "range": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Thunder Boots",
+        "type": "LEGS",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 76,
+            "health": 36,
+            "eleDmg": 37,
+            "eneDmg": 54,
+            "push": 1,
+            "range": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Steel Tractors",
+        "type": "LEGS",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 59,
+            "health": 35,
+            "phyDmg": 60,
+            "push": 1,
+            "range": 1,
+            "walk": 3
+        }
+    },
+    {
+        "name": "Burning Tractors",
+        "type": "LEGS",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 72,
+            "health": 35,
+            "expDmg": 28,
+            "heaDmg": 45,
+            "push": 1,
+            "range": 1,
+            "walk": 3
+        }
+    },
+    {
+        "name": "Lightning Tractors",
+        "type": "LEGS",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 72,
+            "health": 35,
+            "eleDmg": 28,
+            "eneDmg": 45,
+            "push": 1,
+            "range": 1,
+            "walk": 3
+        }
+    },
+    {
+        "name": "USA Transporter",
+        "type": "LEGS",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 68,
+            "health": 45,
+            "expDmg": 40,
+            "heaDmg": 25,
+            "push": 1,
+            "range": 1,
+            "walk": 3
+        }
+    },
+    {
+        "name": "Yoshimo Legs",
+        "type": "LEGS",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 68,
+            "health": 45,
+            "eleDmg": 40,
+            "eneDmg": 25,
+            "push": 1,
+            "range": 1,
+            "walk": 3
+        }
+    },
+    {
+        "name": "Meteor",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 50,
+            "phyDmg": [76, 120],
+            "phyResDmg": 4,
+            "range": 1,
+            "eneCost": 15,
+            "heaCost": 9
+        }
+    },
+    {
+        "name": "Meltdown",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 58,
+            "expDmg": [48, 68],
+            "heaDmg": 52,
+            "expResDmg": 3,
+            "push": 1,
+            "range": 1,
+            "eneCost": 11,
+            "heaCost": 18
+        }
+    },
+    {
+        "name": "Sparks",
+        "type": "SIDE_WEAPON",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 59,
+            "eleDmg": [48, 68],
+            "eneDmg": 52,
+            "eleResDmg": 3,
+            "push": 1,
+            "range": 1,
+            "eneCost": 24
+        }
+    },
+    {
+        "name": "Needle Blaster Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 69,
+            "phyDmg": [75, 85],
+            "phyResDmg": 3,
+            "range": [2, 4],
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Needle Blaster Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 71,
+            "phyDmg": [80, 90],
+            "phyResDmg": 3,
+            "range": [2, 4],
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Yoshimo Blade",
+        "type": "SIDE_WEAPON",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 61,
+            "eleDmg": [50, 72],
+            "eneDmg": 52,
+            "eleResDmg": 4,
+            "push": 1,
+            "range": 1,
+            "eneCost": 22,
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Piercing Shotgun Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 59,
+            "phyDmg": [30, 155],
+            "phyResDmg": 2,
+            "push": 1,
+            "range": [1, 2],
+            "heaCost": 12,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Piercing Shotgun Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 65,
+            "expDmg": [35, 115],
+            "heaDmg": 43,
+            "heaResDmg": 2,
+            "push": 1,
+            "range": [1, 2],
+            "eneCost": 5,
+            "heaCost": 25,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Piercing Shotgun Mark III",
+        "type": "SIDE_WEAPON",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 65,
+            "eleDmg": [35, 115],
+            "eneDmg": 43,
+            "eneResDmg": 2,
+            "push": 1,
+            "range": [1, 2],
+            "eneCost": 25,
+            "heaCost": 5,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Death Punch Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 61,
+            "expDmg": [90, 140],
+            "heaDmg": 52,
+            "heaResDmg": 5,
+            "push": 1,
+            "range": [4, 6],
+            "uses": 1,
+            "eneCost": 5,
+            "heaCost": 15,
+            "rocketCost": 20
+        }
+    },
+    {
+        "name": "Death Punch Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 63,
+            "expDmg": [96, 146],
+            "heaDmg": 54,
+            "heaResDmg": 5,
+            "push": 1,
+            "range": [4, 6],
+            "uses": 1,
+            "eneCost": 5,
+            "heaCost": 15,
+            "rocketCost": 20
+        }
+    },
+    {
+        "name": "Wipeout Mark I",
+        "type": "TOP_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 49,
+            "phyDmg": [62, 81],
+            "phyResDmg": 3,
+            "range": [5, 6],
+            "heaCost": 13,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Wipeout Mark II",
+        "type": "TOP_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 49,
+            "phyDmg": [63, 84],
+            "phyResDmg": 3,
+            "range": [5, 6],
+            "heaCost": 13,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Wipeout Mark III",
+        "type": "TOP_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 55,
+            "phyDmg": [63, 85],
+            "phyResDmg": 4,
+            "range": [5, 6],
+            "heaCost": 13,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Physical Orb Cannon",
+        "type": "TOP_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 54,
+            "phyDmg": [50, 60],
+            "phyResDmg": 3,
+            "pull": 1,
+            "range": [4, 6],
+            "eneCost": 8,
+            "heaCost": 8
+        }
+    },
+    {
+        "name": "Adv. Physical Orb Cannon",
+        "type": "TOP_WEAPON",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 56,
+            "phyDmg": [52, 66],
+            "phyResDmg": 3,
+            "pull": 1,
+            "range": [4, 6],
+            "eneCost": 8,
+            "heaCost": 8
+        }
+    },
+    {
+        "name": "Heat Orb Cannon",
+        "type": "TOP_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 55,
+            "expDmg": [40, 50],
+            "heaDmg": 26,
+            "expResDmg": 2,
+            "pull": 1,
+            "range": [4, 6],
+            "eneCost": 5,
+            "heaCost": 15
+        }
+    },
+    {
+        "name": "Electric Orb Cannon",
+        "type": "TOP_WEAPON",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 55,
+            "eleDmg": [40, 50],
+            "eneDmg": 26,
+            "eleResDmg": 2,
+            "pull": 1,
+            "range": [4, 6],
+            "eneCost": 15,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Adv. Electric Orb Cannon",
+        "type": "TOP_WEAPON",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 57,
+            "eleDmg": [42, 54],
+            "eneDmg": 28,
+            "eleResDmg": 2,
+            "pull": 1,
+            "range": [4, 6],
+            "eneCost": 16,
+            "heaCost": 6
+        }
+    },
+    {
+        "name": "Super Nove Mark I",
+        "type": "TOP_WEAPON",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 62,
+            "eleDmg": [30, 66],
+            "eneDmg": 110,
+            "eleResDmg": 5,
+            "push": 1,
+            "range": [4, 6],
+            "uses": 1,
+            "eneCost": 35,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Mayhem Battery I",
+        "type": "TOP_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 57,
+            "expDmg": [52, 71],
+            "heaDmg": 31,
+            "expResDmg": 2,
+            "range": [4, 7],
+            "heaCost": 24,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Mayhem Battery II",
+        "type": "TOP_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 58,
+            "expDmg": [53, 73],
+            "heaDmg": 33,
+            "expResDmg": 2,
+            "range": [4, 7],
+            "heaCost": 25,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Mayhem Battery III",
+        "type": "TOP_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 65,
+            "expDmg": [54, 75],
+            "heaDmg": 34,
+            "expResDmg": 3,
+            "range": [4, 7],
+            "heaCost": 26,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Backstabber Mark I",
+        "type": "TOP_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 71,
+            "expDmg": [60, 87],
+            "heaDmg": 35,
+            "expResDmg": 2,
+            "pull": 1,
+            "range": [4, 7],
+            "eneCost": 5,
+            "heaCost": 20,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Backstabber Mark II",
+        "type": "TOP_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 80,
+            "expDmg": [65, 101],
+            "heaDmg": 37,
+            "expResDmg": 3,
+            "pull": 1,
+            "range": [4, 7],
+            "eneCost": 6,
+            "heaCost": 24,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Red Rain Mark I",
+        "type": "TOP_WEAPON",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 71,
+            "expDmg": [60, 87],
+            "heaDmg": 35,
+            "expResDmg": 2,
+            "pull": 1,
+            "range": [3, 5],
+            "eneCost": 5,
+            "heaCost": 20,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Sector Eye",
+        "type": "DRONE",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 37,
+            "expDmg": 40,
+            "heaDmg": 25,
+            "eneCost": 8,
+            "heaCost": 14,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Evil Spark",
+        "type": "DRONE",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 36,
+            "eleDmg": [30, 42],
+            "eneDmg": 23,
+            "eneCost": 20
+        }
+    },
+    {
+        "name": "Lightning Gate Mark I",
+        "type": "TELE",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 25,
+            "eleDmg": [35, 45],
+            "eneDmg": 34,
+            "range": 1,
+            "uses": 2,
+            "eneCost": 20
+        }
+    },
+    {
+        "name": "Fire Tail Mark I",
+        "type": "CHARGE",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 19,
+            "phyDmg": 40,
+            "push": 1,
+            "uses": 2,
+            "eneCost": 15,
+            "heaCost": 25
+        }
+    },
+    {
+        "name": "Rock Biter",
+        "type": "HOOK",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 23,
+            "phyDmg": [40, 55],
+            "range": [2, 7],
+            "uses": 2,
+            "eneCost": 10,
+            "heaCost": 10
+        }
+    },
+    {
+        "name": "Flame Biter",
+        "type": "HOOK",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 28,
+            "expDmg": [25, 35],
+            "heaDmg": 31,
+            "range": [2, 6],
+            "uses": 2,
+            "eneCost": 10,
+            "heaCost": 15
+        }
+    },
+    {
+        "name": "Shock Biter",
+        "type": "HOOK",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 28,
+            "eleDmg": [25, 35],
+            "eneDmg": 31,
+            "range": [2, 6],
+            "uses": 2,
+            "eneCost": 15,
+            "heaCost": 10
+        }
+    },
+    {
+        "name": "Titanium Skeleton I",
+        "type": "MODULE",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 27,
+            "health": 78
+        }
+    },
+    {
+        "name": "Platinum Skeleton II",
+        "type": "MODULE",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 29,
+            "health": 84
+        }
+    },
+    {
+        "name": "Platinum Skeleton III",
+        "type": "MODULE",
+        "elem": "PHYS",
+        "tier": "M",
+        "stats": {
+            "weight": 31,
+            "health": 90
+        }
+    },
+    {
+        "name": "Energy Generator I",
+        "type": "MODULE",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 43,
+            "eneCap": 35,
+            "eneReg": 18
+        }
+    },
+    {
+        "name": "Energy Generator II",
+        "type": "MODULE",
+        "elem": "ELEC",
+        "tier": "M",
+        "stats": {
+            "weight": 46,
+            "eneCap": 38,
+            "eneReg": 19
+        }
+    },
+    {
+        "name": "Engine Booster I",
+        "type": "MODULE",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 49,
+            "heaCap": 40,
+            "heaCol": 21
+        }
+    },
+    {
+        "name": "Engine Booster II",
+        "type": "MODULE",
+        "elem": "EXPL",
+        "tier": "M",
+        "stats": {
+            "weight": 52,
+            "heaCap": 43,
+            "heaCol": 22
+        }
+    },
+    {
+        "name": "Energy & Heat Booster I",
+        "type": "MODULE",
+        "elem": "COMB",
+        "tier": "M",
+        "stats": {
+            "weight": 53,
+            "eneCap": 22,
+            "eneReg": 11,
+            "heaCap": 22,
+            "heaCol": 11
+        }
+    },
+    {
+        "name": "Mega Bullet Storage I",
+        "type": "MODULE",
+        "tier": "M",
+        "stats": {
+            "weight": 45,
+            "bulletCap": 65
+        }
+    },
+    {
+        "name": "Mega Bullet Storage II",
+        "type": "MODULE",
+        "tier": "M",
+        "stats": {
+            "weight": 48,
+            "bulletCap": 70
+        }
+    },
+    {
+        "name": "Mega Rocket Storage I",
+        "type": "MODULE",
+        "tier": "M",
+        "stats": {
+            "weight": 45,
+            "rocketCap": 65
+        }
+    },
+    {
+        "name": "Mega Rocket Storage II",
+        "type": "MODULE",
+        "tier": "M",
+        "stats": {
+            "weight": 48,
+            "rocketCap": 70
+        }
+    },
+    {
+        "name": "Invulnerability Mark I",
+        "type": "MODULE",
+        "elem": "COMB",
+        "tier": "M",
+        "stats": {
+            "weight": 46,
+            "phyRes": 10,
+            "expRes": 10,
+            "eleRes": 10
+        }
+    },
+    {
+        "name": "Invulnerability Mark II",
+        "type": "MODULE",
+        "elem": "COMB",
+        "tier": "M",
+        "stats": {
+            "weight": 51,
+            "phyRes": 11,
+            "expRes": 11,
+            "eleRes": 11
+        }
+    },
+    {
+        "name": "Newbie",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 1,
+        "price": 200,
+        "stats": {
+            "weight": 80,
+            "health": 108,
+            "eneCap": 15,
+            "eneReg": 5,
+            "heaCap": 15,
+            "heaCol": 5
+        }
+    },
+    {
+        "name": "Vector",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 1,
+        "price": 375,
+        "stats": {
+            "weight": 92,
+            "health": 120,
+            "eneCap": 20,
+            "eneReg": 5,
+            "heaCap": 20,
+            "heaCol": 5
+        }
+    },
+    {
+        "name": "Commander",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 2,
+        "price": 1150,
+        "stats": {
+            "weight": 107,
+            "health": 120,
+            "eneCap": 30,
+            "eneReg": 6,
+            "heaCap": 25,
+            "heaCol": 6
+        }
+    },
+    {
+        "name": "Spector",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 2,
+        "price": 1150,
+        "stats": {
+            "weight": 108,
+            "health": 132,
+            "eneCap": 25,
+            "eneReg": 6,
+            "heaCap": 25,
+            "heaCol": 6
+        }
+    },
+    {
+        "name": "Metal box",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 3,
+        "price": 4000,
+        "stats": {
+            "weight": 112,
+            "health": 144,
+            "eneCap": 25,
+            "eneReg": 6,
+            "heaCap": 25,
+            "heaCol": 6
+        }
+    },
+    {
+        "name": "Breach",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 3,
+        "price": 4000,
+        "stats": {
+            "weight": 114,
+            "health": 132,
+            "eneCap": 30,
+            "eneReg": 8,
+            "heaCap": 25,
+            "heaCol": 6
+        }
+    },
+    {
+        "name": "Fence",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 3,
+        "price": 6000,
+        "stats": {
+            "weight": 124,
+            "health": 144,
+            "eneCap": 30,
+            "eneReg": 7,
+            "heaCap": 25,
+            "heaCol": 7,
+            "phyRes": 2
+        }
+    },
+    {
+        "name": "Skeletor",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 3,
+        "price": 6000,
+        "stats": {
+            "weight": 118,
+            "health": 138,
+            "eneCap": 30,
+            "eneReg": 7,
+            "heaCap": 30,
+            "heaCol": 7
+        }
+    },
+    {
+        "name": "Zyborg",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 3,
+        "price": 6,
+        "stats": {
+            "weight": 127,
+            "health": 150,
+            "eneCap": 25,
+            "eneReg": 7,
+            "heaCap": 35,
+            "heaCol": 8,
+            "expRes": 2
+        }
+    },
+    {
+        "name": "Two Head",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 6,
+        "price": 18450,
+        "stats": {
+            "weight": 144,
+            "health": 180,
+            "eneCap": 35,
+            "eneReg": 8,
+            "heaCap": 30,
+            "heaCol": 8
+        }
+    },
+    {
+        "name": "Capsule",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 6,
+        "price": 18450,
+        "stats": {
+            "weight": 142,
+            "health": 150,
+            "eneCap": 40,
+            "eneReg": 8,
+            "heaCap": 35,
+            "heaCol": 10
+        }
+    },
+    {
+        "name": "Executioner",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 6,
+        "price": 18450,
+        "stats": {
+            "weight": 143,
+            "health": 162,
+            "eneCap": 35,
+            "eneReg": 9,
+            "heaCap": 35,
+            "heaCol": 9
+        }
+    },
+    {
+        "name": "Juggernaut",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 6,
+        "price": 27700,
+        "stats": {
+            "weight": 147,
+            "health": 180,
+            "eneCap": 35,
+            "eneReg": 9,
+            "heaCap": 35,
+            "heaCol": 9
+        }
+    },
+    {
+        "name": "Ironclad",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 6,
+        "price": 27700,
+        "stats": {
+            "weight": 147,
+            "health": 168,
+            "eneCap": 35,
+            "eneReg": 9,
+            "heaCap": 40,
+            "heaCol": 10
+        }
+    },
+    {
+        "name": "Alien",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 6,
+        "price": 12,
+        "stats": {
+            "weight": 152,
+            "health": 174,
+            "eneCap": 40,
+            "eneReg": 8,
+            "heaCap": 40,
+            "heaCol": 8,
+            "eleRes": 2
+        }
+    },
+    {
+        "name": "Blood Shot",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 6,
+        "stats": {
+            "weight": 157,
+            "health": 174,
+            "eneCap": 40,
+            "eneReg": 9,
+            "heaCap": 45,
+            "heaCol": 9,
+            "bulletCap": 5,
+            "expRes": 3
+        }
+    },
+    {
+        "name": "Threetop",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 10,
+        "price": 34600,
+        "stats": {
+            "weight": 180,
+            "health": 198,
+            "eneCap": 50,
+            "eneReg": 14,
+            "heaCap": 40,
+            "heaCol": 10
+        }
+    },
+    {
+        "name": "Robot",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 10,
+        "price": 34600,
+        "stats": {
+            "weight": 180,
+            "health": 198,
+            "eneCap": 40,
+            "eneReg": 10,
+            "heaCap": 50,
+            "heaCol": 14
+        }
+    },
+    {
+        "name": "Samurai",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 10,
+        "price": 34600,
+        "stats": {
+            "weight": 180,
+            "health": 210,
+            "eneCap": 45,
+            "eneReg": 10,
+            "heaCap": 45,
+            "heaCol": 10
+        }
+    },
+    {
+        "name": "Ruby",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 10,
+        "price": 51900,
+        "stats": {
+            "weight": 189,
+            "health": 210,
+            "eneCap": 35,
+            "eneReg": 10,
+            "heaCap": 55,
+            "heaCol": 14,
+            "expRes": 2
+        }
+    },
+    {
+        "name": "Emerald",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 10,
+        "price": 51900,
+        "stats": {
+            "weight": 189,
+            "health": 210,
+            "eneCap": 55,
+            "eneReg": 14,
+            "heaCap": 35,
+            "heaCol": 10,
+            "eleRes": 2
+        }
+    },
+    {
+        "name": "Predator",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 10,
+        "price": 20,
+        "stats": {
+            "weight": 189,
+            "health": 216,
+            "eneCap": 45,
+            "eneReg": 12,
+            "heaCap": 45,
+            "heaCol": 12,
+            "phyRes": 3
+        }
+    },
+    {
+        "name": "Soldier",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 10,
+        "price": 20,
+        "stats": {
+            "weight": 188,
+            "health": 216,
+            "eneCap": 50,
+            "eneReg": 13,
+            "heaCap": 50,
+            "heaCol": 13
+        }
+    },
+    {
+        "name": "Scope",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 10,
+        "stats": {
+            "weight": 201,
+            "health": 222,
+            "eneCap": 45,
+            "eneReg": 12,
+            "heaCap": 55,
+            "heaCol": 14,
+            "bulletCap": 5,
+            "rocketCap": 5,
+            "expRes": 2,
+            "eleRes": 2
+        }
+    },
+    {
+        "name": "Gecko",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 14,
+        "price": 45500,
+        "stats": {
+            "weight": 214,
+            "health": 246,
+            "eneCap": 50,
+            "eneReg": 12,
+            "heaCap": 55,
+            "heaCol": 14
+        }
+    },
+    {
+        "name": "Cobra",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 14,
+        "price": 45500,
+        "stats": {
+            "weight": 213,
+            "health": 228,
+            "eneCap": 55,
+            "eneReg": 14,
+            "heaCap": 55,
+            "heaCol": 14
+        }
+    },
+    {
+        "name": "Cyclops",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 14,
+        "price": 68250,
+        "stats": {
+            "weight": 209,
+            "health": 210,
+            "eneCap": 70,
+            "eneReg": 15,
+            "heaCap": 50,
+            "heaCol": 12
+        }
+    },
+    {
+        "name": "Dragon",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 14,
+        "price": 68250,
+        "stats": {
+            "weight": 209,
+            "health": 216,
+            "eneCap": 50,
+            "eneReg": 10,
+            "heaCap": 70,
+            "heaCol": 15
+        }
+    },
+    {
+        "name": "Golden Eye",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 14,
+        "price": 28,
+        "stats": {
+            "weight": 224,
+            "health": 258,
+            "eneCap": 60,
+            "eneReg": 15,
+            "heaCap": 50,
+            "heaCol": 13,
+            "eleRes": 3
+        }
+    },
+    {
+        "name": "Raptor",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 14,
+        "price": 28,
+        "stats": {
+            "weight": 223,
+            "health": 252,
+            "eneCap": 45,
+            "eneReg": 12,
+            "heaCap": 65,
+            "heaCol": 17,
+            "expRes": 3
+        }
+    },
+    {
+        "name": "Lucifer",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 14,
+        "stats": {
+            "weight": 241,
+            "health": 258,
+            "eneCap": 60,
+            "eneReg": 15,
+            "heaCap": 65,
+            "heaCol": 16,
+            "rocketCap": 15,
+            "phyRes": 4
+        }
+    },
+    {
+        "name": "Gladiator",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 14,
+        "stats": {
+            "weight": 238,
+            "health": 270,
+            "eneCap": 50,
+            "eneReg": 18,
+            "heaCap": 55,
+            "heaCol": 20,
+            "bulletCap": 15,
+            "expRes": 2,
+            "eleRes": 2
+        }
+    },
+    {
+        "name": "Metal Head",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 18,
+        "price": 53300,
+        "stats": {
+            "weight": 252,
+            "health": 300,
+            "eneCap": 60,
+            "eneReg": 15,
+            "heaCap": 60,
+            "heaCol": 15
+        }
+    },
+    {
+        "name": "Twin Turbine",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 18,
+        "price": 53300,
+        "stats": {
+            "weight": 251,
+            "health": 264,
+            "eneCap": 65,
+            "eneReg": 17,
+            "heaCap": 65,
+            "heaCol": 17
+        }
+    },
+    {
+        "name": "The Light",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 18,
+        "price": 53300,
+        "stats": {
+            "weight": 249,
+            "health": 240,
+            "eneCap": 80,
+            "eneReg": 20,
+            "heaCap": 60,
+            "heaCol": 14
+        }
+    },
+    {
+        "name": "Engine",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 18,
+        "price": 79950,
+        "stats": {
+            "weight": 256,
+            "health": 276,
+            "eneCap": 60,
+            "eneReg": 16,
+            "heaCap": 75,
+            "heaCol": 19
+        }
+    },
+    {
+        "name": "Goliath",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 18,
+        "price": 79950,
+        "stats": {
+            "weight": 255,
+            "health": 282,
+            "eneCap": 85,
+            "eneReg": 20,
+            "heaCap": 50,
+            "heaCol": 12
+        }
+    },
+    {
+        "name": "Blood Diamond",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 18,
+        "price": 36,
+        "stats": {
+            "weight": 259,
+            "health": 252,
+            "eneCap": 65,
+            "eneReg": 17,
+            "heaCap": 80,
+            "heaCol": 20,
+            "expRes": 3
+        }
+    },
+    {
+        "name": "Ember",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 18,
+        "price": 36,
+        "stats": {
+            "weight": 263,
+            "health": 288,
+            "eneCap": 65,
+            "eneReg": 17,
+            "heaCap": 70,
+            "heaCol": 18,
+            "phyRes": 3
+        }
+    },
+    {
+        "name": "Roman",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 18,
+        "stats": {
+            "weight": 273,
+            "health": 294,
+            "eneCap": 80,
+            "eneReg": 18,
+            "heaCap": 60,
+            "heaCol": 15,
+            "bulletCap": 10,
+            "rocketCap": 10,
+            "eleRes": 5
+        }
+    },
+    {
+        "name": "Shielded",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 18,
+        "stats": {
+            "weight": 276,
+            "health":306,
+            "eneCap": 65,
+            "eneReg": 18,
+            "heaCap": 70,
+            "heaCol": 20,
+            "bulletCap": 10,
+            "phyRes": 2,
+            "expRes": 2,
+            "eleRes": 2
+        }
+    },
+    {
+        "name": "Beetle",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 22,
+        "price": 59200,
+        "stats": {
+            "weight": 294,
+            "health": 294,
+            "eneCap": 70,
+            "eneReg": 18,
+            "heaCap": 90,
+            "heaCol": 22
+        }
+    },
+    {
+        "name": "Barracu",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 22,
+        "price": 59200,
+        "stats": {
+            "weight": 294,
+            "health": 294,
+            "eneCap": 80,
+            "eneReg": 20,
+            "heaCap": 80,
+            "heaCol": 20
+        }
+    },
+    {
+        "name": "Electron Power",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 22,
+        "price": 88800,
+        "stats": {
+            "weight": 290,
+            "health": 306,
+            "eneCap": 100,
+            "eneReg": 25,
+            "heaCap": 55,
+            "heaCol": 16
+        }
+    },
+    {
+        "name": "Flame Power",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 22,
+        "price": 88800,
+        "stats": {
+            "weight": 290,
+            "health": 306,
+            "eneCap": 55,
+            "eneReg": 16,
+            "heaCap": 100,
+            "heaCol": 25
+        }
+    },
+    {
+        "name": "Mega Gladiator",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 22,
+        "price": 44,
+        "stats": {
+            "weight": 308,
+            "health": 330,
+            "eneCap": 85,
+            "eneReg": 20,
+            "heaCap": 75,
+            "heaCol": 18,
+            "phyRes": 5
+        }
+    },
+    {
+        "name": "Mamut",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 22,
+        "stats": {
+            "weight": 307,
+            "health": 318,
+            "eneCap": 80,
+            "eneReg": 20,
+            "heaCap": 80,
+            "heaCol": 20,
+            "rocketCap": 20,
+            "expRes": 3,
+            "eleRes": 3
+        }
+    },
+    {
+        "name": "Dragon",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 22,
+        "stats": {
+            "weight": 297,
+            "health": 324,
+            "eneCap": 75,
+            "eneReg": 18,
+            "heaCap": 85,
+            "heaCol": 22,
+            "bulletCap": 15,
+            "rocketCap": 15
+        }
+    },
+    {
+        "name": "Hulk",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 26,
+        "price": 62000,
+        "stats": {
+            "weight": 332,
+            "health": 348,
+            "eneCap": 110,
+            "eneReg": 26,
+            "heaCap": 65,
+            "heaCol": 1
+        }
+    },
+    {
+        "name": "Steel Wolf",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 26,
+        "price": 63850,
+        "stats": {
+            "weight": 332,
+            "health": 330,
+            "eneCap": 90,
+            "eneReg": 23,
+            "heaCap": 90,
+            "heaCol": 23
+        }
+    },
+    {
+        "name": "Nelly McRockets",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 26,
+        "price": 95800,
+        "stats": {
+            "weight": 333,
+            "health": 336,
+            "eneCap": 85,
+            "eneReg": 22,
+            "heaCap": 100,
+            "heaCol": 25
+        }
+    },
+    {
+        "name": "Buster",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 26,
+        "price": 95800,
+        "stats": {
+            "weight": 335,
+            "health": 372,
+            "eneCap": 90,
+            "eneReg": 22,
+            "heaCap": 85,
+            "heaCol": 22
+        }
+    },
+    {
+        "name": "Chief",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 26,
+        "price": 52,
+        "stats": {
+            "weight": 342,
+            "health": 330,
+            "eneCap": 105,
+            "eneReg": 25,
+            "heaCap": 90,
+            "heaCol": 23,
+            "phyRes": 4
+        }
+    },
+    {
+        "name": "Dactyl",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 26,
+        "stats": {
+            "weight": 358,
+            "health": 360,
+            "eneCap": 95,
+            "eneReg": 23,
+            "heaCap": 95,
+            "heaCol": 23,
+            "bulletCap": 30,
+            "phyRes": 6
+        }
+    },
+    {
+        "name": "Saphire",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 26,
+        "stats": {
+            "weight": 359,
+            "health": 354,
+            "eneCap": 115,
+            "eneReg": 26,
+            "heaCap": 80,
+            "heaCol": 20,
+            "bulletCap": 15,
+            "rocketCap": 15,
+            "eleRes": 6
+        }
+    },
+    {
+        "name": "Apollo",
+        "type": "TORSO",
+        "tier": "C",
+        "level": 30,
+        "price": 67500,
+        "stats": {
+            "weight": 364,
+            "health": 360,
+            "eneCap": 100,
+            "eneReg": 25,
+            "heaCap": 100,
+            "heaCol": 25
+        }
+    },
+    {
+        "name": "Fire Guardian",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 30,
+        "price": 101250,
+        "stats": {
+            "weight": 366,
+            "health": 372,
+            "eneCap": 80,
+            "eneReg": 20,
+            "heaCap": 125,
+            "heaCol": 30
+        }
+    },
+    {
+        "name": "Electric Guardian",
+        "type": "TORSO",
+        "tier": "R",
+        "level": 30,
+        "price": 101250,
+        "stats": {
+            "weight": 366,
+            "health": 372,
+            "eneCap": 125,
+            "eneReg": 30,
+            "heaCap": 80,
+            "heaCol": 20
+        }
+    },
+    {
+        "name": "Volcano",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 30,
+        "price": 60,
+        "stats": {
+            "weight": 379,
+            "health": 384,
+            "eneCap": 90,
+            "eneReg": 22,
+            "heaCap": 120,
+            "heaCol": 30,
+            "expRes": 4
+        }
+    },
+    {
+        "name": "HAL",
+        "type": "TORSO",
+        "tier": "E",
+        "level": 30,
+        "price": 60,
+        "stats": {
+            "weight": 373,
+            "health": 372,
+            "eneCap": 110,
+            "eneReg": 28,
+            "heaCap": 110,
+            "heaCol": 28
+        }
+    },
+    {
+        "name": "Spider",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 394,
+            "health": 390,
+            "eneCap": 110,
+            "eneReg": 26,
+            "heaCap": 130,
+            "heaCol": 30,
+            "expRes": 3,
+            "eleRes": 3
+        }
+    },
+    {
+        "name": "Ultra Gladiator",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 382,
+            "health": 408,
+            "eneCap": 100,
+            "eneReg": 25,
+            "heaCap": 110,
+            "heaCol": 26,
+            "bulletCap": 20,
+            "rocketCap": 20
+        }
+    },
+    {
+        "name": "Galaxus Model A",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 395,
+            "health": 432,
+            "eneCap": 95,
+            "eneReg": 24,
+            "heaCap": 110,
+            "heaCol": 26,
+            "bulletCap": 25,
+            "phyRes": 6
+        }
+    },
+    {
+        "name": "Galaxus Model B",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 395,
+            "health": 432,
+            "eneCap": 95,
+            "eneReg": 24,
+            "heaCap": 110,
+            "heaCol": 26,
+            "rocketCap": 25,
+            "expRes": 6
+        }
+    },
+    {
+        "name": "Galaxus Model C",
+        "type": "TORSO",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 396,
+            "health": 432,
+            "eneCap": 135,
+            "eneReg": 30,
+            "heaCap": 90,
+            "heaCol": 24,
+            "eleRes": 6
+        }
+    },
+    {
+        "name": "Metal Walkers",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 1,
+        "price": 100,
+        "stats": {
+            "weight": 9,
+            "phyDmg": 20,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Sky Walkers",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 3,
+        "price": 1000,
+        "stats": {
+            "weight": 10,
+            "phyDmg": 23,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Rolin",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 3,
+        "price": 1000,
+        "stats": {
+            "weight": 14,
+            "phyDmg": 26,
+            "push": 1,
+            "walk": 2
+        }
+    },
+    {
+        "name": "Flatfoot",
+        "type": "LEGS",
+        "tier": "R",
+        "level": 3,
+        "price": 1500,
+        "stats": {
+            "weight": 14,
+            "health": 6,
+            "phyDmg": 26,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Steel Walkers",
+        "type": "LEGS",
+        "tier": "E",
+        "level": 3,
+        "price": 6,
+        "stats": {
+            "weight": 18,
+            "health": 6,
+            "phyDmg": 29,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Elephant",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 6,
+        "price": 5250,
+        "stats": {
+            "weight": 12,
+            "phyDmg": 27,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Trio-Wheels",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 6,
+        "price": 5250,
+        "stats": {
+            "weight": 17,
+            "phyDmg": 31,
+            "push": 1,
+            "walk": 2
+        }
+    },
+    {
+        "name": "Springs",
+        "type": "LEGS",
+        "tier": "R",
+        "level": 6,
+        "price": 7900,
+        "stats": {
+            "weight": 23,
+            "health": 12,
+            "phyDmg": 31,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Surf Board",
+        "type": "LEGS",
+        "tier": "E",
+        "level": 6,
+        "price": 12,
+        "stats": {
+            "weight": 30,
+            "health": 12,
+            "phyDmg": 34,
+            "push": 1,
+            "walk": 3
+        }
+    },
+    {
+        "name": "Heavy Legs",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 10,
+        "price": 9800,
+        "stats": {
+            "weight": 16,
+            "phyDmg": 33,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Carriers",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 10,
+        "price": 9800,
+        "stats": {
+            "weight": 21,
+            "phyDmg": 37,
+            "push": 1,
+            "walk": 2
+        }
+    },
+    {
+        "name": "Ultra Springs",
+        "type": "LEGS",
+        "tier": "R",
+        "level": 10,
+        "price": 14700,
+        "stats": {
+            "weight": 27,
+            "health": 12,
+            "phyDmg": 37,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Fort Wall",
+        "type": "LEGS",
+        "tier": "L",
+        "level": 10,
+        "stats": {
+            "weight": 32,
+            "health": 24,
+            "phyDmg": 40,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Grasshopper",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 14,
+        "price": 12900,
+        "stats": {
+            "weight": 23,
+            "phyDmg": 38,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Hoofs",
+        "type": "LEGS",
+        "tier": "R",
+        "level": 14,
+        "price": 19350,
+        "stats": {
+            "weight": 29,
+            "health": 12,
+            "phyDmg": 40,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Electro Wheels",
+        "type": "LEGS",
+        "tier": "E",
+        "level": 14,
+        "price": 28,
+        "stats": {
+            "weight": 34,
+            "health": 14,
+            "eleDmg": 40,
+            "eneDmg": 12,
+            "push": 1,
+            "walk": 2
+        }
+    },
+    {
+        "name": "Hot Wheels",
+        "type": "LEGS",
+        "tier": "E",
+        "level": 14,
+        "price": 28,
+        "stats": {
+            "weight": 33,
+            "health": 14,
+            "expDmg": 40,
+            "heaDmg": 12,
+            "push": 1,
+            "walk": 2
+        }
+    },
+    {
+        "name": "High Deff",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 18,
+        "price": 15100,
+        "stats": {
+            "weight": 22,
+            "phyDmg": 44,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Tank Base",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 18,
+        "price": 15100,
+        "stats": {
+            "weight": 28,
+            "phyDmg": 47,
+            "push": 1,
+            "walk": 2
+        }
+    },
+    {
+        "name": "Walkmans",
+        "type": "LEGS",
+        "tier": "R",
+        "level": 18,
+        "price": 22650,
+        "stats": {
+            "weight": 37,
+            "health": 18,
+            "phyDmg": 47,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Tappings",
+        "type": "LEGS",
+        "tier": "L",
+        "level": 18,
+        "stats": {
+            "weight": 53,
+            "health": 36,
+            "phyDmg": 48,
+            "push": 1,
+            "walk": 2,
+            "jump": 3
+        }
+    },
+    {
+        "name": "Steel Trunks",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 22,
+        "price": 16800,
+        "stats": {
+            "weight": 24,
+            "phyDmg": 49,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Fortress Floors",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 22,
+        "price": 16800,
+        "stats": {
+            "weight": 37,
+            "phyDmg": 51,
+            "push": 2,
+            "walk": 2
+        }
+    },
+    {
+        "name": "Kickers",
+        "type": "LEGS",
+        "tier": "R",
+        "level": 22,
+        "price": 25200,
+        "stats": {
+            "weight": 43,
+            "health": 24,
+            "phyDmg": 52,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Stompers",
+        "type": "LEGS",
+        "tier": "E",
+        "level": 22,
+        "price": 44,
+        "stats": {
+            "weight": 38,
+            "health": 36,
+            "phyDmg": 53,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Giga Feet",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 26,
+        "price": 18100,
+        "stats": {
+            "weight": 34,
+            "phyDmg": 55,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Two Steps",
+        "type": "LEGS",
+        "tier": "R",
+        "level": 26,
+        "price": 27150,
+        "stats": {
+            "weight": 47,
+            "health": 24,
+            "phyDmg": 58,
+            "push": 1,
+            "walk": 2,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Golden Springs",
+        "type": "LEGS",
+        "tier": "E",
+        "level": 26,
+        "price": 52,
+        "stats": {
+            "weight": 73,
+            "health": 36,
+            "phyDmg": 60,
+            "push": 2,
+            "walk": 2,
+            "jump": 3
+        }
+    },
+    {
+        "name": "Ultra Stompers",
+        "type": "LEGS",
+        "tier": "L",
+        "level": 26,
+        "stats": {
+            "weight": 50,
+            "health": 48,
+            "phyDmg": 63,
+            "push": 2,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Mammoth Paws",
+        "type": "LEGS",
+        "tier": "C",
+        "level": 30,
+        "price": 19150,
+        "stats": {
+            "weight": 38,
+            "phyDmg": 60,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Pipe feet",
+        "type": "LEGS",
+        "tier": "R",
+        "level": 30,
+        "price": 28750,
+        "stats": {
+            "weight": 50,
+            "health": 24,
+            "phyDmg": 63,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Mountain Feet",
+        "type": "LEGS",
+        "tier": "E",
+        "level": 30,
+        "price": 60,
+        "stats": {
+            "weight": 47,
+            "health": 42,
+            "phyDmg": 65,
+            "push": 1,
+            "walk": 1
+        }
+    },
+    {
+        "name": "Quake Feet",
+        "type": "LEGS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 59,
+            "health": 36,
+            "phyDmg": 80,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Cannon feet",
+        "type": "LEGS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 69,
+            "health": 72,
+            "phyDmg": 65,
+            "push": 1,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Steel Stampede",
+        "type": "LEGS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 61,
+            "health": 24,
+            "phyDmg": 80,
+            "push": 2,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Fire Stampede",
+        "type": "LEGS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 74,
+            "health": 24,
+            "expDmg": 60,
+            "heaDmg": 25,
+            "push": 2,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Thunder Stampede",
+        "type": "LEGS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 74,
+            "health": 24,
+            "eleDmg": 60,
+            "eneDmg": 25,
+            "push": 2,
+            "walk": 1,
+            "jump": 2
+        }
+    },
+    {
+        "name": "Laser Cannon",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 1,
+        "price": 100,
+        "stats": {
+            "weight": 8,
+            "phyDmg": 15,
+            "range": [1, 2],
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Plasma Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 1,
+        "price": 125,
+        "stats": {
+            "weight": 7,
+            "phyDmg": 20,
+            "range": [1, 2],
+            "uses": 2,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Twin Laser Cannon",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 2,
+        "price": 400,
+        "stats": {
+            "weight": 8,
+            "phyDmg": 17,
+            "range": [1, 2],
+            "heaCost": 8
+        }
+    },
+    {
+        "name": "Mini-Chaingun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 2,
+        "price": 400,
+        "stats": {
+            "weight": 11,
+            "phyDmg": [18, 27],
+            "range": [1, 2],
+            "heaCost": 6,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Laser Cannon v3.0",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 3,
+        "price": 1500,
+        "stats": {
+            "weight": 8,
+            "phyDmg": 18,
+            "range": [1, 2],
+            "heaCost": 8
+        }
+    },
+    {
+        "name": "Chaingun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 3,
+        "price": 1500,
+        "stats": {
+            "weight": 12,
+            "phyDmg": [20, 30],
+            "range": [1, 2],
+            "heaCost": 7,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Shotgun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 3,
+        "price": 1500,
+        "stats": {
+            "weight": 16,
+            "phyDmg": [27, 33],
+            "push": 1,
+            "range": 1,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Adv. Shotgun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 4,
+        "price": 2800,
+        "stats": {
+            "weight": 17,
+            "phyDmg": [29, 36],
+            "push": 1,
+            "range": 1,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Spammer",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 4,
+        "price": 8,
+        "stats": {
+            "weight": 16,
+            "phyDmg": [29, 36],
+            "push": 1,
+            "range": 1,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "MaC Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 5,
+        "price": 3950,
+        "stats": {
+            "weight": 15,
+            "phyDmg": [23, 33],
+            "range": [1, 2],
+            "heaCost": 5,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Bully",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 6,
+        "price": 4950,
+        "stats": {
+            "weight": 10,
+            "phyDmg": [14, 19],
+            "push": 3,
+            "range": [1, 3],
+            "eneCost": 4,
+            "heaCost": 4
+        }
+    },
+    {
+        "name": "Double Spammer",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "R",
+        "level": 6,
+        "price": 7450,
+        "stats": {
+            "weight": 17,
+            "phyDmg": [30, 35],
+            "push": 1,
+            "range": 1,
+            "heaCost": 1,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Tripple Spammer",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 8,
+        "price": 9900,
+        "stats": {
+            "weight": 25,
+            "phyDmg": [50, 55],
+            "push": 1,
+            "range": 1,
+            "heaCost": 4,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Lin Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 9,
+        "price": 7300,
+        "stats": {
+            "weight": 18,
+            "phyDmg": [30, 33],
+            "range": [1, 2],
+            "heaCost": 5,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Dino Rifle",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 9,
+        "stats": {
+            "weight": 20,
+            "phyDmg": [28, 38],
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 9
+        }
+    },
+    {
+        "name": "Shotgun Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 9,
+        "price": 18,
+        "stats": {
+            "weight": 21,
+            "phyDmg": [30, 40],
+            "push": 1,
+            "range": [1, 2],
+            "heaCost": 4,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Shotgun Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 10,
+        "price": 20,
+        "stats": {
+            "weight": 22,
+            "phyDmg": [32, 42],
+            "push": 1,
+            "range": [1, 2],
+            "heaCost": 5,
+            "bulletCost": 5
+        }
+    },
+    {
+        "name": "Back Blow",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 10,
+        "price": 7950,
+        "stats": {
+            "weight": 13,
+            "phyDmg": [10, 16],
+            "push": 3,
+            "range": [1, 3],
+            "uses": 3,
+            "eneCost": 5,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "WiN Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 11,
+        "price": 22,
+        "stats": {
+            "weight": 27,
+            "phyDmg": [45, 60],
+            "range": [1, 2],
+            "heaCost": 5,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Small Yellow Laser",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 12,
+        "price": 9000,
+        "stats": {
+            "weight": 15,
+            "phyDmg": 27,
+            "range": [3, 4],
+            "heaCost": 8
+        }
+    },
+    {
+        "name": "Yellower",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 12,
+        "price": 24,
+        "stats": {
+            "weight": 16,
+            "phyDmg": [45, 55],
+            "push": 1,
+            "range": [3, 4],
+            "uses": 2,
+            "heaCost": 13
+        }
+    },
+    {
+        "name": "Machine Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 13,
+        "stats": {
+            "weight": 124,
+            "phyDmg": [40, 45],
+            "range": [1, 2],
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Yelloworm",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 14,
+        "price": 28,
+        "stats": {
+            "weight": 22,
+            "phyDmg": 50,
+            "push": 1,
+            "range": [2, 4],
+            "uses": 2,
+            "heaCost": 8
+        }
+    },
+    {
+        "name": "Reinforced Shotgun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 14,
+        "stats": {
+            "weight": 24,
+            "phyDmg": [40, 50],
+            "push": 1,
+            "range": [1, 2],
+            "eneCost": 5,
+            "heaCost": 5,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Medium Yellow Laser",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 15,
+        "stats": {
+            "weight": 24,
+            "phyDmg": 43,
+            "range": [2, 4],
+            "heaCost": 10
+        }
+    },
+    {
+        "name": "Double Machine Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 16,
+        "price": 32,
+        "stats": {
+            "weight": 28,
+            "phyDmg": [43, 53],
+            "range": [1, 2],
+            "heaCost": 1,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Large Yellow Laser",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 18,
+        "price": 36,
+        "stats": {
+            "weight": 28,
+            "phyDmg": 45,
+            "range": [2, 4],
+            "heaCost": 9
+        }
+    },
+    {
+        "name": "Minigun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 19,
+        "price": 38,
+        "stats": {
+            "weight": 25,
+            "phyDmg": [40, 50],
+            "range": [1, 2],
+            "heaCost": 5,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Quadroople Machine Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 19,
+        "stats": {
+            "weight": 32,
+            "phyDmg": [55, 65],
+            "range": [1, 2],
+            "heaCost": 2,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Push",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 20,
+        "price": 12000,
+        "stats": {
+            "weight": 24,
+            "phyDmg": 20,
+            "push": 4,
+            "range": [1, 3],
+            "uses": 2,
+            "eneCost": 5,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Safe Shot",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 21,
+        "stats": {
+            "weight": 46,
+            "phyDmg": [60, 85],
+            "range": [2, 4],
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "GAU-8A",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 22,
+        "stats": {
+            "weight": 34,
+            "phyDmg": [60, 75],
+            "range": [1, 2],
+            "heaCost": 5,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Blow Back",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 23,
+        "price": 12700,
+        "stats": {
+            "weight": 32,
+            "phyDmg": 25,
+            "push": 5,
+            "range": [1, 3],
+            "uses": 2,
+            "eneCost": 7,
+            "heaCost": 7
+        }
+    },
+    {
+        "name": "Sure Shot",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 24,
+        "stats": {
+            "weight": 49,
+            "phyDmg": [65, 88],
+            "range": [2, 4],
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Ultimate Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 25,
+        "price": 50,
+        "stats": {
+            "weight": 41,
+            "phyDmg": [70, 90],
+            "range": [1, 2],
+            "heaCost": 9,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Umpfifier",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 25,
+        "stats": {
+            "weight": 33,
+            "phyDmg": [55, 83],
+            "range": [1, 2],
+            "heaCost": 12,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Saurus Rifle",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 26,
+        "stats": {
+            "weight": 39,
+            "phyDmg": [46, 62],
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 10
+        }
+    },
+    {
+        "name": "Demolisher Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 26,
+        "stats": {
+            "weight": 56,
+            "phyDmg": [65, 75],
+            "phyResDmg": 2,
+            "range": [1, 3],
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Yellow",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 27,
+        "stats": {
+            "weight": 30,
+            "phyDmg": [51, 67],
+            "range": [3, 4],
+            "heaCost": 10
+        }
+    },
+    {
+        "name": "Yellow Shredder Beam",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 28,
+        "price": 56,
+        "stats": {
+            "weight": 32,
+            "phyDmg": 53,
+            "push": 1,
+            "range": [3, 4],
+            "heaCost": 16
+        }
+    },
+    {
+        "name": "Caseus",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 28,
+        "stats": {
+            "weight": 31,
+            "phyDmg": 62,
+            "range": [3, 4],
+            "heaCost": 11
+        }
+    },
+    {
+        "name": "Iron Shredder",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 28,
+        "stats": {
+            "weight": 46,
+            "phyDmg": [68, 103],
+            "range": [1, 2],
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Demolisher Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 28,
+        "stats": {
+            "weight": 60,
+            "phyDmg": [70, 80],
+            "phyResDmg": 2,
+            "range": [1, 3],
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Rail Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 29,
+        "stats": {
+            "weight": 40,
+            "phyDmg": [72, 102],
+            "range": [1, 2],
+            "heaCost": 15,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Yellow Beam",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 32,
+            "phyDmg": [60, 70],
+            "range": [3, 4],
+            "heaCost": 11
+        }
+    },
+    {
+        "name": "Iron Shredder",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 46,
+            "phyDmg": [76, 114],
+            "range": [1, 2],
+            "heaCost": 9,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Resistance Drainer",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "C",
+        "level": 30,
+        "price": 14000,
+        "stats": {
+            "weight": 32,
+            "phyResDmg": 8,
+            "uses": 1,
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Shotgun X Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 59,
+            "phyDmg": [20, 170],
+            "push": 2,
+            "range": [1, 2],
+            "heaCost": 10,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Grenade Launcher Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 30,
+        "price": 60,
+        "stats": {
+            "weight": 47,
+            "phyDmg": [60, 72],
+            "phyResDmg": 2,
+            "push": 1,
+            "range": [3, 4],
+            "eneCost": 6,
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Resistance Drainer",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "E",
+        "level": 30,
+        "price": 60,
+        "stats": {
+            "weight": 36,
+            "phyResDmg": 9,
+            "uses": 1,
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Demolisher Mark III",
+        "type": "SIDE_WEAPON",
+        "elem": "PHYS",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 68,
+            "phyDmg": [75, 85],
+            "phyResDmg": 3,
+            "range": [1, 3],
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Railgun",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 3,
+        "price": 2250,
+        "stats": {
+            "weight": 13,
+            "expDmg": [20, 25],
+            "heaDmg": 3,
+            "push": 1,
+            "range": [2, 4],
+            "uses": 3,
+            "heaCost": 8
+        }
+    },
+    {
+        "name": "Flame Thrower",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 3,
+        "price": 6,
+        "stats": {
+            "weight": 10,
+            "expDmg": [12, 24],
+            "heaDmg": 10,
+            "range": 1,
+            "uses": 2,
+            "heaCost": 6
+        }
+    },
+    {
+        "name": "Red Plasma Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 4,
+        "price": 2800,
+        "stats": {
+            "weight": 17,
+            "expDmg": [18, 22],
+            "heaDmg": 5,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 10
+        }
+    },
+    {
+        "name": "Double Plasma Gun",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 5,
+        "price": 3950,
+        "stats": {
+            "weight": 15,
+            "expDmg": [18, 22],
+            "heaDmg": 5,
+            "push": 1,
+            "range": [2, 4],
+            "uses": 3,
+            "heaCost": 9
+        }
+    },
+    {
+        "name": "Roast",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 5,
+        "price": 5950,
+        "stats": {
+            "weight": 19,
+            "expDmg": [26, 32],
+            "heaDmg": 18,
+            "range": [3, 4],
+            "uses": 2,
+            "heaCost": 11
+        }
+    },
+    {
+        "name": "Light Gauss Rifle",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "L",
+        "level": 5,
+        "stats": {
+            "weight": 14,
+            "expDmg": [20, 26],
+            "heaDmg": 4,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 9,
+            "rocketCost": 5
+        }
+    },
+    {
+        "name": "Fire Starter",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 6,
+        "price": 4950,
+        "stats": {
+            "weight": 14,
+            "expDmg": [24, 30],
+            "heaDmg": 12,
+            "range": 1,
+            "uses": 2,
+            "heaCost": 6
+        }
+    },
+    {
+        "name": "Rocket Hand",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 7,
+        "price": 5800,
+        "stats": {
+            "weight": 15,
+            "expDmg": [22, 27],
+            "heaDmg": 2,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 10,
+            "rocketCost": 5
+        }
+    },
+    {
+        "name": "Gauss Rifle",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "L",
+        "level": 7,
+        "stats": {
+            "weight": 23,
+            "expDmg": [28, 34],
+            "heaDmg": 9,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 8,
+            "rocketCost": 5
+        }
+    },
+    {
+        "name": "Flame Thrower v3.0",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 8,
+        "price": 6600,
+        "stats": {
+            "weight": 20,
+            "expDmg": [23, 28],
+            "heaDmg": 15,
+            "range": 1,
+            "uses": 3,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Red Eyes",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 8,
+        "price": 6600,
+        "stats": {
+            "weight": 17,
+            "expDmg": [20, 25],
+            "heaDmg": 4,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 15
+        }
+    },
+    {
+        "name": "Lava Blaster",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 9,
+        "price": 7300,
+        "stats": {
+            "weight": 26,
+            "expDmg": [22, 27],
+            "heaDmg": 8,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 11
+        }
+    },
+    {
+        "name": "Heavy Gauss Rifle",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 9,
+        "price": 7300,
+        "stats": {
+            "weight": 22,
+            "expDmg": [32, 40],
+            "heaDmg": 8,
+            "range": [3, 4],
+            "heaCost": 15,
+            "rocketCost": 5
+        }
+    },
+    {
+        "name": "Flame Thrower v4.0",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 10,
+        "price": 7950,
+        "stats": {
+            "weight": 21,
+            "expDmg": 27,
+            "heaDmg": 16,
+            "range": 1,
+            "uses": 3,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Big Bertha",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 10,
+        "price": 20,
+        "stats": {
+            "weight": 32,
+            "expDmg": 30,
+            "heaDmg": 13,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 13
+        }
+    },
+    {
+        "name": "The Dragon",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 11,
+        "price": 8500,
+        "stats": {
+            "weight": 22,
+            "expDmg": 29,
+            "heaDmg": 17,
+            "range": 1,
+            "uses": 3,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Hot Shot",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "L",
+        "level": 11,
+        "stats": {
+            "weight": 27,
+            "expDmg": 30,
+            "heaDmg": 30,
+            "push": 1,
+            "range": [2, 4],
+            "uses": 1,
+            "heaCost": 8
+        }
+    },
+    {
+        "name": "Flame Thrower v5.0",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 12,
+        "price": 9000,
+        "stats": {
+            "weight": 24,
+            "expDmg": 30,
+            "heaDmg": 18,
+            "range": 1,
+            "uses": 3,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Heat Shotgun",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "L",
+        "level": 12,
+        "stats": {
+            "weight": 28,
+            "expDmg": [30, 36],
+            "heaDmg": 12,
+            "push": 1,
+            "range": [1, 2],
+            "heaCost": 10,
+            "bulletCost": 10
+        }
+    },
+    {
+        "name": "Red Lookout",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 13,
+        "price": 9500,
+        "stats": {
+            "weight": 27,
+            "expDmg": [20, 26],
+            "heaDmg": 10,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 15
+        }
+    },
+    {
+        "name": "Flaming Snake",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 14,
+        "price": 9950,
+        "stats": {
+            "weight": 27,
+            "expDmg": [15, 35],
+            "heaDmg": 25,
+            "range": 1,
+            "uses": 3,
+            "heaCost": 5
+        }
+    },
+    {
+        "name": "Twin Rockets",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 14,
+        "price": 9950,
+        "stats": {
+            "weight": 31,
+            "expDmg": [33, 38],
+            "heaDmg": 10,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 10,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Red Fiering Arms",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 15,
+        "price": 10350,
+        "stats": {
+            "weight": 31,
+            "expDmg": 30,
+            "heaDmg": 11,
+            "range": [2, 4],
+            "heaCost": 11
+        }
+    },
+    {
+        "name": "Rocket Fist",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 15,
+        "price": 10350,
+        "stats": {
+            "weight": 34,
+            "expDmg": [35, 45],
+            "heaDmg": 10,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 10,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Quadruplet Rockets",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 16,
+        "price": 16050,
+        "stats": {
+            "weight": 37,
+            "expDmg": 45,
+            "heaDmg": 13,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 14,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Blazer",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 17,
+        "price": 11050,
+        "stats": {
+            "weight": 33,
+            "expDmg": 37,
+            "heaDmg": 28,
+            "range": 1,
+            "uses": 3,
+            "heaCost": 6
+        }
+    },
+    {
+        "name": "Double Red Watch Guard",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 17,
+        "price": 11050,
+        "stats": {
+            "weight": 36,
+            "expDmg": 32,
+            "heaDmg": 12,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 17
+        }
+    },
+    {
+        "name": "Single Barreled Rocket Launcher",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "L",
+        "level": 17,
+        "stats": {
+            "weight": 39,
+            "expDmg": 48,
+            "heaDmg": 15,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 10,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Red Fiering Arms",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 18,
+        "price": 11400,
+        "stats": {
+            "weight": 35,
+            "expDmg": 33,
+            "heaDmg": 12,
+            "range": [2, 4],
+            "heaCost": 11
+        }
+    },
+    {
+        "name": "Sextuplet Rockets",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 18,
+        "price": 17100,
+        "stats": {
+            "weight": 43,
+            "expDmg": [46, 61],
+            "heaDmg": 14,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 15,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Red Rein",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 19,
+        "price": 11700,
+        "stats": {
+            "weight": 42,
+            "expDmg": 34,
+            "heaDmg": 13,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Burnout",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 20,
+        "price": 12000,
+        "stats": {
+            "weight": 42,
+            "expDmg": [38, 57],
+            "heaDmg": 13,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 11,
+            "rocketCost": 10
+        }
+    },
+    {
+        "name": "Fiery Bites",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 20,
+        "price": 40,
+        "stats": {
+            "weight": 33,
+            "expDmg": [36, 49],
+            "heaDmg": 28,
+            "range": 1,
+            "uses": 3,
+            "heaCost": 7
+        }
+    },
+    {
+        "name": "Termination Heat",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 21,
+        "price": 12250,
+        "stats": {
+            "weight": 46,
+            "expDmg": [32, 41],
+            "heaDmg": 14,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Double Red Fiering Arms",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 21,
+        "price": 12250,
+        "stats": {
+            "weight": 46,
+            "expDmg": 30,
+            "heaDmg": 22,
+            "range": [2, 4],
+            "heaCost": 11
+        }
+    },
+    {
+        "name": "Single Barreled Rocket Launcher",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 22,
+        "price": 12500,
+        "stats": {
+            "weight": 50,
+            "expDmg": [49, 62],
+            "heaDmg": 14,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 8,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Heat Overflow",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 22,
+        "price": 18750,
+        "stats": {
+            "weight": 65,
+            "expDmg": 22,
+            "heaDmg": 40,
+            "push": 1,
+            "range": [3, 6],
+            "uses": 3,
+            "heaCost": 10
+        }
+    },
+    {
+        "name": "Twin Termination B",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 23,
+        "price": 12700,
+        "stats": {
+            "weight": 49,
+            "expDmg": 38,
+            "heaDmg": 15,
+            "push": 1,
+            "range": [2, 4],
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Bright Blast",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 23,
+        "price": 46,
+        "stats": {
+            "weight": 34,
+            "expDmg": 32,
+            "heaDmg": 35,
+            "push": 1,
+            "range": [2, 4],
+            "uses": 2,
+            "heaCost": 16
+        }
+    },
+    {
+        "name": "Moeplier",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 24,
+        "price": 12950,
+        "stats": {
+            "weight": 43,
+            "expDmg": 39,
+            "heaDmg": 15,
+            "range": [2, 4],
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Launcher",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 24,
+        "price": 48,
+        "stats": {
+            "weight": 52,
+            "expDmg": 56,
+            "heaDmg": 19,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 10,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Shark",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 25,
+        "price": 13150,
+        "stats": {
+            "weight": 38,
+            "expDmg": [40, 54],
+            "heaDmg": 30,
+            "range": 1,
+            "uses": 3,
+            "heaCost": 6
+        }
+    },
+    {
+        "name": "Basic Laser",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 25,
+        "price": 19750,
+        "stats": {
+            "weight": 38,
+            "expDmg": 46,
+            "heaDmg": 18,
+            "range": [3, 4],
+            "heaCost": 20
+        }
+    },
+    {
+        "name": "Cooker",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 26,
+        "price": 13350,
+        "stats": {
+            "weight": 42,
+            "expDmg": [20, 30],
+            "heaDmg": 30,
+            "range": [3, 4],
+            "heaCost": 16
+        }
+    },
+    {
+        "name": "Basic Double Laser",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 26,
+        "price": 20050,
+        "stats": {
+            "weight": 39,
+            "expDmg": 44,
+            "heaDmg": 19,
+            "range": [3, 4],
+            "heaCost": 18
+        }
+    },
+    {
+        "name": "Missile Battery Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 26,
+        "price": 52,
+        "stats": {
+            "weight": 53,
+            "expDmg": 62,
+            "heaDmg": 18,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 14,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Mega Blaster",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 27,
+        "price": 13500,
+        "stats": {
+            "weight": 31,
+            "expDmg": 42,
+            "heaDmg": 17,
+            "range": [3, 4],
+            "uses": 3,
+            "heaCost": 16
+        }
+    },
+    {
+        "name": "Inferno Mark I",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "L",
+        "level": 27,
+        "stats": {
+            "weight": 33,
+            "expDmg": [18, 31],
+            "heaDmg": 50,
+            "range": 1,
+            "uses": 2,
+            "heaCost": 22
+        }
+    },
+    {
+        "name": "Rocketeer",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 28,
+        "price": 13700,
+        "stats": {
+            "weight": 57,
+            "expDmg": [58, 63],
+            "heaDmg": 17,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 9,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Blame Blaster",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 28,
+        "price": 13700,
+        "stats": {
+            "weight": 41,
+            "expDmg": 43,
+            "heaDmg": 17,
+            "range": [4, 5],
+            "heaCost": 11
+        }
+    },
+    {
+        "name": "Big Bright Blaster",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 28,
+        "price": 20550,
+        "stats": {
+            "weight": 40,
+            "expDmg": [35, 40],
+            "heaDmg": 40,
+            "push": 1,
+            "range": [3, 4],
+            "uses": 2,
+            "heaCost": 19
+        }
+    },
+    {
+        "name": "Missile Battery Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 26,
+        "price": 56,
+        "stats": {
+            "weight": 59,
+            "expDmg": [33, 83],
+            "heaDmg": 30,
+            "range": [3, 5],
+            "heaCost": 9,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Rocketful",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 29,
+        "price": 13850,
+        "stats": {
+            "weight": 60,
+            "expDmg": [59, 69],
+            "heaDmg": 18,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 10,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Blue Shredder Beam",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 29,
+        "price": 58,
+        "stats": {
+            "weight": 48,
+            "expDmg": [48, 80],
+            "heaDmg": 15,
+            "push": 1,
+            "range": [3, 4],
+            "heaCost": 23
+        }
+    },
+    {
+        "name": "Dual Barreled Rocket Launcher",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 29,
+        "price": 20800,
+        "stats": {
+            "weight": 64,
+            "expDmg": [62, 84],
+            "heaDmg": 19,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 10,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Lava",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 30,
+        "price": 14000,
+        "stats": {
+            "weight": 45,
+            "expDmg": [40, 56],
+            "heaDmg": 18,
+            "range": [3, 4],
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Red Firearms",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 30,
+        "price": 14000,
+        "stats": {
+            "weight": 44,
+            "expDmg": [50, 56],
+            "heaDmg": 7,
+            "push": 1,
+            "range": [3, 4],
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Quad Barreled Rocket Launcher",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "R",
+        "level": 30,
+        "price": 21000,
+        "stats": {
+            "weight": 57,
+            "expDmg": [65, 80],
+            "heaDmg": 18,
+            "range": [3, 5],
+            "heaCost": 9,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Missile Battery Mark III",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 30,
+        "price": 60,
+        "stats": {
+            "weight": 67,
+            "expDmg": [67, 75],
+            "heaDmg": 25,
+            "push": 1,
+            "range": [3, 5],
+            "heaCost": 10,
+            "rocketCost": 15
+        }
+    },
+    {
+        "name": "Resistance Drainer",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "C",
+        "level": 30,
+        "price": 14000,
+        "stats": {
+            "weight": 32,
+            "expResDmg": 8,
+            "uses": 1,
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Shotgun X Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 79,
+            "expDmg": [20, 150],
+            "heaDmg": 28,
+            "push": 2,
+            "range": [1, 2],
+            "heaCost": 10,
+            "bulletCost": 15
+        }
+    },
+    {
+        "name": "Grenade Launcher Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 30,
+        "price": 60,
+        "stats": {
+            "weight": 61,
+            "expDmg": [50, 62],
+            "heaDmg": 20,
+            "expResDmg": 2,
+            "push": 1,
+            "range": [3, 4],
+            "eneCost": 6,
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Resistance drainer",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "E",
+        "level": 30,
+        "price": 60,
+        "stats": {
+            "weight": 36,
+            "expResDmg": 9,
+            "uses": 1,
+            "heaCost": 12
+        }
+    },
+    {
+        "name": "Inferno Mark II",
+        "type": "SIDE_WEAPON",
+        "elem": "EXPL",
+        "tier": "L",
+        "level": 30,
+        "stats": {
+            "weight": 43,
+            "expDmg": [22, 37],
+            "heaDmg": 65,
+            "range": 1,
+            "uses": 2,
+            "heaCost": 25,
+            "timestamp": "9:44"
+        }
+    }
+]
