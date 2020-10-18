@@ -26,7 +26,7 @@ item_type = {
     'HOOK': ['https://i.imgur.com/8oAoPcJ.png', '<:hook:730115622347735071>'],
     'MODULE': ['https://i.imgur.com/dQR8UgN.png', '<:mod:730115649866694686>']}
 tier_colors = ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪']
-item_tiers = ['COMMON', 'RARE', 'EPIC', 'LEGENDARY', 'MYTHICAL', 'DIVINE']
+item_tiers = ['C', 'R', 'E', 'L', 'M', 'D']
 element_colors = {'PHYSICAL': 0xffb800, 'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'COMBINED': 0x211d1d}
 slot_emojis = {
     'topl': '<:topl:730115768431280238>',
