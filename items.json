@@ -764,6 +764,9 @@
 			"pull": 1,
 			"eneCost": 16,
 			"heaCost": 16
+		},
+		"divine": {
+			"phyDmg": [172, 278]
 		}
 	},
 	{
@@ -1477,6 +1480,7 @@
 		"stats": {
 			"weight": 35,
 			"expDmg": [164, 337],
+			"heaDmg": 0,
 			"expResDmg": 5,
 			"push": 1,
 			"retreat": 2,
@@ -1484,6 +1488,10 @@
 			"uses": 2,
 			"eneCost": 19,
 			"heaCost": 44
+		},
+		"divine": {
+			"expDmg": [173, 356],
+			"heaDmg": 0
 		}
 	},
 	{
@@ -3654,6 +3662,10 @@
 		"uses": 3,
 		"backfire": 180,
 		"heaCost": 75
+		},
+		"divine": {
+			"expDmg": [213, 382],
+			"heaDmg": 112
 		}
 	},
 	{
