@@ -34,7 +34,7 @@ def intify(s, default=0) -> int:
 def random_color(seed=None) -> tuple:
     r'''Returns a RGB color tuple, can be based off a seed'''
     if seed is not None: random.seed(intify(seed))
-    return tuple(round(random.random() * 255) for n in range(0, 3))
+    return tuple(round(random.random() * 255) for n in range(3))
 
 def helpie(x): return [x, type(x)]
 
@@ -104,7 +104,7 @@ def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
     if isinstance(field_limit, tuple):
         if len(field_limit) != 2:
             raise ValueError(f'Expected 2 integers, got {len(field_limit)} {field_limit}')
-        main_limit, extra_limit = field_limit
+        main_limit, extra_limit = tuple(field_limit)
     else: main_limit, extra_limit = int(field_limit), 0
     sliced_list = []
     

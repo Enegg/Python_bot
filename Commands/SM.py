@@ -40,7 +40,7 @@ slot_emojis = {
     'tele': '<:tele:730115603683213423>',
     'hook': '<:hook:730115622347735071>',
     'modl': '<:mod:730115649866694686>',
-    'none': '<:none:742507182918074458>'}
+    'none': '<:none:772958360240128060>'}
 stat_abbrev = {
     'weight': ['Weight', '<:weight:725870760484143174>'],
     'health': ['HP', '<:health:725870887588462652>'],
@@ -357,10 +357,11 @@ class SuperMechs(commands.Cog):
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
 
         for field in fields:
-            embed.add_field(name='<:none:742507182918074458>', value='\n'.join(field), inline=True)
+            embed.add_field(name='<:none:772958360240128060>',
+                            value='\n'.join(field), inline=True)
             if len(embed) > 6000:
                 x = sum(len(field) for field in fields[fields.index(field):])
-                embed.set_field_at(index=-1, name='<:none:742507182918074458>', value=f'...and {x} more', inline=False)
+                embed.set_field_at(index=-1, name='<:none:772958360240128060>', value=f'...and {x} more', inline=False)
                 break
 
         embed.set_footer(text=f'Character count: {len(embed) + 17}')
