@@ -357,8 +357,7 @@ class SuperMechs(commands.Cog):
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
 
         for field in fields:
-            embed.add_field(name='<:none:772958360240128060>',
-                            value='\n'.join(field), inline=True)
+            embed.add_field(name='<:none:772958360240128060>', value='\n'.join(field), inline=True)
             if len(embed) > 6000:
                 x = sum(len(field) for field in fields[fields.index(field):])
                 embed.set_field_at(index=-1, name='<:none:772958360240128060>', value=f'...and {x} more', inline=False)
