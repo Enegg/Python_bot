@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from matrices import Matrix
 
-class Math(commands.cog):
+class Math(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
