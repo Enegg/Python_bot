@@ -26,7 +26,6 @@ class Math(commands.cog):
                 embed.add_field(name='Do you wish to exit?', value='[yes/no]', inline=False)
                 await bot_msg.edit(embed=embed)
                 continue
-
         pass
 
 def setup(bot):
