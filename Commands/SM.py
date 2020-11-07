@@ -75,7 +75,7 @@ stat_abbrev = {
     'backfire': ['Backfire', '<:backfire:725871901062201404>'],
     'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
     'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']}
-url_template = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/public/assets/items/{}.png'
+url_template = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/items/{}.png'
 item_element = {
     'PHYSICAL': stat_abbrev['phyDmg'][1],
     'EXPLOSIVE': stat_abbrev['expDmg'][1],
