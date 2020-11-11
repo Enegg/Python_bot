@@ -2,10 +2,10 @@ import discord
 from discord.ext import commands
 import socket
 from functions import perms
-from config import prefix_local, prefix_host
+from config import prefix_local, prefix_host, hosts
 
 TOKEN = None
-if socket.gethostname() == 'Mystery_machine':
+if socket.gethostname() in hosts:
     import importlib
     TOKEN = importlib.import_module('TOKEN').TOKEN
 
