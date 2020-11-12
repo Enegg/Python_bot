@@ -55,7 +55,7 @@ class Matrix:
         return row1 + ''.join(mid) + rowN
 
     def __repr__(self) -> str:
-        return '[\n' + ',\n'.join(str(row) for row in self._matrix) + '\n]'
+        return f'Matrix({self.wx}, {self.wy}, {self._matrix})'
 
     def set_row(self, row: int, iterable):
         row = int(row)

@@ -90,8 +90,9 @@ class Moderation(commands.Cog):
                 args.pop(args.index(k))
                 ActType = activities[k]
                 break
-        activity = discord.Activity(name=' '.join(args),type=ActType,url='https://discordapp.com/')
-        await ctx.bot.change_presence(activity=activity)
+        activity = discord.Activity(name=' '.join(args), type=ActType, url='https://discordapp.com/')
+        await self.bot.change_presence(activity=activity)
+        await ctx.message.add_reaction('✅')
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

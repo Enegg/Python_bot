@@ -124,3 +124,44 @@ def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
             sliced_list.append(all_items)
             break
     return sliced_list
+
+def RPN(exp: str) -> str:
+    """
+    Turns a mathematical expression into reverse polish notation.
+    """
+    exp = exp.replace(' ', '')
+    stos, result = [], []
+    num = var = ''
+    ops = {'+': 0, '-': 0, '*': 1, '/': 1, '%': 1, '^': 2, 'func': 3}
+    func = {'sqrt', 'random', 'sin', 'cos', 'floor', 'ceil', 'random'}
+    exp = iter(exp)
+    for c in exp:
+        while c.isdigit() or c == '.':
+            num += c
+            try: c = next(exp)
+            except StopIteration: break
+        while c.isalpha():
+            var += c
+            try: c = next(exp)
+            except StopIteration: break
+        if x := (num or var):
+            if x in func: stos.append(x)
+            else: result.append(x)
+            num = var = ''
+        if c == '(':
+            stos.append(c)
+            continue
+        if c == ')':
+            while stos and stos[-1] != '(':
+                result.append(stos.pop())
+            stos.pop()
+            continue
+        if c in ops:
+            fc = False
+            while stos and (stos[-1] in ops or (fc := stos[-1] in func)) and ops[c] <= (ops['func'] if fc else ops[stos[-1]]):
+                fc = False
+                result.append(stos.pop())
+            stos.append(c)
+            continue
+    result.extend(reversed(stos))
+    return result

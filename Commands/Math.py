@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 from matrices import Matrix
+from functions import RPN
 
 class Math(commands.Cog):
     def __init__(self, bot):
@@ -123,6 +124,12 @@ class Math(commands.Cog):
                 continue
 
         pass
+
+    @commands.command(aliases=['rpn', 'onp', 'ONP'])
+    async def RPN(self, ctx, *args):
+        args = ''.join(args).replace('`', '')
+        result = RPN(args)
+        await ctx.send('`' + ' '.join(result) + '`')
 
 def setup(bot):
     bot.add_cog(Math(bot))
