@@ -1,8 +1,8 @@
-import discord
-from discord.ext import commands
-import socket
-from functions import perms
 from config import prefix_local, prefix_host, hosts
+from discotools import perms
+from discord.ext import commands
+import discord
+import socket
 
 TOKEN = None
 if socket.gethostname() in hosts:

@@ -1,11 +1,11 @@
+from discotools import perms, supreme_listener, split_to_fields, EmbedUI
+from functions import search_for, intify, random_color
 from discord.ext import commands
 import discord
 import asyncio
-from functions import search_for, intify, perms, supreme_listener, random_color, split_to_fields
 import json
 import re
 import urllib
-from Commands.Testing import EmbedUI
 from typing import Dict, Iterable
 
 with open('items.json') as file:

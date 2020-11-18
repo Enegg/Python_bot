@@ -1,9 +1,10 @@
-import asyncio
-import discord
-from discord.ext import commands
-import datetime
-from functions import perms, intify
 from config import purge_confirm_emote, purge_cap
+from functions import intify
+from discotools import perms
+from discord.ext import commands
+import discord
+import asyncio
+import datetime
 
 class Moderation(commands.Cog):
     def __init__(self, bot):

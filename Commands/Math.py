@@ -1,8 +1,8 @@
-import discord
+from functions import matheval
 from discord.ext import commands
+import discord
 import asyncio
 from matrices import Matrix
-from functions import matheval
 import math, cmath
 
 class Math(commands.Cog):

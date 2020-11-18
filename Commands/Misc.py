@@ -1,8 +1,8 @@
-import asyncio
-import discord
-import datetime
-from discord.ext import commands
 from functions import roll, intify
+from discord.ext import commands
+import discord
+import asyncio
+import datetime
 
 class Misc(commands.Cog):
     def emojifier(self):
