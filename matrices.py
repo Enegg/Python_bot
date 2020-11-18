@@ -9,21 +9,22 @@ class Matrix:
     def __init__(self, wx: int, wy: int, *args):
         self.wx = int(abs(int(wx)))
         self.wy = int(abs(int(wy)))
-        if not args: self._matrix = [[0] * self.wx for n in range(self.wy)]
+        if not args:
+            self._matrix = [[0] * self.wx for n in range(self.wy)]
+            return
+        if len(args) == 1: args = args[0]
+        if (lt := len(args)) == self.wy and isinstance(args[0], (tuple, list)):
+            self._matrix = list(args)
+        elif lt == len(self):
+            self._matrix = [list(args[n * self.wx:(n + 1) * self.wx]) for n in range(self.wy)]
         else:
-            if len(args) == 1: args = args[0]
-            if (lt := len(args)) == self.wy and isinstance(args[0], (tuple, list)):
-                self._matrix = list(args)
-            elif lt == len(self):
-                self._matrix = [list(args[n * self.wx:(n + 1) * self.wx]) for n in range(self.wy)]
-            else:
-                print(args)
-                raise Exception('Matrix not initialized properly')
-            err = ''
-            for a in self._matrix:
-                if any(not isinstance((err := x), (int, float, bool)) for x in a):
+            print(args)
+            raise Exception('Matrix not initialized properly')
+        for a in self._matrix:
+            for x in a:
+                if not isinstance(x, (int, float, bool, complex)):
                     print(args)
-                    raise ValueError(f'Value "{err}" is not of type int, float or bool')
+                    raise ValueError(f'Value "{x}" is not of type int, float, bool or complex')
 
     def __len__(self) -> int:
         return self.wx * self.wy
@@ -93,10 +94,10 @@ class Matrix:
         return new
 
     def __mul__(self, other: object):
-        if not (isint := isinstance(other, (int, bool))) and not isinstance(other, Matrix):
-            raise TypeError(f'Unsupported operation for type {type(other)}')
-        if isint:
-            other = int(other)
+        if (isdigit := isinstance(other, (int, bool, float, complex))) or isinstance(other, Matrix):
+            pass
+        else: raise TypeError(f'Unsupported operation for type {type(other)}')
+        if isdigit:
             return Matrix(self.wx, self.wy, [[n * other for n in row] for row in self._matrix])
         if self.wx != other.wy:
             raise ValueError(f'Matrix A\'s X size of {self.wx} does not match matrix B\'s Y size of {other.wy}')
@@ -107,26 +108,18 @@ class Matrix:
 
         return new
 
-    def om(self, other: object):
-        if not (isint := isinstance(other, (int, bool))) and not isinstance(other, Matrix):
+    def __matmul__(self, other: object):
+        if not isinstance(other, Matrix):
             raise TypeError(f'Unsupported operation for type {type(other)}')
-        if isint:
-            digit = int(other)
-            return Matrix(self.wx, self.wy, [[n * digit for n in row] for row in self._matrix])
         if self.wx != other.wy:
             raise ValueError(f'Matrix A\'s X size of {self.wx} does not match matrix B\'s Y size of {other.wy}')
-        print(other._matrix, 'mat')
-        other = other.T()
-        print(other._matrix, 'mat2')
-        print(self._matrix, 'org')
-        print(list(zip(*self._matrix, other._matrix)), 'list')
+        return Matrix(other.wx, self.wy, [sum(x * y for x, y in zip(a, b)) for a in self._matrix for b in zip(*other._matrix)])
 
-    def __pow__(self, other: object):
-        if not isinstance(other, int):
+    def __pow__(self, other: float):
+        if not isinstance(other, (int, bool, float)):
             raise TypeError(f'Unsupported operation for type {type(other)}')
         if self.wx != self.wy:
             raise ValueError(f'Matrix is not square ({self.wy}x{self.wx})')
-        other = int(other)
         if other == 1: return self
         if other == 0:
             new = Matrix(self.wx, self.wy)
@@ -134,10 +127,13 @@ class Matrix:
                 new[n, n] = 1
             return new
         if other < 0: raise ValueError(f'Matrix power must not be negative (got {other})')
-        return self * self ** (other - 1)
+        return self * self.__pow__(other - 1)
 
     def T(self):
         return Matrix(self.wy, self.wx, [list(x) for x in zip(*self._matrix)])
+
+    def shape(self):
+        return (self.wx, self.wy)
 
 #--------------------------------- Testing Zone ---------------------------------
 
@@ -146,7 +142,6 @@ if __name__ == '__main__':
     f = [random.randint(0, 9) for n in range(64)]
 
     A = Matrix(3, 1, [1, 2, 3])
-    print(A.T())
     B = Matrix(3, 3, [1, 2, 3], [4, 5, 6], [7, 8, 9])
 
     C = Matrix(5, 1, [1, 2, 3, 4, 5])
@@ -155,4 +150,7 @@ if __name__ == '__main__':
     I = Matrix(8, 8, e)
     J = Matrix(8, 8, f)
     while True:
-        eval(input())
+        try:
+            eval(input())
+        except Exception as error:
+            print(error)
