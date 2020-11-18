@@ -65,10 +65,11 @@ class Math(commands.Cog):
 
     async def parse(self, state):
         cont = state.content
-        resolved = RPN(cont)
-        for i in resolved:
-            pass
-        await state.ctx.send('What')
+        try:
+            res = matheval(cont)
+            await state.ctx.send(f'`{res}`')
+        except Exception as error:
+            await state.ctx.send(error)
 
     @commands.command(aliases=['matrix'])
     async def create_matrix(self, ctx):
