@@ -1,6 +1,7 @@
 from discord.ext import commands
 import asyncio
 import random
+import math
 import re
 
 def perms(lvl: int):
@@ -125,43 +126,94 @@ def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
             break
     return sliced_list
 
-def RPN(exp: str) -> str:
-    """
-    Turns a mathematical expression into reverse polish notation.
-    """
-    exp = exp.replace(' ', '')
-    stos, result = [], []
-    num = var = ''
-    ops = {'+': 0, '-': 0, '*': 1, '/': 1, '%': 1, '^': 2, 'func': 3}
-    func = {'sqrt', 'random', 'sin', 'cos', 'floor', 'ceil', 'random'}
-    exp = iter(exp)
-    for c in exp:
-        while c.isdigit() or c == '.':
-            num += c
-            try: c = next(exp)
-            except StopIteration: break
-        while c.isalpha():
-            var += c
-            try: c = next(exp)
-            except StopIteration: break
-        if x := (num or var):
-            if x in func: stos.append(x)
-            else: result.append(x)
-            num = var = ''
-        if c == '(':
-            stos.append(c)
+def matheval(exp: str, variables=None) -> float:
+    """Evaluates a math expression."""
+    exp = exp.replace(' ', '').replace('**', '^')
+    match = re.split(r'((?<=[^(Ee+-])[+-]|\/{1,2}|[,*^@%()])', exp)
+    while '' in match: match.remove('')
+    # powers = ('⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹')
+    stash, values, call, var, func = [], [], [], '', None
+    ops = {
+        ',': (0,),
+        '+': (1, lambda a, b: a + b),
+        '-': (1, lambda a, b: a - b),
+        '*': (2, lambda a, b: a * b),
+        '/': (2, lambda a, b: a / b),
+        '%': (2, lambda a, b: a % b),
+        '@': (2, lambda a, b: a @ b),
+        '//': (2, lambda a, b: a // b),
+        '^': (3, lambda a, b: a ** b)}
+
+    functions = {i: getattr(math, i) for i in dir(math)[5:]}
+    functions.update({'int': int,
+        'float': float,
+        'complex': complex,
+        'bool': bool, 'sum': sum,
+        'round': round, 'ord': ord,
+        'abs': abs, 'min': min,
+        'max': max, 'pow': pow})
+
+    constants = {
+        'pi': math.pi, 'π': math.pi,
+        'tau': math.tau, 'τ': math.tau,
+        'e': math.e, 'inf': math.inf,
+        '∞': math.inf, 'nan': math.nan}
+
+    def call_operator(fn: bool, op: str):
+        if op == ',': return
+        cont = call if fn else values
+        cont.append(ops[op][1](cont.pop(-2), cont.pop()))
+
+    for i in match:
+        fn = func is not None
+        if re.sub(r'^(-?\.|-)', '', i)[:1].isnumeric():
+            if i[-1] in {'i', 'j'}: num = complex(i.replace('i', 'j'))
+            elif '.' in i or 'e' in i.lower(): num = float(i)
+            else: num = int(i)
+            (call if fn else values).append(num)
             continue
-        if c == ')':
-            while stos and stos[-1] != '(':
-                result.append(stos.pop())
-            stos.pop()
+        if i.replace('-', '').isalnum():
+            var = i
             continue
-        if c in ops:
-            fc = False
-            while stos and (stos[-1] in ops or (fc := stos[-1] in func)) and ops[c] <= (ops['func'] if fc else ops[stos[-1]]):
-                fc = False
-                result.append(stos.pop())
-            stos.append(c)
+        if var:
+            if i == '(': # namespace is a function or you fucked up
+                try: func = functions[var]
+                except KeyError:
+                    raise NameError(f"name '{var}' preceeded a '(' while not being a function")
+            else: # getting the variable
+                if neg := var[0] == '-': var = var[1:]
+                const = constants.get(var, var)
+                if const is var:
+                    if variables is None:
+                        raise NameError(f"name {var} is not defined")
+                    try: const = variables[var]
+                    except KeyError:
+                        raise NameError(f"name {var} is not defined")
+                (call if fn else values).append(-const if neg else const)
+            fn = func is not None
+            var = ''
+        if i == '(':
+            stash.append(i)
             continue
-    result.extend(reversed(stos))
-    return result
+        if i == ')':
+            while stash and stash[-1] != '(':
+                call_operator(fn, stash.pop())
+            stash.pop()
+            if fn:
+                values.append(func(*call))
+                call, func = [], None
+            continue
+        if i in ops:
+            while stash and stash[-1] in ops and ops[i][0] <= ops[stash[-1]][0]:
+                call_operator(fn, stash.pop())
+            stash.append(i)
+            continue
+    if var:
+        try: const = constants[var] # getting the variable
+        except KeyError:
+            raise NameError(f"name {var} is not defined")
+        values.append(const)
+
+    while stash:
+        call_operator(False, stash.pop())
+    return values[0]

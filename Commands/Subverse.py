@@ -6,7 +6,7 @@ import asyncio
 from functions import intify, supreme_listener, random_color
 
 with open("sub_loc_list.json") as file:
-    loc_list = json.loads(file.read())
+    loc_list = json.load(file)
 
 class Subverse(commands.Cog):
     def __init__(self, bot):

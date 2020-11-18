@@ -8,8 +8,8 @@ import urllib
 from Commands.Testing import EmbedUI
 from typing import Dict, Iterable
 
-with open("items.json") as file:
-    items_list = json.loads(file.read())
+with open('items.json') as file:
+    items_list = json.load(file)
 
 operation_lookup = {
     'mult': ['eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'],

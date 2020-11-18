@@ -1,0 +1,84 @@
+from discord.ext import commands
+import asyncio
+
+def perms(lvl: int):
+    '''Defines required user's lvl to access a command, following: 1 - manage messages, 2 - manage guild, 3 - admin, 4 - guild owner, 5 - bot author'''
+    def extended_check(ctx) -> bool:
+        if ctx.author.id == 190505392504045570:
+            return True
+        if ctx.guild is None:
+            return False
+        if int(lvl) <= 4 and ctx.guild.owner_id == ctx.author.id:
+            return True
+        permKeys = ['manage_messages', 'manage_guild', 'administrator']
+        if int(lvl) <= len(permKeys):
+            key = permKeys[int(lvl) - 1]
+            return getattr(ctx.author.guild_permissions, key)
+        return False
+    return commands.check(extended_check)
+
+async def supreme_listener(ctx, msg, emojis: list, listen_for_add=True, listen_for_remove=False, add_return=False, add_cancel=False) -> int:
+    '''Returns the position of added/removed reaction'''
+    if not bool(emojis): raise Exception('No emojis to check with')
+    #return emoji is a reserved emoji for going back
+    if add_return: emojis.append('↩️')
+    #cross emoji is reserved for closing the menu
+    if add_cancel: emojis.append('❌')
+    check = lambda reaction, user: user == ctx.author and str(reaction.emoji) in emojis
+    tasks = []
+
+    if listen_for_add:
+        wait_for_add = ctx.bot.wait_for('reaction_add', check=check)
+        task_add = asyncio.create_task(wait_for_add)
+        tasks.append(task_add)
+    else: task_add = None
+
+    if listen_for_remove:
+        wait_for_del = ctx.bot.wait_for('reaction_remove', check=check)
+        task_del = asyncio.create_task(wait_for_del)
+        tasks.append(task_del)
+    else: task_del = None
+
+    if not tasks: raise Exception('There are no emoji add/remove events to listen for')
+
+    done, pending = await asyncio.wait(tasks, timeout=20.0, return_when='FIRST_COMPLETED')
+    if not done: raise asyncio.TimeoutError
+    [task.cancel() for task in pending]
+    for task in done:
+        reaction = (await task)[0]
+        action_type = None
+        if task == task_add: action_type = True
+        if task == task_del: action_type = False
+
+    if add_return and str(reaction.emoji) == '↩️': return -1, action_type
+    if add_cancel and str(reaction.emoji) == '❌': return -2, action_type
+    return emojis.index(reaction.emoji), action_type
+
+def set_default(embed, ctx):
+    embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+
+def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
+    '''Helper func designed to split a long list of items into discord embed fields so that they stay under character limit. field_limit should be an int or a tuple of two ints; in case of the latter the first int will be applied to the first field, and the second to any following field.'''
+    if isinstance(field_limit, tuple):
+        if len(field_limit) != 2:
+            raise ValueError(f'Expected 2 integers, got {len(field_limit)} {field_limit}')
+        main_limit, extra_limit = tuple(field_limit)
+    else: main_limit, extra_limit = int(field_limit), 0
+    sliced_list = []
+    
+    all_items = list(all_items)
+
+    while True:
+        counter = 0
+        if sliced_list and extra_limit: main_limit = extra_limit
+        for i in all_items:
+            if counter + len(i) > main_limit:
+                index = all_items.index(i)
+                sliced_list.append(all_items[:index])
+                all_items = all_items[index:]
+                break
+            counter += len(i) + len(splitter)
+        else:
+            sliced_list.append(all_items)
+            break
+    return sliced_list

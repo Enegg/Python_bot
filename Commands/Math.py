@@ -2,7 +2,8 @@ import discord
 from discord.ext import commands
 import asyncio
 from matrices import Matrix
-from functions import RPN
+from functions import matheval
+import math, cmath
 
 class Math(commands.Cog):
     def __init__(self, bot):
@@ -10,7 +11,7 @@ class Math(commands.Cog):
 
     async def print_matrix(self, state):
         """
-        Returns a stringified matrix.
+        Sends the str representation of a matrix.
         """
         cont = state.content[1:]
         ctx = state.ctx
@@ -22,7 +23,7 @@ class Math(commands.Cog):
         if state.delmsg:
             await state.msg.delete()
         matrix = cache[cont[0]]
-        str_matrix = '```' + f'({matrix.wy}x{matrix.wx})' + '\n' + str(matrix) + '```'
+        str_matrix = f'```({matrix.wy}x{matrix.wx})' + '\n' + f'{str(matrix)}```'
         if len(str_matrix) > 2000:
             str_matrix = 'Matrix is too big to display :('
         await ctx.send(str_matrix)
@@ -63,6 +64,10 @@ class Math(commands.Cog):
         await bot_msg.edit(embed=embed)
 
     async def parse(self, state):
+        cont = state.content
+        resolved = RPN(cont)
+        for i in resolved:
+            pass
         await state.ctx.send('What')
 
     @commands.command(aliases=['matrix'])
@@ -128,8 +133,8 @@ class Math(commands.Cog):
     @commands.command(aliases=['rpn', 'onp', 'ONP'])
     async def RPN(self, ctx, *args):
         args = ''.join(args).replace('`', '')
-        result = RPN(args)
-        await ctx.send('`' + ' '.join(result) + '`')
+        result = matheval(args)
+        await ctx.send(f'`{result}`')
 
 def setup(bot):
     bot.add_cog(Math(bot))
