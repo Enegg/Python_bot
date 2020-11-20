@@ -8,6 +8,7 @@ import math, cmath
 class Math(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.last_result = None
 
     async def print_matrix(self, state):
         """
@@ -131,10 +132,14 @@ class Math(commands.Cog):
 
         pass
 
-    @commands.command(aliases=['rpn', 'onp', 'ONP'])
+    @commands.command(aliases=['rpn', 'math'])
     async def RPN(self, ctx, *args):
         args = ''.join(args).replace('`', '')
-        result = matheval(args)
+        try:
+            result = matheval(args, self.last_result)
+            self.last_result = {'ans': result}
+        except Exception as e:
+            result = str(e)
         await ctx.send(f'`{result}`')
 
 def setup(bot):
