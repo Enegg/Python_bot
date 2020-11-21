@@ -105,6 +105,6 @@ async def on_command_error(ctx, error):
 async def on_ready():
     print(f'{bot.user.name} is here to take over the world')
     print('----------------')
-    await bot.change_presence(activity=discord.Activity(name='grass grow', activity=discord.ActivityType.watching, url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'))
+    await bot.change_presence(activity=discord.Activity(name='grass grow', activity=discord.ActivityType.watching))
 
 bot.run(TOKEN)

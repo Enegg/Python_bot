@@ -3,6 +3,7 @@ import asyncio
 import random
 import math
 import re
+from matrices import Matrix
 
 def perms(lvl: int):
     '''Defines required user's lvl to access a command, following: 1 - manage messages, 2 - manage guild, 3 - admin, 4 - guild owner, 5 - bot author'''
@@ -151,7 +152,10 @@ def matheval(exp: str, variables: dict = None) -> float:
         'bool': bool, 'sum': sum,
         'round': round, 'ord': ord,
         'abs': abs, 'min': min,
-        'max': max, 'pow': pow})
+        'max': max, 'pow': pow,
+        'mat': Matrix,
+        'random': random.random,
+        'randint': random.randint})
 
     constants = {
         'pi': math.pi, 'π': math.pi,
