@@ -126,7 +126,7 @@ def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
             break
     return sliced_list
 
-def matheval(exp: str, variables=None) -> float:
+def matheval(exp: str, variables: dict = None) -> float:
     """Evaluates a math expression."""
     exp = exp.replace(' ', '').replace('**', '^')
     match = re.split(r'((?<=[^(Ee+-])[+-]|\/{1,2}|[,*^@%()])', exp)
@@ -164,6 +164,18 @@ def matheval(exp: str, variables=None) -> float:
         cont = call if fn else values
         cont.append(ops[op][1](cont.pop(-2), cont.pop()))
 
+    def get_var(var: str, fn: bool) -> None:
+        if neg := var[0] == '-': var = var[1:]
+        const = constants.get(var, var)
+        if const is var:
+            if variables is None:
+                return None
+            try: const = variables[var]
+            except KeyError:
+                return None
+        (call if fn else values).append(-const if neg else const)
+        return 0
+
     for i in match:
         fn = func is not None
         if re.sub(r'^(-?\.|-)', '', i)[:1].isnumeric():
@@ -180,16 +192,9 @@ def matheval(exp: str, variables=None) -> float:
                 try: func = functions[var]
                 except KeyError:
                     raise NameError(f"name '{var}' preceeded a '(' while not being a function")
-            else: # getting the variable
-                if neg := var[0] == '-': var = var[1:]
-                const = constants.get(var, var)
-                if const is var:
-                    if variables is None:
-                        raise NameError(f"name {var} is not defined")
-                    try: const = variables[var]
-                    except KeyError:
-                        raise NameError(f"name {var} is not defined")
-                (call if fn else values).append(-const if neg else const)
+            else:
+                if get_var(var, fn) is None: #if the function succeeds the var gets appended
+                    raise NameError(f"name {var} is not defined")
             fn = func is not None
             var = ''
         if i == '(':
@@ -209,10 +214,8 @@ def matheval(exp: str, variables=None) -> float:
             stash.append(i)
             continue
     if var:
-        try: const = constants[var] # getting the variable
-        except KeyError:
+        if get_var(var, False) is None:
             raise NameError(f"name {var} is not defined")
-        values.append(const)
 
     while stash:
         call_operator(False, stash.pop())

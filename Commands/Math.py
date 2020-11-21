@@ -8,26 +8,7 @@ import math, cmath
 class Math(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.last_result = None
-
-    async def print_matrix(self, state):
-        """
-        Sends the str representation of a matrix.
-        """
-        cont = state.content[1:]
-        ctx = state.ctx
-        cache = state.cache
-        if not cont:
-            raise ValueError('Incorrect syntax.')
-        if cont[0] not in cache:
-            raise ValueError(f'Did not find any matrix named "{cont[0]}".')
-        if state.delmsg:
-            await state.msg.delete()
-        matrix = cache[cont[0]]
-        str_matrix = f'```({matrix.wy}x{matrix.wx})' + '\n' + f'{str(matrix)}```'
-        if len(str_matrix) > 2000:
-            str_matrix = 'Matrix is too big to display :('
-        await ctx.send(str_matrix)
+        self.vars = {}
 
     async def create_new(self, state):
         """
@@ -35,7 +16,6 @@ class Math(commands.Cog):
         """
         content = state.content
         embed = state.embed
-        cache = state.cache
         bot_msg = state.bot_msg
         if len(content) < 3 or 'x' not in content[2] or len(content[1]) != 1:
             print(len(content) < 3, 'x' not in content[2], len(content[1]) != 1)
@@ -48,10 +28,10 @@ class Math(commands.Cog):
         if values and len(values) != size[0] * size[1]:
             raise ValueError('Incorrect amount of values for the matrix.')
 
-        cache[content[1]] = Matrix(*size, values) if values else Matrix(*size)
-        matrices_cont = ', '.join(f'{M}({cache[M].wy}x{cache[M].wx})' for M in cache)
+        self.vars[content[1]] = Matrix(*size, values) if values else Matrix(*size)
+        matrices_cont = ', '.join(f'{M}({self.vars[M].wy}x{self.vars[M].wx})' for M in self.vars)
         data = {'index': 0, 'name': 'Matrices', 'value': f'{matrices_cont}', 'inline': False}
-        str_matrix = f'```{str(cache[content[1]])}```'
+        str_matrix = f'```{str(self.vars[content[1]])}```'
         if len(str_matrix) > 2000:
             str_matrix = 'Too big to display'
         recent_matrix = {'index': -1, 'name': 'Last matrix:', 'value': str_matrix, 'inline': False}
@@ -79,7 +59,6 @@ class Math(commands.Cog):
         embed.set_footer(text='Type "exit" to exit')
         bot_msg = await ctx.send(embed=embed)
         exiting = False
-        matrices = {}
         class state:
             pass
         state.delmsg = False
@@ -117,9 +96,8 @@ class Math(commands.Cog):
             state.bot_msg = bot_msg
             state.embed = embed
             state.content = content
-            state.cache = matrices
             state.ctx = ctx
-            commands_dict = {'new': self.create_new, 'print': self.print_matrix}
+            commands_dict = {'new': self.create_new}
             if (cmd := content[0].lower()) in commands_dict:
                 command = commands_dict[cmd]
             else:
@@ -134,13 +112,33 @@ class Math(commands.Cog):
 
     @commands.command(aliases=['rpn', 'math'])
     async def RPN(self, ctx, *args):
-        args = ''.join(args).replace('`', '')
+        args = ''.join(args).replace('`', '').replace(' ', '')
+        prefix = ''
+        if '=' in args:
+            prefix = args[:args.index('=')]
+            args = args[args.index('=')+1:]
         try:
-            result = matheval(args, self.last_result)
-            self.last_result = {'ans': result}
+            result = matheval(args, self.vars if self.vars else None)
+            self.vars.update({prefix if prefix else 'ans': result})
         except Exception as e:
             result = str(e)
+        if prefix: result = '{} ={}'.format(prefix, '\n' if isinstance(result, Matrix) else ' ') + str(result)
         await ctx.send(f'`{result}`')
+
+    @commands.command(aliases=['vars'])
+    async def variables(self, ctx, *args):
+        text = ''
+        if not args:
+            text = ('```py\n' + '\n'.join(f'{k}({self.vars[k].wx}x{self.vars[k].wy})' if isinstance(self.vars[k], Matrix) else f'{k} = {self.vars[k]}' for k in self.vars) + '```') if self.vars else 'No variables stored.'
+        elif args[0].lower() == 'clear':
+            if not args[1:]: self.vars.clear()
+            else:
+                [self.vars.pop(arg) for arg in args[1:] if arg in self.vars]
+        else:
+            text = self.vars.get(str(args[0]), f'No variable named "{args[0]}" found.')
+            if len(text) > 2000:
+                text = 'Requested variable is too large to show'
+        if text: await ctx.send(text)
 
 def setup(bot):
     bot.add_cog(Math(bot))
