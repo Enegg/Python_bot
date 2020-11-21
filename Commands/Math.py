@@ -113,6 +113,7 @@ class Math(commands.Cog):
     @commands.command(aliases=['rpn', 'math'])
     async def RPN(self, ctx, *args):
         args = ''.join(args).replace('`', '').replace(' ', '')
+        if not args: return
         prefix = ''
         if '=' in args:
             prefix = args[:args.index('=')]
