@@ -133,7 +133,8 @@ def matheval(exp: str, variables: dict = None) -> float:
     match = re.split(r'((?<=[^(Ee+-])[+-]|\/{1,2}|[,*^@%()])', exp)
     while '' in match: match.remove('')
     # powers = ('⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹')
-    stash, values, call, var, func = [], [], [], '', None
+    values, ops_stack, call, call_stack, func_stack, var = [], [], [], [], [], ''
+
     ops = {
         ',': (0,),
         '+': (1, lambda a, b: a + b),
@@ -181,46 +182,53 @@ def matheval(exp: str, variables: dict = None) -> float:
         return 0
 
     for i in match:
-        fn = func is not None
         if re.sub(r'^(-?\.|-)', '', i)[:1].isnumeric():
             if i[-1] in {'i', 'j'}: num = complex(i.replace('i', 'j'))
             elif '.' in i or 'e' in i.lower(): num = float(i)
             else: num = int(i)
-            (call if fn else values).append(num)
+            (call if bool(func_stack) else values).append(num)
             continue
         if i.replace('-', '').isalnum():
             var = i
             continue
         if var:
             if i == '(': # namespace is a function or you fucked up
-                try: func = functions[var]
+                try:
+                    if func_stack: # if there are pending functions, that means the function is nested
+                        call_stack.append(call)
+                        call = []
+                    func_stack.append(functions[var])
                 except KeyError:
                     raise NameError(f"name '{var}' preceeded a '(' while not being a function")
             else:
-                if get_var(var, fn) is None: #if the function succeeds the var gets appended
+                if get_var(var, bool(func_stack)) is None: #if the function succeeds the var gets appended
                     raise NameError(f"name {var} is not defined")
-            fn = func is not None
             var = ''
         if i == '(':
-            stash.append(i)
+            ops_stack.append(i)
             continue
         if i == ')':
-            while stash and stash[-1] != '(':
-                call_operator(fn, stash.pop())
-            stash.pop()
-            if fn:
-                values.append(func(*call))
-                call, func = [], None
+            while ops_stack and ops_stack[-1] != '(':
+                call_operator(bool(func_stack), ops_stack.pop())
+            ops_stack.pop()
+            if func_stack:
+                result = func_stack.pop()(*call)
+                if func_stack:
+                    call = call_stack.pop()
+                    call.append(result)
+                else:
+                    call = []
+                    values.append(result)
             continue
         if i in ops:
-            while stash and stash[-1] in ops and ops[i][0] <= ops[stash[-1]][0]:
-                call_operator(fn, stash.pop())
-            stash.append(i)
+            while ops_stack and ops_stack[-1] in ops and ops[i][0] <= ops[ops_stack[-1]][0]:
+                call_operator(bool(func_stack), ops_stack.pop())
+            ops_stack.append(i)
             continue
     if var:
         if get_var(var, False) is None:
             raise NameError(f"name {var} is not defined")
 
-    while stash:
-        call_operator(False, stash.pop())
+    while ops_stack:
+        call_operator(False, ops_stack.pop())
     return values[0]
