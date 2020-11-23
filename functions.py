@@ -228,8 +228,8 @@ def matheval(exp: str, variables: dict = None) -> float:
             var = i
             continue
         if var:
+            fn = bool(func_stack)
             if i == '(': # namespace is a function or you fucked up
-                fn = bool(func_stack)
                 try:
                     attr = ressolve_attr(var, fn)
                 except Exception:
