@@ -194,25 +194,23 @@ def matheval(exp: str, variables: dict = None) -> float:
             attr = getattr(attr, chained_attr)
         return attr
 
-    def get_var(var: str, fn: bool) -> float:
+    def get_var(var: str) -> float:
         """Searches and returns a variable, raises ValueError if fails to do so"""
         negative = var.startswith('-')
         var = var.lstrip('-')
         if var in constants:
-            const = constants[var]
-        else:
-            if variables is None:
-                raise ValueError(f'No variable named {var} found')
-            try: const = variables[var]
-            except KeyError:
-                raise ValueError(f'No variable named {var} found')
-        return -const if negative else const
+            return -constants[var] if negative else constants[var]
+        if variables is None:
+            raise ValueError(f'No variable named {var} found')
+        try: return -variables[var] if negative else variables[var]
+        except KeyError:
+            raise ValueError(f'No variable named {var} found')
 
     def ressolve_attr(var: str, fn: bool) -> float:
         if var.startswith('.'):
             return return_attr(var, fn)
         var, *attrs = var.split('.')
-        const = get_var(var, fn)
+        const = get_var(var)
         if attrs:
             const = return_attr(attrs, fn, const)
         return const
@@ -261,7 +259,6 @@ def matheval(exp: str, variables: dict = None) -> float:
             while ops_stack and ops_stack[-1] in ops and ops[i][0] <= ops[ops_stack[-1]][0]:
                 call_operator(ops_stack.pop())
             ops_stack.append(i)
-            continue
 
     if var:
         const = ressolve_attr(var, False)
