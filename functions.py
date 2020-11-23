@@ -1,5 +1,6 @@
 from discord.ext import commands
 import asyncio
+import operator as op
 import random
 import math
 import re
@@ -130,31 +131,29 @@ def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
 def matheval(exp: str, variables: dict = None) -> float:
     """Evaluates a math expression."""
     exp = exp.replace(' ', '').replace('**', '^')
-    match = re.split(r'((?<=[^(Ee+-])[+-]|\/{1,2}|[,*^@%()])', exp)
+    match = re.split(r'((?<=[^(Ee+-])[+-]|\/{1,2}|[,*^@%()])', exp) # splitting at operators
     while '' in match: match.remove('')
     # powers = ('⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹')
     values, ops_stack, call, call_stack, func_stack, var = [], [], [], [], [], ''
 
     ops = {
         ',': (0,),
-        '+': (1, lambda a, b: a + b),
-        '-': (1, lambda a, b: a - b),
-        '*': (2, lambda a, b: a * b),
-        '/': (2, lambda a, b: a / b),
-        '%': (2, lambda a, b: a % b),
-        '@': (2, lambda a, b: a @ b),
-        '//': (2, lambda a, b: a // b),
-        '^': (3, lambda a, b: a ** b)}
+        '+': (1, op.add),
+        '-': (1, op.sub),
+        '*': (2, op.mul),
+        '/': (2, op.truediv),
+        '%': (2, op.mod),
+        '@': (2, op.matmul),
+        '//': (2, op.floordiv),
+        '^': (3, op.pow)}
 
     functions = {i: getattr(math, i) for i in dir(math)[5:]}
     functions.update({'int': int,
-        'float': float,
-        'complex': complex,
-        'bool': bool, 'sum': sum,
+        'float': float, 'bool': bool,
+        'complex': complex, 'sum': sum,
         'round': round, 'ord': ord,
-        'abs': abs, 'min': min,
-        'max': max, 'pow': pow,
-        'mat': Matrix,
+        'abs': abs, 'min': min, 'max': max,
+        'pow': pow, 'mat': Matrix,
         'random': random.random,
         'randint': random.randint})
 
@@ -164,22 +163,59 @@ def matheval(exp: str, variables: dict = None) -> float:
         'e': math.e, 'inf': math.inf,
         '∞': math.inf, 'nan': math.nan}
 
-    def call_operator(fn: bool, op: str):
+    def val_or_call() -> list:
+        """returns call if func_stack is not empty, else values"""
+        if func_stack: return call
+        return values
+
+    def call_operator(op: str):
         if op == ',': return
-        cont = call if fn else values
+        cont = val_or_call()
         cont.append(ops[op][1](cont.pop(-2), cont.pop()))
 
-    def get_var(var: str, fn: bool) -> None:
-        if neg := var[0] == '-': var = var[1:]
-        const = constants.get(var, var)
-        if const is var:
+    def return_attr(attr_chain: str, fn: bool, base_obj: object=None) -> float:
+        """
+        Takes in a str of object names and attempts to retrieve the value of highest object,
+        returns None if fails
+        """
+        if base_obj is None:
+            base_obj = (call if fn else values).pop()
+        if isinstance(attr_chain, list):
+            attributes = attr_chain
+        else:
+            attributes = attr_chain.split('.')
+        if attributes[0] == '': attributes.remove('')
+        if not hasattr(base_obj, attributes[0]):
+            raise AttributeError(f'{base_obj} does not have attribute {attributes[0]}')
+        attr = getattr(base_obj, attributes.pop(0))
+        for chained_attr in attributes:
+            if not hasattr(attr, chained_attr):
+                raise AttributeError(f'{attr} does not have attribute {chained_attr}')
+            attr = getattr(attr, chained_attr)
+        return attr
+
+    def get_var(var: str, fn: bool) -> float:
+        """Searches and returns a variable, raises ValueError if fails to do so"""
+        negative = var.startswith('-')
+        var = var.lstrip('-')
+        if var in constants:
+            const = constants[var]
+        else:
             if variables is None:
-                return None
+                raise ValueError(f'No variable named {var} found')
             try: const = variables[var]
             except KeyError:
-                return None
-        (call if fn else values).append(-const if neg else const)
-        return 0
+                raise ValueError(f'No variable named {var} found')
+        return -const if negative else const
+
+    def ressolve_attr(var: str, fn: bool) -> float:
+        if var.startswith('.'):
+            return return_attr(var, fn)
+        var, *attrs = var.split('.')
+        const = get_var(var, fn)
+        if attrs:
+            const = return_attr(attrs, fn, const)
+        return const
 
     for i in match:
         if re.sub(r'^(-?\.|-)', '', i)[:1].isnumeric():
@@ -188,47 +224,49 @@ def matheval(exp: str, variables: dict = None) -> float:
             else: num = int(i)
             (call if bool(func_stack) else values).append(num)
             continue
-        if i.replace('-', '').isalnum():
+        if i.replace('-', '').replace('.', '').isalnum():
             var = i
             continue
         if var:
             if i == '(': # namespace is a function or you fucked up
+                fn = bool(func_stack)
+                attr = None
+                if var.startswith('.'): # got a method
+                    attr = return_attr(var, fn)
+                if fn: # if there are pending functions, that means the function is nested
+                    call_stack.append(call) # so we put on stack the current args for function call and empty the list
+                    call = []
                 try:
-                    if func_stack: # if there are pending functions, that means the function is nested
-                        call_stack.append(call)
-                        call = []
-                    func_stack.append(functions[var])
+                    func_stack.append(attr or functions[var])
                 except KeyError:
                     raise NameError(f"name '{var}' preceeded a '(' while not being a function")
             else:
-                if get_var(var, bool(func_stack)) is None: #if the function succeeds the var gets appended
-                    raise NameError(f"name {var} is not defined")
+                const = ressolve_attr(var, fn)
+                val_or_call().append(const)
             var = ''
         if i == '(':
             ops_stack.append(i)
             continue
         if i == ')':
             while ops_stack and ops_stack[-1] != '(':
-                call_operator(bool(func_stack), ops_stack.pop())
-            ops_stack.pop()
+                call_operator(ops_stack.pop())
+            ops_stack.pop() # removes the ")"
             if func_stack:
                 result = func_stack.pop()(*call)
-                if func_stack:
-                    call = call_stack.pop()
-                    call.append(result)
-                else:
-                    call = []
-                    values.append(result)
+                call = call_stack.pop() if func_stack else []
+                val_or_call().append(result)
             continue
         if i in ops:
             while ops_stack and ops_stack[-1] in ops and ops[i][0] <= ops[ops_stack[-1]][0]:
-                call_operator(bool(func_stack), ops_stack.pop())
+                call_operator(ops_stack.pop())
             ops_stack.append(i)
             continue
+
     if var:
-        if get_var(var, False) is None:
-            raise NameError(f"name {var} is not defined")
+        const = ressolve_attr(var, False)
+        values.append(const)
 
     while ops_stack:
-        call_operator(False, ops_stack.pop())
+        call_operator(ops_stack.pop())
+
     return values[0]
