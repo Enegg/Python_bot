@@ -230,9 +230,9 @@ def matheval(exp: str, variables: dict = None) -> float:
         if var:
             if i == '(': # namespace is a function or you fucked up
                 fn = bool(func_stack)
-                attr = None
-                if var.startswith('.'): # got a method
-                    attr = return_attr(var, fn)
+                attr = return_attr(var, fn) if var.startswith('.') else False
+                if not attr and '.' in var:
+                    attr = ressolve_attr(var, fn)
                 if fn: # if there are pending functions, that means the function is nested
                     call_stack.append(call) # so we put on stack the current args for function call and empty the list
                     call = []
