@@ -6,22 +6,6 @@ import math
 import re
 from matrices import Matrix
 
-def perms(lvl: int):
-    '''Defines required user's lvl to access a command, following: 1 - manage messages, 2 - manage guild, 3 - admin, 4 - guild owner, 5 - bot author'''
-    def extended_check(ctx) -> bool:
-        if ctx.author.id == 190505392504045570:
-            return True
-        if ctx.guild is None:
-            return False
-        if int(lvl) <= 4 and ctx.guild.owner_id == ctx.author.id:
-            return True
-        permKeys = ['manage_messages', 'manage_guild', 'administrator']
-        if int(lvl) <= len(permKeys):
-            key = permKeys[int(lvl) - 1]
-            return getattr(ctx.author.guild_permissions, key)
-        return False
-    return commands.check(extended_check)
-
 def intify(s, default=0) -> int:
     r'''int() which returns the dafault value for non ints'''
     s = str(s)
@@ -38,8 +22,6 @@ def random_color(seed=None) -> tuple:
     r'''Returns a RGB color tuple, can be based off a seed'''
     if seed is not None: random.seed(intify(seed))
     return tuple(round(random.random() * 255) for n in range(3))
-
-def helpie(x): return [x, type(x)]
 
 def common_items(lists: list) -> list:
     r'''Helper func which returns a list of common items found in the input lists'''
@@ -98,9 +80,6 @@ async def supreme_listener(ctx, msg, emojis: list, listen_for_add=True, listen_f
     if add_return and str(reaction.emoji) == '↩️': return -1, action_type
     if add_cancel and str(reaction.emoji) == '❌': return -2, action_type
     return emojis.index(reaction.emoji), action_type
-
-def set_default(embed, ctx):
-    embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
 
 def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
     '''Helper func designed to split a long list of items into discord embed fields so that they stay under character limit. field_limit should be an int or a tuple of two ints; in case of the latter the first int will be applied to the first field, and the second to any following field.'''
@@ -270,3 +249,7 @@ def matheval(exp: str, variables: dict = None) -> float:
         call_operator(ops_stack.pop())
 
     return values[0]
+
+def esc_join(s: str='\n') -> str.join:
+    """Function to escape joining strings with newline in f-string"""
+    return s.join

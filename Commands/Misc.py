@@ -58,9 +58,12 @@ class Misc(commands.Cog):
     async def on_guild_emojis_update(self, guild, before, after):
         self.emojifier()
 
-    @commands.command(name='roll',usage='<nothing|number|number1, number2|"frantic">',brief='Roll a dice or provide custom range to get a random number')
+    @commands.command(
+        name='roll',
+        usage='<nothing|number|number1, number2|"frantic">',
+        brief='Roll a dice or provide custom range to get a random number')
     async def dice(self, ctx, *args):
-        if args == ():
+        if not args:
             await ctx.send(roll())
             return
         if args[0] == 'frantic': a, b = 84, 779
@@ -73,11 +76,17 @@ class Misc(commands.Cog):
     async def ping(self, ctx):
         await ctx.send(f'Pong! {round(ctx.bot.latency * 1000)}ms')
 
-    @commands.command(aliases=['av'],usage='[optional: mention]',brief='Get a link to your or someone\'s avatar')
+    @commands.command(
+        aliases=['av'],
+        usage='[optional: mention]',
+        brief='Get a link to your or someone\'s avatar')
     async def avatar(self, ctx):
         await ctx.send((ctx.message.mentions[0] if ctx.message.mentions != [] else ctx.author).avatar_url)
 
-    @commands.command(aliases=['r'],usage='[emoji] [opt: ^ to react to message above] / while in DM: [normal|animated]',brief='Makes the bot send or react with an emoji')
+    @commands.command(
+        aliases=['r'],
+        usage='[emoji] [opt: ^ to react to message above] / while in DM: [normal|animated]',
+        brief='Makes the bot send or react with an emoji')
     @commands.cooldown(3, 15.0, commands.BucketType.member)
     async def react(self, ctx, *args):
         args = list(args)

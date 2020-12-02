@@ -1,9 +1,9 @@
 from discord.ext import commands
 import discord
-from Commands.Testing import EmbedUI
 import json
 import asyncio
-from functions import intify, supreme_listener, random_color
+from functions import intify, random_color
+from discotools import supreme_listener, EmbedUI
 
 with open("sub_loc_list.json") as file:
     loc_list = json.load(file)

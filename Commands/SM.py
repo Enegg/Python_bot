@@ -1,20 +1,20 @@
 from discord.ext import commands
 import discord
 import asyncio
-from functions import search_for, intify, perms, supreme_listener, random_color, split_to_fields
+from functions import search_for, intify, random_color
+from discotools import perms, supreme_listener, split_to_fields, EmbedUI
 import json
 import re
 import urllib
-from Commands.Testing import EmbedUI
 from typing import Dict, Iterable
 
 with open('items.json') as file:
-    items_list = json.load(file)
+    items_list: dict = json.load(file)
 
 operation_lookup = {
-    'mult': ['eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'],
-    'mult+': ['phyRes', 'expRes', 'eleRes'],
-    'reduce': ['backfire']}
+    'mult': {'eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'},
+    'mult+': {'phyRes', 'expRes', 'eleRes'},
+    'reduce': 'backfire'}
 item_type = {
     'TOP_WEAPON': ['https://i.imgur.com/LW7ZCGZ.png', '<:topr:730115786735091762>'],
     'SIDE_WEAPON': ['https://i.imgur.com/CBbvOnQ.png', '<:sider:730115747799629940>'],
@@ -96,7 +96,7 @@ class SuperMechs(commands.Cog):
         return None
 
     def abbreviator(self):
-        r'''Helper func which creates abbrevs for items'''
+        """Helper func which creates abbrevs for items"""
         names = []
         abbrevs = {}
         for item in items_list:
@@ -111,7 +111,7 @@ class SuperMechs(commands.Cog):
             abbrevs[abbreviation].append(name) if abbreviation in abbrevs else abbrevs.update({abbreviation: [name]})
         self.abbrevs, self.names = abbrevs, names
 
-    def get_image(self, item) -> str('ItemImageLink'):
+    def get_image(self, item) -> str:
         safe_name = item['name'].replace(' ', '')
         url = url_template.format(safe_name)
 
@@ -120,11 +120,13 @@ class SuperMechs(commands.Cog):
                 urllib.request.urlopen(url)
             except urllib.error.HTTPError:
                 self.image_url_cache[item['id']] = item_type[item['type']][0]
-            else: self.image_url_cache[item['id']] = url
+            else:
+                self.image_url_cache[item['id']] = url
+
         return self.image_url_cache[item['id']]
 
     def ressolve_args(self, args: Iterable):
-        '''Takes command arguments as an input and tries to match them as key item pairs'''
+        """Takes command arguments as an input and tries to match them as key item pairs"""
         args = [a.lower() for a in args]
         specs = {}  # dict of data type: desired data, like 'element': 'explosive'
         ingored_args = set()
@@ -135,18 +137,20 @@ class SuperMechs(commands.Cog):
             if arg.endswith(':'):  # if True, the next item in args should be treated as a value
                 index = args.index(arg)
                 if index + 1 >= len(args):
-                    raise Exception(f'Obscure argument "{arg}"')
+                    raise ValueError(f'Obscure argument "{arg}"')
                 value = args.pop(index + 1).lower()
                 if ':' in value:
-                    raise SyntaxError(f'"{value}" preceeding "{arg}"')
+                    raise ValueError(f'"{value}" preceeding "{arg}"')
                 specs.update({arg.replace(':', ''): value})
             else:
                 arg, value = arg.lower().split(':')
                 specs.update({arg: value.strip()})
         return specs, ingored_args
 
-    def specs(self, item):
-        return {'type': item_type[item['type']][1], 'element': item_element[item['element']], 'tier': tier_colors[item_tiers.index(item['transform_range'].split('-')[0])]}
+    def specs(self, item) -> dict:
+        return {'type': item_type[item['type']][1],
+                'element': item_element[item['element']],
+                'tier': tier_colors[item_tiers.index(item['transform_range'].split('-')[0])]}
 
     def emoji_for_browseitems(self, item, spec_filter: Dict['ItemStat', 'StatValue']):
         specs = self.specs(item)
@@ -156,21 +160,26 @@ class SuperMechs(commands.Cog):
     async def frantic(self, ctx):
         await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
-    def buff(self, stat, value: int, enabled: bool, item) -> int:
+    def buff(self, stat: str, value: int, enabled: bool) -> int:
+        """Returns a value buffed respectively to stat type"""
         if not enabled: # the function is always called, that probably could be improved
             return value
         if stat in operation_lookup['mult']:
             return round(value * 1.2)
         if stat in operation_lookup['mult+']:
             return round(value * 1.4)
-        if stat in operation_lookup['reduce']:
+        if stat == operation_lookup['reduce']:
             return round(value * 0.8)
         return value
 
-    @commands.command(usage='[item name / part of the name]', brief='Inspect an item\'s stats', help='To use the command, type in desired item\'s name or its abbreviation, like "efa" for "energy free armor".')
+    @commands.command(
+        usage='[item name / part of the name]',
+        brief='Inspect an item\'s stats',
+        help='To use the command, type in desired item\'s name or its abbreviation, like "efa" for "energy free armor".')
     @commands.cooldown(2, 15.0, commands.BucketType.member)
     async def stats(self, ctx, *args):
         msg = ctx.message
+        botmsg = None
         add_x = msg.add_reaction
         if not bool(args):
             await add_x('❌')
@@ -185,65 +194,72 @@ class SuperMechs(commands.Cog):
             return
 
         #returning the exact item name from short user input
-        if not self.abbrevs or not self.names: self.abbreviator()
+        if self.abbrevs == {} or self.names == []:
+            self.abbreviator()
         if name not in self.names and not name.isdigit():
             results = search_for(name, self.names)
-            is_in_abbrevs = bool(name in self.abbrevs)
-            is_in_results = bool(results)
-            if is_in_abbrevs or is_in_results:
-                match = self.abbrevs[name] if is_in_abbrevs else []
-                matches = match + results
-                for match in matches:
-                    while matches.count(match) > 1: matches.remove(match)
+            abbrev = self.abbrevs.get(name, [])
+            matches = list(set(results + abbrev))
+            if matches:
                 number = len(matches)
                 if number > 10:
                     await ctx.send('Over 10 matches found, be more specific.')
                     return
                 #more than 1 match found
                 if number > 1:
-                    first_item = matches[0]
-                    final_item = matches[-1]
-                    filler = ''.join(f', **{n}** for **{matches[n-1]}**' for n in range(2, number)) if number > 2 else ''
-                    botmsg = await ctx.send(f'Found {number} items!\nType **1** for **{first_item}**{filler} or **{number}** for **{final_item}**')
-                    try: reply = await ctx.bot.wait_for('message', timeout=20.0, check=lambda m: m.author == msg.author and m.channel == ctx.channel and m.content.isdigit())
+                    embed = discord.Embed(
+                        title=f'Found {number} items!',
+                        description='Type a number to get the item\n' + '\n'.join(f'**{n}**: **{i}**' for n, i in enumerate(matches, 1)),
+                        color=ctx.author.color)
+                    embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
+                    botmsg = await ctx.send(embed=embed)
+
+                    check = lambda m: m.author.id == msg.author.id and m.channel.id == ctx.channel.id and m.content.isdigit()
+                    try:
+                        reply = await ctx.bot.wait_for('message', timeout=20.0, check=check)
                     except asyncio.TimeoutError:
                         await botmsg.add_reaction('⏰')
                         return
                     choice = intify(reply.content) - 1
-                    if choice in range(number): name = matches[choice]
+                    if choice in range(number):
+                        name = matches[choice]
+                        await reply.delete()
                     else:
                         await reply.add_reaction('❌')
                         return
                 #only 1 match found
                 else: name = matches[0]
-        
+
         #getting the item
         item = self.get_item_by_id_or_name(name.lower())
         if item is None:
             await add_x('❌')
             return
-        #test flag
+        #debug flag
         if '-r' in flags:
             await ctx.send(item)
             return
-        #adding a note when -b flag is included
         emojis = ['🇧']
-        if bool('divine' in item): emojis.append('🇩')
+        if 'divine' in item:
+            emojis.append('🇩')
         #embedding
-        embed = EmbedUI(ctx, emojis, title=item['name'], description=' '.join([item['element'].lower().capitalize(), item['type'].replace('_', ' ').lower()]), color=element_colors[item['element']])
+        desc = f"{item['element'].lower().capitalize()} {item['type'].replace('_', ' ').lower()}"
+        embed = EmbedUI(ctx, emojis, title=item['name'], description=desc, color=element_colors[item['element']])
         img_url = self.get_image(item)
         has_image = bool('imgur' not in img_url) #yeah I know, hack
         embed.set_image(url=img_url)
-        if has_image: embed.set_thumbnail(url=item_type[item['type']][0])
+        if has_image:
+            embed.set_thumbnail(url=item_type[item['type']][0])
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.set_footer(text='React with B for arena buffs or D for divine stats (if applicable)')
+        embed.set_footer(text='Toggle arena buffs with B' + ' and divine stats with D' * ('🇩' in emojis) +
+        '\nfor whatever reason removing the reaction isn\'t detected :(')
         stat_abbrev['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
         #adding item stats
         _min, _max = item['transform_range'].split('-')
 
         first_run, divine, buffs = True, False, False
         while True:
-            item_stats = ''
+            item_stats = '' # the main string
             spaced = False
             for stat in item['stats']:
                 if stat in {'backfire', 'heaCost', 'eneCost'} and not spaced:
@@ -254,18 +270,20 @@ class SuperMechs(commands.Cog):
                 #number range handler
                 if isinstance(item['stats'][stat], list):
                     if len(item['stats'][stat]) == 1:
-                        value = self.buff(stat, item[pool][stat][0], buffs, item) #handling one spot range
+                        value = self.buff(stat, item[pool][stat][0], buffs) #handling one spot range
 
                     elif item[pool][stat][1] == 0:
                         value = item[pool][stat][0]
 
                     else:
-                        value = str(self.buff(stat, item[pool][stat][0], buffs, item)) + '-' + str(self.buff(stat, item[pool][stat][1], buffs, item))
+                        value = f'{self.buff(stat, item[pool][stat][0], buffs)}-{self.buff(stat, item[pool][stat][1], buffs)}'
                 else:
-                    value = self.buff(stat, item[pool][stat], buffs, item)
+                    value = self.buff(stat, item[pool][stat], buffs)
 
                 item_stats += f"{stat_abbrev[stat][1]} **{value}** {stat_abbrev[stat][0]}\n"
-            if 'advance' in item['stats'] or 'retreat' in item['stats']: item_stats += f"{stat_abbrev['jump'][1]} **Jumping required**"
+
+            if 'advance' in item['stats'] or 'retreat' in item['stats']:
+                item_stats += f"{stat_abbrev['jump'][1]} **Jumping required**"
             #transform range
             if (maximal := item_tiers.index(_max)) < 4: tier = maximal
             elif divine: tier = 5
@@ -274,19 +292,30 @@ class SuperMechs(commands.Cog):
             colors.insert(tier, f'({colors.pop(tier)})')
             fields = []
             note = ' (buffs applied)' if buffs else ''
-            fields.append({'name': 'Transform range: ', 'value': f"{''.join(colors[item_tiers.index(_min):item_tiers.index(_max) + 1])}", 'inline': False})
+            fields.append({
+                'name': 'Transform range: ',
+                'value': f"{''.join(colors[item_tiers.index(_min):item_tiers.index(_max) + 1])}",
+                'inline': False})
             fields.append({'name': f'Stats{note}:', 'value': item_stats, 'inline': False})
             for field in fields: embed.add_field(**field)
 
             if first_run:
                 embed.set_count(len(emojis))
-                msg = await ctx.send(embed=embed)
+                if botmsg is not None:
+                    await botmsg.edit(embed=embed)
+                    msg = botmsg
+                else:
+                    msg = await ctx.send(embed=embed)
                 options = await embed.add_options(msg, True)
-            else: await embed.edit(msg)
-            try: selection, action_type = await supreme_listener(ctx, *options, listen_for_add=True, listen_for_remove=True, add_cancel=True)
+            else:
+                await embed.edit(msg)
+            try:
+                selection, action_type = await supreme_listener(ctx, *options, on_add=True, on_remove=True, add_cancel=True)
             except asyncio.TimeoutError:
                 break
-            if first_run: first_run = False
+            print(selection, action_type)
+            if first_run:
+                first_run = False
             if selection == -2:
                 break
             embed.clear_fields()
@@ -300,8 +329,6 @@ class SuperMechs(commands.Cog):
     @commands.command(aliases=['bi'], brief='WIP command')
     async def browseitems(self, ctx, *args):
         args = list(args)
-        # flags = [args.pop(args.index(flag)) for flag in {'-reverse'} if flag in args]
-        # reverse = bool('-reverse' in flags)
         try:
             specs, ignored_args = self.ressolve_args(args)
         except Exception as error:
@@ -320,7 +347,8 @@ class SuperMechs(commands.Cog):
             values = search_for(value, spec)
             if not values or len(values) > 1:
                 val = bool(values)
-                await ctx.send(f'Value "{value}" for parameter "{key}" has {("no", "too many")[val]} matches{("", ": ")[val]}{", ".join(values).lower()}')
+                await ctx.send(
+                    f'Value "{value}" for parameter "{key}" has {("no", "too many")[val]} matches{": " * val}{", ".join(values).lower()}')
                 return
             valid_specs.update({key: values[0]})
         if not valid_specs:
@@ -338,21 +366,22 @@ class SuperMechs(commands.Cog):
                 matching_specs.add(item[key] == value)
             if all(matching_specs): items.append(item)
 
-        def sort_by_tier_elem_name(item):
+        def sort_by_tier_elem_name(item: dict) -> tuple:
             return (
-                list(reversed(item_tiers)).index(item['transform_range'].split('-')[0]),
-                list(element_colors.keys()).index(item['element']),
-                # list(item_type.keys()).index(item['type']),
+                [*reversed(item_tiers)].index(item['transform_range'].split('-')[0]),
+                [*element_colors.keys()].index(item['element']),
                 item['name'])
 
         items.sort(key=sort_by_tier_elem_name)
 
-        item_names = [self.emoji_for_browseitems(item, valid_specs) + ' ' + item['name'] for item in items]
+        item_names = [f"{self.emoji_for_browseitems(item, valid_specs)} {item['name']}" for item in items]
         fields = split_to_fields(item_names, '\n', field_limit=1024)
 
         color = element_colors[valid_specs['element']] if 'element' in valid_specs else discord.Color.from_rgb(*random_color())
 
-        embed = discord.Embed(title=f'Matching items ({len(items)})', description='\n'.join(spec.capitalize().replace('_', ' ') + ': ' + self.specs(items[0])[spec] for spec in valid_specs), color=color)
+        embed = discord.Embed(
+            title=f'Matching items ({len(items)})',
+            description='\n'.join(f"{spec.capitalize().replace('_', ' ')}: {self.specs(items[0])[spec]}" for spec in valid_specs), color=color)
 
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
 
@@ -373,10 +402,10 @@ class SuperMechs(commands.Cog):
         icon = slot_emojis
         none, mods = icon['none'], icon['modl']*2
         line0 = 'Addresing items: `Weapon[n]:` `[name]`, `Module[n]:` `[name]`, `Torso:` `[name]` etc'
-        line1 = '\n' + f"`1` – {icon['topl']}{icon['dron']}{icon['topr']} – `2`{none}`1` – {mods} – `5`"
-        line2 = '\n' + f"`3` – {icon['sidl']}{icon['tors']}{icon['sidr']} – `4`{none}`2` – {mods} – `6`"
-        line3 = '\n' + f"`5` – {icon['sidl']}{icon['legs']}{icon['sidr']} – `6`{none}`3` – {mods} – `7`"
-        line4 = '\n' + f"`C` – {icon['chrg']}{icon['tele']}{icon['hook']} – `H`{none}`4` – {mods} – `8`"
+        line1 = f"\n`1` – {icon['topl']}{icon['dron']}{icon['topr']} – `2`{none}`1` – {mods} – `5`"
+        line2 = f"\n`3` – {icon['sidl']}{icon['tors']}{icon['sidr']} – `4`{none}`2` – {mods} – `6`"
+        line3 = f"\n`5` – {icon['sidl']}{icon['legs']}{icon['sidr']} – `6`{none}`3` – {mods} – `7`"
+        line4 = f"\n`C` – {icon['chrg']}{icon['tele']}{icon['hook']} – `H`{none}`4` – {mods} – `8`"
         desc = line0 + line1 + line2 + line3 + line4
         embed = discord.Embed(title=title, description=desc)
         await ctx.send(embed=embed)
