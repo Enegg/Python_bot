@@ -206,7 +206,7 @@ class Subverse(commands.Cog):
         else: fields = ['```{}```'.format('\n'.join(locs))]
         embed = discord.Embed(title='Locations list:', description=fields.pop(0), color=discord.Color.from_rgb(*random_color()))
         for field in fields:
-            embed.add_field(name='<:none:742507182918074458>', value=field, inline=True)
+            embed.add_field(name='<:none:772958360240128060>', value=field, inline=True)
         await ctx.send(embed=embed)
 
 def setup(bot):
