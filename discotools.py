@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord
 import asyncio
+from typing import Callable, Tuple
 
 def perms(lvl: int):
     '''Defines required user's lvl to access a command, following: 1 - manage messages, 2 - manage guild, 3 - admin, 4 - guild owner, 5 - bot author'''
@@ -18,15 +19,15 @@ def perms(lvl: int):
         return False
     return commands.check(extended_check)
 
-async def supreme_listener(ctx, msg, emojis: list, on_add=True, on_remove=False, add_return=False, add_cancel=False) -> int:
-    '''Returns the position of added/removed reaction'''
+async def supreme_listener(ctx, emojis: list, on_add=True, on_remove=False, add_return=False, add_cancel=False) -> int:
+    """Returns the position of added/removed reaction"""
     if not emojis:
         raise ValueError('No emojis to check with')
-    #return emoji is a reserved emoji for going back
+    # return emoji is a reserved emoji for going back
     if add_return: emojis.append('↩️')
-    #cross emoji is reserved for closing the menu
+    # cross emoji is reserved for closing the menu
     if add_cancel: emojis.append('❌')
-    check = lambda reaction, user: user == ctx.author and str(reaction.emoji) in emojis
+    check = lambda reaction, user: user.id == ctx.author.id and str(reaction.emoji) in emojis
     tasks = []
     specifiers = set()
 
@@ -38,34 +39,25 @@ async def supreme_listener(ctx, msg, emojis: list, on_add=True, on_remove=False,
     if not specifiers:
         raise ValueError('No events to listen to specified.')
 
-    # for listener in specifiers:
-    #     wait_for = ctx.bot.wait_for(listener, check=check)
-    #     task = asyncio.create_task(wait_for)
-    #     tasks.append(task)
-
-    if on_add:
-        print('on add')
-        wait_for_add = ctx.bot.wait_for('reaction_add', check=check)
-        task_add = asyncio.create_task(wait_for_add)
-        tasks.append(task_add)
-    else: task_add = None
-
-    if on_remove:
-        print('on remove')
-        wait_for_del = ctx.bot.wait_for('reaction_remove', check=check)
-        task_del = asyncio.create_task(wait_for_del)
-        tasks.append(task_del)
-    else: task_del = None
+    for listener in specifiers:
+        wait_for = ctx.bot.wait_for(listener, check=check)
+        task = asyncio.create_task(wait_for, name=listener)
+        tasks.append(task)
 
     done, pending = await asyncio.wait(tasks, timeout=20.0, return_when='FIRST_COMPLETED')
     if not done:
         raise asyncio.TimeoutError
     [task.cancel() for task in pending]
-    for task in done:
+    # done is a set so we can't index it, but it *should* contain only one item
+    if len(done) != 1: # something fucked up
+        print(done)
+        raise Exception('Something falied with tasks')
+    else:
+        task = done.pop()
         reaction = (await task)[0]
         action_type = None
-        if task == task_add: action_type = True
-        if task == task_del: action_type = False
+        if task.get_name() == 'reaction_add': action_type = True
+        if task.get_name() == 'reaction_remove': action_type = False
 
     if add_return and str(reaction.emoji) == '↩️': return -1, action_type
     if add_cancel and str(reaction.emoji) == '❌': return -2, action_type
@@ -126,7 +118,7 @@ class EmbedUI(discord.Embed):
         return self
 
     async def add_options(self, msg, add_cancel=False):
-        """Reacts to a message with emojis as options"""
+        """Reacts to a message with emojis as options, returns a list of emojis"""
         if not bool(count := self.count): raise ValueError('No emojis to add')
         len_emojis = len(self.emojis)
         number = count if count < len_emojis else len_emojis
@@ -134,7 +126,7 @@ class EmbedUI(discord.Embed):
         for x in (new_emojis := self.emojis[:number]):
             await msg.add_reaction(x)
         if add_cancel: await msg.add_reaction('❌')
-        return msg, new_emojis
+        return new_emojis
 
     async def edit(self, msg, add_return=False):
         """Edits the message"""
@@ -142,3 +134,26 @@ class EmbedUI(discord.Embed):
         if add_return:
             await msg.add_reaction('↩️')
         return self
+
+async def scheduler(ctx, events: set, check: Callable, timeout=None, return_when: str='FIRST_COMPLETED') -> Tuple[tuple, str]:
+    """Wrapper for asyncio.wait designed for discord events. Returns the outcome of the event and its name."""
+    if not events:
+        raise ValueError('No events to await')
+    tasks = set()
+
+    for event in events:
+        wait_for = ctx.bot.wait_for(event, check=check)
+        task = asyncio.create_task(wait_for, name=event)
+        tasks.add(task)
+    
+    done, pending = await asyncio.wait(tasks, timeout=timeout, return_when=return_when)
+    if not done:
+        raise asyncio.TimeoutError
+
+    for task in pending:
+        task.cancel()
+
+    for task in done:
+        outcome = await task
+        name = task.get_name()
+        yield outcome, name

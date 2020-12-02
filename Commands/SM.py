@@ -2,7 +2,7 @@ from discord.ext import commands
 import discord
 import asyncio
 from functions import search_for, intify, random_color
-from discotools import perms, supreme_listener, split_to_fields, EmbedUI
+from discotools import perms, supreme_listener, split_to_fields, EmbedUI, scheduler
 import json
 import re
 import urllib
@@ -242,6 +242,7 @@ class SuperMechs(commands.Cog):
         emojis = ['🇧']
         if 'divine' in item:
             emojis.append('🇩')
+        emojis.append('❌')
         #embedding
         desc = f"{item['element'].lower().capitalize()} {item['type'].replace('_', ' ').lower()}"
         embed = EmbedUI(ctx, emojis, title=item['name'], description=desc, color=element_colors[item['element']])
@@ -251,8 +252,7 @@ class SuperMechs(commands.Cog):
         if has_image:
             embed.set_thumbnail(url=item_type[item['type']][0])
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
-        embed.set_footer(text='Toggle arena buffs with B' + ' and divine stats with D' * ('🇩' in emojis) +
-        '\nfor whatever reason removing the reaction isn\'t detected :(')
+        embed.set_footer(text='Toggle arena buffs with B' + ' and divine stats with D' * ('🇩' in emojis))
         stat_abbrev['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
         #adding item stats
         _min, _max = item['transform_range'].split('-')
@@ -306,24 +306,27 @@ class SuperMechs(commands.Cog):
                     msg = botmsg
                 else:
                     msg = await ctx.send(embed=embed)
-                options = await embed.add_options(msg, True)
+                await embed.add_options(msg, True)
             else:
                 await embed.edit(msg)
+            checkk = lambda reaction, user: user.id == ctx.author.id and str(reaction) in emojis
             try:
-                selection, action_type = await supreme_listener(ctx, *options, on_add=True, on_remove=True, add_cancel=True)
-            except asyncio.TimeoutError:
+                async for outcome, event_name in scheduler(ctx, {'reaction_add', 'reaction_remove'}, check=checkk, timeout=20.0):
+                    reaction = str(outcome[0])
+                    action_type = bool(('reaction_remove', 'reaction_add').index(event_name))
+                    if first_run:
+                        first_run = False
+                    if reaction == '❌':
+                        raise StopAsyncIteration
+                    embed.clear_fields()
+                    if 'divine' in item:
+                        if reaction == '🇧': buffs = action_type
+                        if reaction == '🇩': divine = action_type
+                    else:
+                        buffs = action_type
+            except (asyncio.TimeoutError, StopAsyncIteration):
                 break
-            print(selection, action_type)
-            if first_run:
-                first_run = False
-            if selection == -2:
-                break
-            embed.clear_fields()
-            if bool('divine' in item):
-                if selection == 0: buffs = action_type
-                if selection == 1: divine = action_type
-            else: buffs = action_type
-        await embed.set_footer().edit(msg)
+        await msg.edit(embed=embed.set_footer())
         await msg.clear_reactions()
 
     @commands.command(aliases=['bi'], brief='WIP command')

@@ -42,7 +42,7 @@ class Moderation(commands.Cog):
                 return
         important = ['administrator', 'manage_guild', 'manage_channels', 'manage_messages', 'manage_roles']
         if member.guild_permissions.administrator:
-            high_rank = 'Guild owner' if member == ctx.guild.owner else 'Administrator'
+            high_rank = 'Server owner' if member.id == getattr(ctx.guild.owner, 'id', None) else 'Administrator'
         else: high_rank, privs = '', filter(lambda perm: perm[1] and perm[0] in important, dict(member.guild_permissions).items())
         notable = high_rank or '\n'.join(x[0].capitalize() for x in privs).replace('_', ' ') or 'None'
         creation_date = f'**Account created at**: {member.created_at.date()} ({(datetime.datetime.today() - member.created_at).days} days ago)\n'
@@ -58,27 +58,37 @@ class Moderation(commands.Cog):
     async def roles(self, ctx):
         await ctx.send('`{}`'.format(ctx.author.roles))
 
-    @commands.command(aliases=['prune','pirge','puerg','p'],usage='[count] [optional: mention]',brief='Purges messages from a channel',help='Deletes a specified number of messages from the channel it has been used in. You can specify whose messages to purge by pinging one or more users')
+    @commands.command(
+        aliases=['prune','pirge','puerg','p'],
+        usage='[count] [optional: mention]',
+        brief='Purges messages from a channel',
+        help=('Deletes a specified number of messages from the channel it has been used in.'
+              ' You can specify whose messages to purge by pinging one or more users'))
     @perms(1)
     async def purge(self, ctx, *args):
         msg = ctx.message
         mentions = msg.mentions if (has_mentions := bool(msg.mentions)) else None
         def purger(n): return ctx.channel.purge(limit=n, check=lambda m: not m.pinned and (m.author in mentions if has_mentions else True))
         await msg.delete()
-        count = intify(args[0]) if bool(args) else 1
-        if count > purge_cap: count = purge_cap
-        if count <= 10: await purger(count)
+        count = intify(args[0]) if args else 1
+        if count > purge_cap:
+            count = purge_cap
+        if count <= 10: 
+            await purger(count)
         else:
             botmsg = await ctx.send(f"You are going to purge {'messages of {} in the recent '.format(', '.join(x.name for x in mentions)) if has_mentions else ''}{count} messages, continue?")
             await botmsg.add_reaction(purge_confirm_emote)
-            try: await ctx.bot.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == ctx.author and str(reaction.emoji) == purge_confirm_emote)
-            except asyncio.TimeoutError: await botmsg.delete()
+            try: 
+                await ctx.bot.wait_for('reaction_add', timeout=20.0, check=lambda reaction, user: user == ctx.author and str(reaction.emoji) == purge_confirm_emote)
+            except asyncio.TimeoutError:
+                await botmsg.delete()
             else:
                 await botmsg.delete()
-                while count >= 100:
+                while count >= 100: # 100 is hardcoded channel.purge default limit
                     await purger(100)
                     count -= 100
-                if count > 0: await purger(count)
+                if count > 0:
+                    await purger(count)
 
     @commands.command(hidden=True)
     @perms(5)

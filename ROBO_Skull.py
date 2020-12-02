@@ -18,7 +18,9 @@ else:
 
 if not TOKEN: raise Exception('Not running localy and TOKEN is not an environment variable')
 
-bot = commands.Bot(command_prefix=prefix, intents=discord.Intents.default())
+intent = discord.Intents.default()
+intent.members = True
+bot = commands.Bot(command_prefix=prefix, intents=intent)
 
 class Setup(commands.Cog):
     def __init__(self):
