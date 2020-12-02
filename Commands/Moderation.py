@@ -15,16 +15,18 @@ class Moderation(commands.Cog):
     async def inspect(self, ctx):
         if ctx.invoked_subcommand is None:
             guild = ctx.guild
-            thing = f'**Text channels**: {len(guild.text_channels)}\n**Members**: {guild.member_count}\n**Created at**: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)'
+            text = (
+                f'**Text channels**: {len(guild.text_channels)}\n'
+                f'**Members**: {guild.member_count}\n'
+                f'**Created at**: {guild.created_at.date()} ({(datetime.datetime.today() - guild.created_at).days} days ago)')
             embed = discord.Embed(title=guild.name, description=f'**Owner:** {guild.owner.mention}', color=guild.owner.color)
-            embed.add_field(name='Statistics:', value=thing, inline=False)
+            embed.add_field(name='Statistics:', value=text, inline=False)
             embed.set_thumbnail(url=guild.icon_url)
             await ctx.send(embed=embed)
 
     @inspect.command(brief='Returns guild\'s channels and their id\'s')
     async def channels(self, ctx):
-        channel_list = [x for x in filter(lambda x: isinstance(x, discord.TextChannel), ctx.guild.channels)]
-        result = ''.join(f'<#{x.id}>: {x.id}\n' for x in channel_list)
+        result = '\n'.join(f'<#{x.id}>: {x.id}' for x in ctx.guild.channels if isinstance(x, discord.TextChannel))
         await ctx.send(result)
 
     @inspect.command(brief='Returns info about the invoker or pinged member (you can use his ID)')
@@ -43,13 +45,15 @@ class Moderation(commands.Cog):
         important = ['administrator', 'manage_guild', 'manage_channels', 'manage_messages', 'manage_roles']
         if member.guild_permissions.administrator:
             high_rank = 'Server owner' if member.id == getattr(ctx.guild.owner, 'id', None) else 'Administrator'
-        else: high_rank, privs = '', filter(lambda perm: perm[1] and perm[0] in important, dict(member.guild_permissions).items())
+        else:
+            high_rank = ''
+            privs = filter(lambda perm: perm[1] and perm[0] in important, dict(member.guild_permissions).items())
         notable = high_rank or '\n'.join(x[0].capitalize() for x in privs).replace('_', ' ') or 'None'
-        creation_date = f'**Account created at**: {member.created_at.date()} ({(datetime.datetime.today() - member.created_at).days} days ago)\n'
-        join_date = f'**Joined at**: {member.joined_at.date()} ({(datetime.datetime.today() - member.joined_at).days} days ago)\n'
-        roles = ', '.join(x.mention for x in reversed(member.roles))
-        data = f'**User ID**: {member.id}\n' + creation_date + join_date + f'**Roles**: {roles}\n' + f'**Notable privileges**:\n{notable}'
-        embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if member.nick is not None else ""}', description=data, color=member.color)
+        creation_date = f'**Account created at**: {member.created_at.date()} ({(datetime.datetime.today() - member.created_at).days} days ago)'
+        join_date = f'**Joined at**: {member.joined_at.date()} ({(datetime.datetime.today() - member.joined_at).days} days ago)'
+        roles = ', '.join(x.mention for x in reversed(member.roles) if x.name != '@everyone')
+        data = f'**User ID**: {member.id}\n{creation_date}\n{join_date}\n**Roles**: {roles}\n**Notable privileges**:\n{notable}'
+        embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if member.nick else ""}', description=data, color=member.color)
         embed.set_thumbnail(url=member.avatar_url)
         await ctx.send(embed=embed)
 
@@ -90,18 +94,15 @@ class Moderation(commands.Cog):
                 if count > 0:
                     await purger(count)
 
-    @commands.command(hidden=True)
+    @commands.command(hidden=True, usage='[ActType] (args...)')
     @perms(5)
-    async def activity(self, ctx, *args):
-        args = list(args)
-        ActType = discord.ActivityType
-        activities = {'watching': ActType.watching, 'listening': ActType.listening, 'playing': ActType.playing, 'streaming': ActType.streaming}
-        for k in ['watching', 'listening', 'playing', 'streaming']:
-            if k in args:
-                args.pop(args.index(k))
-                ActType = activities[k]
-                break
-        activity = discord.Activity(name=' '.join(args), type=ActType, url='https://discordapp.com/')
+    async def activity(self, ctx, act: str, *args):
+        if not act:
+            return
+        activity = discord.Activity(
+            name=' '.join(args),
+            type=getattr(discord.ActivityType, act, 3),
+            url='https://discordapp.com/')
         await self.bot.change_presence(activity=activity)
         await ctx.message.add_reaction('✅')
 

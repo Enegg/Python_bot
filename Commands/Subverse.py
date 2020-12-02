@@ -3,7 +3,7 @@ import discord
 import json
 import asyncio
 from functions import intify, random_color
-from discotools import supreme_listener, EmbedUI
+from discotools import supreme_listener, EmbedUI, scheduler
 
 with open("sub_loc_list.json") as file:
     loc_list = json.load(file)
@@ -50,20 +50,23 @@ class Subverse(commands.Cog):
             if not matches:
                 await ctx.send('No entries.')
                 return
-            if (number := len(matches)) > 1:
+            number = len(matches)
+            if number > 1:
                 if number > 20:
                     await ctx.send(f'{number} matches found. Be more specific.')
                     return
                 first_loc = matches[0]['name']
                 final_loc = matches[-1]['name']
-                filler = ''.join(map(lambda n: ', **{}** for **{}**'.format(n + 1, matches[n]['name']), range(1, number - 1))) if number > 2 else ''
+                filler = ''.join(f', **{n + 1}** for **{matches[n]["name"]}**' for n in range(1, number - 1)) if number > 2 else ''
                 botmsg = await ctx.send(f'Found {number} items!\nType **1** for **{first_loc}**{filler} or **{number}** for **{final_loc}**')
-                try: reply = await ctx.bot.wait_for('message', timeout=20.0, check=lambda m: m.author == ctx.author and m.channel == ctx.channel and m.content.isdigit())
+                try:
+                    reply = await ctx.bot.wait_for('message', timeout=20.0, check=lambda m: m.author == ctx.author and m.channel == ctx.channel and m.content.isdigit())
                 except asyncio.TimeoutError:
                     await botmsg.add_reaction('⏰')
                     return
                 choice = intify(reply.content) - 1
-                if choice in range(0, number): location = matches[choice]
+                if choice in range(number):
+                    location = matches[choice]
                 else:
                     await reply.add_reaction('❌')
                     return
@@ -141,16 +144,21 @@ class Subverse(commands.Cog):
                     else:
                         embed.set_field_at(-1, name='Map:', value=translated_link_names[selection])
                         await embed.edit(embed_msg)
-                    try: selection = (await supreme_listener(ctx, *options, add_cancel=True))[0]
-                    except asyncio.TimeoutError:
+                    check = lambda reaction, user: user.id == ctx.author.id and str(reaction.emoji) in options
+                    try:
+                        async for reaction, _ in scheduler(ctx, {'reaction_add'}, check=check, timeout=20.0):
+                            if str(reaction[0]) == '❌':
+                                await embed_msg.clear_reactions()
+                                raise StopAsyncIteration
+                            await embed_msg.remove_reaction(str(reaction[0]), ctx.author)
+                            selection = embed.numbers.index(str(reaction[0]))
+                    except (asyncio.TimeoutError, StopAsyncIteration) as e:
                         await embed_msg.clear_reactions()
-                        await embed_msg.add_reaction('⏰')
+                        if isinstance(e, asyncio.TimeoutError):
+                            await embed_msg.add_reaction('⏰')
                         break
-                    if selection == -2:
-                        await embed_msg.clear_reactions()
-                        return
-                    await embed_msg.remove_reaction(embed.numbers[selection], ctx.author)
-            else: await ctx.send(embed=embed)
+            else:
+                await ctx.send(embed=embed)
 
     @commands.command(name='list', brief='Get names of locations from given Submachine game')
     async def locator(self, ctx, game):

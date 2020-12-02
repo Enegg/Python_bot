@@ -2,14 +2,14 @@ from discord.ext import commands
 import discord
 import asyncio
 from functions import search_for, intify, random_color
-from discotools import perms, supreme_listener, split_to_fields, EmbedUI, scheduler
+from discotools import perms, split_to_fields, EmbedUI, scheduler
 import json
 import re
 import urllib
 from typing import Dict, Iterable
 
 with open('items.json') as file:
-    items_list: dict = json.load(file)
+    items_list: list = json.load(file)
 
 operation_lookup = {
     'mult': {'eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'},
@@ -88,12 +88,6 @@ class SuperMechs(commands.Cog):
         self.abbrevs = {}
         self.names = []
         self.image_url_cache = {}
-
-    def get_item_by_id_or_name(self, value: str):
-        for item in items_list:
-            if str(item['id']) == str(value) or item['name'].lower() == str(value):
-                return item
-        return None
 
     def abbreviator(self):
         """Helper func which creates abbrevs for items"""
@@ -231,8 +225,12 @@ class SuperMechs(commands.Cog):
                 else: name = matches[0]
 
         #getting the item
-        item = self.get_item_by_id_or_name(name.lower())
-        if item is None:
+        item = None
+        for abc in items_list:
+            if abc['name'].lower() == name.lower():
+                item = abc
+                break
+        else:
             await add_x('❌')
             return
         #debug flag
