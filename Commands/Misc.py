@@ -1,7 +1,9 @@
 import asyncio
-import discord
 import datetime
+
+import discord
 from discord.ext import commands
+
 from functions import roll, intify
 
 class Misc(commands.Cog):

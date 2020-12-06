@@ -1,12 +1,14 @@
-from discord.ext import commands
-import discord
 import asyncio
-from functions import search_for, intify, random_color
-from discotools import perms, split_to_fields, EmbedUI, scheduler
 import json
 import re
 import urllib
 from typing import Dict, Iterable
+
+import discord
+from discord.ext import commands
+
+from functions import search_for, intify, random_color
+from discotools import perms, split_to_fields, EmbedUI, scheduler
 
 with open('items.json') as file:
     items_list: list = json.load(file)

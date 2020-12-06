@@ -1,7 +1,9 @@
-from discord.ext import commands
-import discord
 import asyncio
 import datetime
+
+import discord
+from discord.ext import commands
+
 from discotools import perms, supreme_listener, EmbedUI
 
 class Testing(commands.Cog):

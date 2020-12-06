@@ -1,7 +1,9 @@
-from discord.ext import commands
-import discord
-import json
 import asyncio
+import json
+
+import discord
+from discord.ext import commands
+
 from functions import intify, random_color
 from discotools import supreme_listener, EmbedUI, scheduler
 

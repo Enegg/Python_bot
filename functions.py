@@ -1,10 +1,10 @@
-from discord.ext import commands
 import asyncio
 import operator as op
-import random
 import math
+import random
 import re
-from matrices import Matrix
+
+from Python_bot.matrices import Matrix
 
 def intify(s, default=0) -> int:
     r'''int() which returns the dafault value for non ints'''
