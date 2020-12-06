@@ -4,7 +4,7 @@ import math
 import random
 import re
 
-from Python_bot.matrices import Matrix
+from matrices import Matrix
 
 def intify(s, default=0) -> int:
     r'''int() which returns the dafault value for non ints'''

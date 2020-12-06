@@ -3,8 +3,8 @@ import socket
 import discord
 from discord.ext import commands
 
-from Python_bot.discotools import perms
-from Python_bot.config import prefix_local, prefix_host, hosts
+from discotools import perms
+from config import prefix_local, prefix_host, hosts
 
 TOKEN = None
 if socket.gethostname() in hosts:
