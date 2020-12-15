@@ -112,7 +112,7 @@ def matheval(exp: str, variables: dict = None) -> float:
     if (a := exp.count('(')) != (b := exp.count(')')):
         raise ValueError(f'Unbalanced braces ({a} right, {b} left)')
     exp = exp.replace(' ', '').replace('**', '^')
-    match = re.split(r'((?<=[^(Ee+-])[+-]|\/{1,2}|[,*^@%()])', exp) # splitting at operators: 1+2 => ['1', '+', '2']
+    match = re.split(r'((?<=[^(Ee+-,])[+-]|\/{1,2}|[,*^@%()])', exp) # splitting at operators: 1+2 => ['1', '+', '2']
     while '' in match: match.remove('')
     # powers = ('⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹')
     values, ops_stack, call, call_stack, func_stack, var = [], [], [], [], [], ''
