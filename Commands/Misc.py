@@ -92,45 +92,82 @@ class Misc(commands.Cog):
     @commands.cooldown(3, 15.0, commands.BucketType.member)
     async def react(self, ctx, *args):
         args = list(args)
-        msg = None
-        channel_check = bool(isinstance(ctx.channel, discord.DMChannel))
-        if up := bool('^' in args):
-            args.pop(args.index('^'))
-            async for m in ctx.channel.history(limit=2): msg = m
-        arg = ' '.join(args)
-        if self.emojis is None: self.emojifier()
+        flags = {args.pop(args.index(i)) for i in {'^', '-r'} if i in args}
+        up = bool('^' in flags)
+        raw = bool('-r' in flags)
+        if not args:
+            await ctx.message.add_reaction('❓')
+            return
+        is_dm = bool(isinstance(ctx.channel, discord.DMChannel))
 
-        if arg in ['animated', 'normal']:
-            if not channel_check:
+        msg = None
+        if up and not raw:
+            async for m in ctx.channel.history(limit=2):
+                msg = m
+            if msg is None:
+                pass
+
+        if self.emojis is None:
+            self.emojifier()
+
+        if args[0] in {'animated', 'normal'}:
+            if not is_dm:
                 await ctx.send('You can use that only in DMs.', delete_after=6.0)
                 await ctx.message.delete()
                 return
-            bank = self.emojis[arg]
+
+            bank = self.emojis[args[0]]
             for guild in bank:
-                string = f'{guild}: '
+                string = f'**{guild}**: '
                 list_strings = []
                 for item in bank[guild]:
-                    emoji = f"<{'a' if item.animated else ''}:{item.name}:{item.id}>"
+                    emoji = raw * '\\' + str(item)
                     if len(string + emoji) > 2000:
                         list_strings.append(string)
                         string = ''
                     string += emoji
                 list_strings.append(string)
-                for x in list_strings: await ctx.send(x)
+                for x in list_strings:
+                    await ctx.send(x)
             return
 
-        if arg in self.emojis:
-            if isinstance(self.emojis[arg], list):
-                for emoji in self.emojis[arg]:
-                    await ctx.message.add_reaction(emoji)
-                try: reaction = await ctx.bot.wait_for('reaction_add', timeout=10.0, check=lambda reaction, user: user == ctx.author and bool(reaction.emoji in self.emojis[arg]))
-                except asyncio.TimeoutError:
-                    await ctx.message.delete()
-                    return
-                await msg.add_reaction(reaction[0]) if up else await ctx.send(reaction[0])
-            else:
-                await msg.add_reaction(self.emojis[arg]) if up else await ctx.send(self.emojis[arg])
-        if not channel_check: await ctx.message.delete()
+        if args[0] in {'uwu', 'dontuwu'}:
+            uwu = ''.join(
+                f"{''.join(str(self.emojis[f'dontuwu{n}']) for n in range(i, 16+i, 5))}\n" for i in range(5))
+            await ctx.send(uwu)
+            return
+
+        emojis = []
+        for arg in args:
+            if arg in self.emojis:
+                check = lambda reaction, user: user == ctx.author and reaction.emoji in self.emojis[arg]
+                if isinstance(self.emojis[arg], list):
+                    if emojis:
+                        await ctx.message.clear_reactions()
+                    for emoji in self.emojis[arg]:
+                        await ctx.message.add_reaction(emoji)
+                    try:
+                        reaction, _ = await ctx.bot.wait_for('reaction_add', timeout=10.0, check=check)
+                    except asyncio.TimeoutError:
+                        if emojis:
+                            await ctx.send(''.join(emojis))
+                        await ctx.message.delete()
+                        return
+                    emoji = str(reaction)
+                else:
+                    emoji = str(self.emojis[arg])
+                if raw:
+                    emoji = f'\\{emoji}'
+                emojis.append(emoji)
+            elif arg == '\\n':
+                emojis.append('\n')
+        if up and not raw and '\n' not in emojis:
+            for emoji in emojis:
+                await msg.add_reaction(emoji)
+        else:
+            await ctx.send(''.join(emojis))
+        if not is_dm:
+            await ctx.message.delete()
 
     @commands.command()
     @commands.cooldown(1, 15.0, commands.BucketType.guild)
