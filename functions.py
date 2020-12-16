@@ -44,43 +44,6 @@ def search_for(phrase: str, iterable) -> list:
 
 def roll(a=1, b=6): return random.randint(min(a, b), max(a, b))
 
-async def supreme_listener(ctx, msg, emojis: list, listen_for_add=True, listen_for_remove=False, add_return=False, add_cancel=False) -> int:
-    '''Returns the position of added/removed reaction'''
-    if not bool(emojis): raise Exception('No emojis to check with')
-    #return emoji is a reserved emoji for going back
-    if add_return: emojis.append('↩️')
-    #cross emoji is reserved for closing the menu
-    if add_cancel: emojis.append('❌')
-    check = lambda reaction, user: user == ctx.author and str(reaction.emoji) in emojis
-    tasks = []
-
-    if listen_for_add:
-        wait_for_add = ctx.bot.wait_for('reaction_add', check=check)
-        task_add = asyncio.create_task(wait_for_add)
-        tasks.append(task_add)
-    else: task_add = None
-
-    if listen_for_remove:
-        wait_for_del = ctx.bot.wait_for('reaction_remove', check=check)
-        task_del = asyncio.create_task(wait_for_del)
-        tasks.append(task_del)
-    else: task_del = None
-
-    if not tasks: raise Exception('There are no emoji add/remove events to listen for')
-
-    done, pending = await asyncio.wait(tasks, timeout=20.0, return_when='FIRST_COMPLETED')
-    if not done: raise asyncio.TimeoutError
-    [task.cancel() for task in pending]
-    for task in done:
-        reaction = (await task)[0]
-        action_type = None
-        if task == task_add: action_type = True
-        if task == task_del: action_type = False
-
-    if add_return and str(reaction.emoji) == '↩️': return -1, action_type
-    if add_cancel and str(reaction.emoji) == '❌': return -2, action_type
-    return emojis.index(reaction.emoji), action_type
-
 def split_to_fields(all_items: list, splitter: str, field_limit=2048) -> list:
     '''Helper func designed to split a long list of items into discord embed fields so that they stay under character limit. field_limit should be an int or a tuple of two ints; in case of the latter the first int will be applied to the first field, and the second to any following field.'''
     if isinstance(field_limit, tuple):
