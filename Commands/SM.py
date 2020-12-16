@@ -312,8 +312,8 @@ class SuperMechs(commands.Cog):
                 await embed.edit(msg)
             checkk = lambda reaction, user: user.id == ctx.author.id and str(reaction) in emojis
             try:
-                async for react, _, event in scheduler(ctx, {'reaction_add', 'reaction_remove'}, check=checkk, timeout=20.0):
-                    reaction = str(react)
+                async for react, event in scheduler(ctx, {'reaction_add', 'reaction_remove'}, check=checkk, timeout=20.0):
+                    reaction = str(react[0])
                     action_type = bool(('reaction_remove', 'reaction_add').index(event))
                     if first_run:
                         first_run = False
