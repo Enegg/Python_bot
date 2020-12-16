@@ -94,7 +94,6 @@ bot.add_cog(Setup())
 bot.load_extension('Commands.Moderation')
 bot.load_extension('Commands.Misc')
 bot.load_extension('Commands.SM')
-bot.load_extension('Commands.Testing')
 bot.load_extension('Commands.Subverse')
 bot.load_extension('Commands.Math')
 
