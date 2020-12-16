@@ -182,7 +182,7 @@ class SuperMechs(commands.Cog):
             return
         args = list(args)
         #flags {'-r'}
-        flags = [args.pop(args.index(i)) for i in {'-r'} if i in args]
+        flags = {args.pop(args.index(i)) for i in {'-r'} if i in args}
         #solving for abbrevs
         name = ' '.join(args).lower()
         if intify(name) == 0 and len(name) < 2:
@@ -245,7 +245,7 @@ class SuperMechs(commands.Cog):
         emojis.append('❌')
         #embedding
         desc = f"{item['element'].lower().capitalize()} {item['type'].replace('_', ' ').lower()}"
-        embed = EmbedUI(ctx, emojis, title=item['name'], description=desc, color=element_colors[item['element']])
+        embed = EmbedUI(emojis, title=item['name'], description=desc, color=element_colors[item['element']])
         img_url = self.get_image(item)
         has_image = bool('imgur' not in img_url) #yeah I know, hack
         embed.set_image(url=img_url)
