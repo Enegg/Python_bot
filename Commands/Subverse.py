@@ -16,6 +16,7 @@ with open("sub_loc_list.json") as file:
 class Subverse(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.link_template = 'https://vignette.wikia.nocookie.net/submachine/images/{}.png'
 
 
     def get_loc(self, coord: str) -> list:
@@ -53,7 +54,7 @@ class Subverse(commands.Cog):
     @commands.command(brief='Get info about certain location from Submachine')
     async def loc(self, ctx: commands.Context, *args):
         if ctx.invoked_subcommand is None:
-            keywords = ['path', 'noimg']
+            keywords = {'path', 'noimg'}
             args = list(args)
             flags = [args.pop(args.index(i)) for i in keywords if i in args]
             name_or_cords = ' '.join(args)
@@ -96,8 +97,10 @@ class Subverse(commands.Cog):
                 new_loc = location.copy()
                 if 'coordinates' in new_loc:
                     coords = new_loc['coordinates']
-                    if isinstance(coords, list): coords = ', '.join(coords)
-                else: coords = new_loc['name']
+                    if isinstance(coords, list):
+                        coords = ', '.join(coords)
+                else:
+                    coords = new_loc['name']
                 path = [coords]
                 new_keys = new_loc.keys()
                 while True:
@@ -121,10 +124,10 @@ class Subverse(commands.Cog):
                     new_keys = new_loc.keys()
 
             noimg = bool('noimg' in flags)
-            embed = EmbedUI(title=location['name'], color=discord.Color.from_rgb(*random_color()))
+            embed = EmbedUI(title=location['name'], color=ctx.author.color)
             embed.set_author(name=f'Requested by {ctx.author.name}', icon_url=ctx.author.avatar_url)
             if not noimg:
-                embed.set_image(url=location['links']['img'])
+                embed.set_image(url=self.link_template.format(location['links']['img']))
             cont = ''
             for key in keys:
                 if key in {'name', 'links'}:
@@ -145,9 +148,9 @@ class Subverse(commands.Cog):
             if noimg:
                 await ctx.send(embed=embed)
                 return
-            links = location['links'].copy()
+            links: dict = location['links'].copy()
             if bool(len(links) - 1):
-                links_names = [x for x in links.keys()]
+                links_names = [*links.keys()]
                 translated_link_names = [self.key_parser(x) for x in links_names]
                 text = 'Available links: ' + ', '.join(translated_link_names)
                 embed.set_footer(text=text)
@@ -156,7 +159,7 @@ class Subverse(commands.Cog):
                 selection = 0
                 first_run = True
                 while True:
-                    link = links[links_names[selection]]
+                    link = self.link_template.format(links[links_names[selection]])
                     embed.set_image(url=link)
                     if first_run:
                         embed.add_field(name='Map:', value=translated_link_names[selection])
