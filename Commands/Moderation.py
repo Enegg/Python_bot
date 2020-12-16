@@ -14,7 +14,7 @@ class Moderation(commands.Cog):
 
     @commands.group(aliases=['wot','ins'],brief='Helper command used to retrieve data about the guild')
     @perms(2)
-    async def inspect(self, ctx):
+    async def inspect(self, ctx: commands.Context):
         if ctx.invoked_subcommand is None:
             guild = ctx.guild
             text = (
@@ -27,12 +27,12 @@ class Moderation(commands.Cog):
             await ctx.send(embed=embed)
 
     @inspect.command(brief='Returns guild\'s channels and their id\'s')
-    async def channels(self, ctx):
+    async def channels(self, ctx: commands.Context):
         result = '\n'.join(f'<#{x.id}>: {x.id}' for x in ctx.guild.channels if isinstance(x, discord.TextChannel))
         await ctx.send(result)
 
     @inspect.command(brief='Returns info about the invoker or pinged member (you can use his ID)')
-    async def user(self, ctx, *args):
+    async def user(self, ctx: commands.Context, *args):
         mentions = ctx.message.mentions
         mentioned = bool(mentions)
         provided_args = bool(args)
@@ -61,7 +61,7 @@ class Moderation(commands.Cog):
 
     @commands.command(brief='Returns a dict of your roles')
     @perms(1)
-    async def roles(self, ctx):
+    async def roles(self, ctx: commands.Context):
         await ctx.send('`{}`'.format(ctx.author.roles))
 
     @commands.command(
@@ -71,7 +71,7 @@ class Moderation(commands.Cog):
         help=('Deletes a specified number of messages from the channel it has been used in.'
               ' You can specify whose messages to purge by pinging one or more users'))
     @perms(1)
-    async def purge(self, ctx, *args):
+    async def purge(self, ctx: commands.Context, *args):
         msg = ctx.message
         mentions = msg.mentions if (has_mentions := bool(msg.mentions)) else None
         def purger(n): return ctx.channel.purge(limit=n, check=lambda m: not m.pinned and (m.author in mentions if has_mentions else True))
@@ -98,7 +98,7 @@ class Moderation(commands.Cog):
 
     @commands.command(hidden=True, usage='[ActType] (args...)')
     @perms(5)
-    async def activity(self, ctx, act: str, *args):
+    async def activity(self, ctx: commands.Context, act: str, *args):
         if not act:
             return
         activity = discord.Activity(

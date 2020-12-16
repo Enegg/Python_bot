@@ -30,7 +30,7 @@ class Misc(commands.Cog):
         self.emojifier()
 
     @commands.Cog.listener()
-    async def on_raw_reaction_add(self, ctx):
+    async def on_raw_reaction_add(self, ctx: commands.Context):
         if ctx.member.bot: return
         if str(ctx.emoji) == '🖇️':
             msg = await (channel := self.bot.get_channel(ctx.channel_id)).fetch_message(ctx.message_id)
@@ -64,7 +64,7 @@ class Misc(commands.Cog):
         name='roll',
         usage='<nothing|number|number1, number2|"frantic">',
         brief='Roll a dice or provide custom range to get a random number')
-    async def dice(self, ctx, *args):
+    async def dice(self, ctx: commands.Context, *args):
         if not args:
             await ctx.send(roll())
             return
@@ -75,14 +75,14 @@ class Misc(commands.Cog):
         await ctx.send(roll(a, b))
 
     @commands.command(brief='Pings the bot')
-    async def ping(self, ctx):
+    async def ping(self, ctx: commands.Context):
         await ctx.send(f'Pong! {round(ctx.bot.latency * 1000)}ms')
 
     @commands.command(
         aliases=['av'],
         usage='[optional: mention]',
         brief='Get a link to your or someone\'s avatar')
-    async def avatar(self, ctx):
+    async def avatar(self, ctx: commands.Context):
         await ctx.send((ctx.message.mentions[0] if ctx.message.mentions != [] else ctx.author).avatar_url)
 
     @commands.command(
@@ -90,7 +90,7 @@ class Misc(commands.Cog):
         usage='[emoji] [opt: ^ to react to message above] / while in DM: [normal|animated]',
         brief='Makes the bot send or react with an emoji')
     @commands.cooldown(3, 15.0, commands.BucketType.member)
-    async def react(self, ctx, *args):
+    async def react(self, ctx: commands.Context, *args):
         args = list(args)
         flags = {args.pop(args.index(i)) for i in {'^', '-r'} if i in args}
         up = bool('^' in flags)
@@ -171,10 +171,11 @@ class Misc(commands.Cog):
 
     @commands.command()
     @commands.cooldown(1, 15.0, commands.BucketType.guild)
-    async def hleo(self, ctx):
+    async def hleo(self, ctx: commands.Context):
         await ctx.message.delete()
         botmsg = await ctx.send('<:ooh:704392385580498955>')
-        try: victim = await ctx.bot.wait_for('message', timeout=600.0, check=lambda m: not m.author.bot and m.channel == ctx.channel)
+        try:
+            victim = await ctx.bot.wait_for('message', timeout=600.0, check=lambda m: not m.author.bot and m.channel == ctx.channel)
         except asyncio.TimeoutError:
             await botmsg.delete()
             return

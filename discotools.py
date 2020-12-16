@@ -154,8 +154,7 @@ class EmbedUI(discord.Embed):
         return self
 
 
-
-async def scheduler(ctx, events: set, check: Callable, timeout=None, return_when: str='FIRST_COMPLETED') -> Tuple[tuple, str]:
+async def scheduler(ctx: commands.Context, events: set, check: Callable, timeout=None, return_when: str ='FIRST_COMPLETED') -> Tuple[tuple, str]:
     """Wrapper for asyncio.wait designed for discord events. Returns the outcome of the event and its name."""
     if not events:
         raise ValueError('No events to await')

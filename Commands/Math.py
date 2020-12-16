@@ -16,7 +16,7 @@ class Math(commands.Cog):
         aliases=['rpn', 'math'],
         brief='Evaluates a mathematical expression',
         usage='[optional: variable =] (expr)')
-    async def RPN(self, ctx, *args):
+    async def RPN(self, ctx: commands.Context, *args):
         exp = ''.join(args).replace('`', '').replace(' ', '')
         if not exp:
             return
@@ -40,7 +40,7 @@ class Math(commands.Cog):
         await ctx.send(f'`{result}`')
 
     @commands.command(aliases=['vars'])
-    async def variables(self, ctx, *args):
+    async def variables(self, ctx: commands.Context, *args):
         text = ''
         v = self.vars
         if not args:
