@@ -97,19 +97,21 @@ bot.load_extension('Commands.SM')
 bot.load_extension('Commands.Subverse')
 bot.load_extension('Commands.Math')
 
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.errors.CommandOnCooldown):
-        await ctx.send(error, delete_after=5.0)
-    else:
-        print(error, '\n', ctx)
+if prefix == prefix_host:
+    @bot.event
+    async def on_command_error(ctx, error):
+        if isinstance(error, commands.errors.CommandOnCooldown):
+            await ctx.send(error, delete_after=5.0)
+        else:
+            print(error, '\n', ctx)
+            await bot.get_channel(624950575343075359).send(f'{error}\n{ctx}')
 
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} is here to take over the world')
     print('----------------')
     if prefix == prefix_host:
-        await bot.get_channel(624950575343075359).send('I\'m back online')
+        await bot.get_channel(624950575343075359).send("I'm back online")
     await bot.change_presence(activity=discord.Activity(name='grass grow', type=3))
 
 bot.run(TOKEN)
