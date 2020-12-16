@@ -1,11 +1,14 @@
 import asyncio
 import json
 
+
 import discord
 from discord.ext import commands
 
-from functions import intify, random_color
-from discotools import supreme_listener, EmbedUI, scheduler
+
+from functions import intify, random_color, esc_join
+from discotools import EmbedUI, scheduler
+
 
 with open("sub_loc_list.json") as file:
     loc_list = json.load(file)
@@ -14,15 +17,19 @@ class Subverse(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    def get_loc(self, discriminator):
-        if discriminator.isdigit() or len(discriminator) == 3:
-            return [x for x in loc_list if ('coordinates' in x.keys() and x['coordinates'] == discriminator)]
-        else:
-            return [x for x in loc_list if discriminator.lower() in x['name'].lower() or ('coordinates' in x.keys() and x['coordinates'] == discriminator)]
 
-    def key_parser(self, key):
-        swap_dict = {'img': 'Dropzone', 'clues_to': 'Clues to', 'parent': 'Clued by', 'appearances': 'Appears in', 'region': 'Region', 'coordinates': 'Coordinates', 'area': 'Area', 'layer': 'Layer'}
-        if str(key).startswith('sub'):
+    def get_loc(self, coord: str) -> list:
+        if coord.isdigit() or len(coord) == 3:
+            return [x for x in loc_list if ('coordinates' in x.keys() and x['coordinates'] == coord)]
+        else:
+            return [x for x in loc_list if coord.lower() in x['name'].lower() or x.get('coordinates', None) == coord]
+
+
+    def key_parser(self, key: str) -> str:
+        swap_dict = {'img': 'Dropzone', 'clues_to': 'Clues to',
+            'parent': 'Clued by', 'appearances': 'Appears in', 'region': 'Region',
+            'coordinates': 'Coordinates', 'area': 'Area', 'layer': 'Layer'}
+        if key.startswith('sub'):
             if key[3:].isdigit():
                 return f'Submachine {key[3:]}'
             key = key.replace('sub', '')
@@ -30,17 +37,21 @@ class Subverse(commands.Cog):
                 key = key.split('_')
             if isinstance(key, list):
                 ver = ' ' + key[1]
-                if key[0].isdigit(): return f'Submachine {key[0]}{ver}'
+                if key[0].isdigit():
+                    return f'Submachine {key[0]}{ver}'
             else: ver = ''
-            if 'flf' in key: return f'Submachine FLF{ver}'
-            if 'verse' in key: return f'Submachine Universe{ver}'
+            if 'flf' in key:
+                return f'Submachine FLF{ver}'
+            if 'verse' in key:
+                return f'Submachine Universe{ver}'
 
 
         if str(key) in swap_dict: return swap_dict[key]
         return key
 
+
     @commands.command(brief='Get info about certain location from Submachine')
-    async def loc(self, ctx, *args):
+    async def loc(self, ctx: commands.Context, *args):
         if ctx.invoked_subcommand is None:
             keywords = ['path', 'noimg']
             args = list(args)
@@ -60,9 +71,12 @@ class Subverse(commands.Cog):
                 first_loc = matches[0]['name']
                 final_loc = matches[-1]['name']
                 filler = ''.join(f', **{n + 1}** for **{matches[n]["name"]}**' for n in range(1, number - 1)) if number > 2 else ''
-                botmsg = await ctx.send(f'Found {number} items!\nType **1** for **{first_loc}**{filler} or **{number}** for **{final_loc}**')
+                botmsg = await ctx.send(
+                    f'Found {number} items!\n'
+                    f'Type **1** for **{first_loc}**{filler} or **{number}** for **{final_loc}**')
+                check = lambda m: m.author == ctx.author and m.channel == ctx.channel and m.content.isdigit()
                 try:
-                    reply = await ctx.bot.wait_for('message', timeout=20.0, check=lambda m: m.author == ctx.author and m.channel == ctx.channel and m.content.isdigit())
+                    reply = await ctx.bot.wait_for('message', timeout=20.0, check=check)
                 except asyncio.TimeoutError:
                     await botmsg.add_reaction('⏰')
                     return
@@ -101,26 +115,32 @@ class Subverse(commands.Cog):
                         break
                     path.append(coords)
                     new_loc = self.get_loc(coords)
-                    if not bool(new_loc): break
+                    if not bool(new_loc):
+                        break
                     new_loc = new_loc[0]
                     new_keys = new_loc.keys()
 
             noimg = bool('noimg' in flags)
-            embed = EmbedUI(ctx=ctx, title=location['name'], color=discord.Color.from_rgb(*random_color())).set_author(name=f'Requested by {ctx.author.name}', icon_url=ctx.author.avatar_url)
-            if not noimg: embed.set_image(url=location['links']['img'])
+            embed = EmbedUI(title=location['name'], color=discord.Color.from_rgb(*random_color()))
+            embed.set_author(name=f'Requested by {ctx.author.name}', icon_url=ctx.author.avatar_url)
+            if not noimg:
+                embed.set_image(url=location['links']['img'])
             cont = ''
             for key in keys:
-                if key in ['name', 'links']: continue
+                if key in {'name', 'links'}:
+                    continue
                 value = location.get(key)
                 key = self.key_parser(key)
                 if isinstance(value, list):
                     value = ', '.join(self.key_parser(x) for x in value).replace('*', r'\*')
-                    cont += f'**{key}**: {value}\n'
                 else:
                     value = str(value).replace('*', r'\*')
-                    cont += f'**{key}**: {value}\n'
-            if bool(cont): embed.add_field(name='Data:', value=cont)
-            if 'path' in flags: embed.add_field(name='Path:', value=' -> '.join(reversed(path)) + f' ({len(path)})', inline=False)
+                cont += f'**{key}**: {value}\n'
+
+            if bool(cont):
+                embed.add_field(name='Data:', value=cont)
+            if 'path' in flags:
+                embed.add_field(name='Path:', value=f"{' -> '.join(reversed(path))} ({len(path)})", inline=False)
 
             if noimg:
                 await ctx.send(embed=embed)
@@ -162,29 +182,27 @@ class Subverse(commands.Cog):
             else:
                 await ctx.send(embed=embed)
 
+
     @commands.command(name='list', brief='Get names of locations from given Submachine game')
-    async def locator(self, ctx, game):
-        keys = {'sub0', 'sub1', 'sub2', 'sub3', 'sub4', 'sub5', 'sub6', 'sub7', 'sub8', 'sub9', 'sub10', 'subflf', 'sub32', 'subverse'}
+    async def locator(self, ctx: commands.Context, game):
+        keys = {f'sub{n}' for n in range(11)} | {'subflf', 'sub32', 'subverse'}
         game = game.lower()
         if game not in keys:
             await ctx.message.add_reaction('❌')
             return
         locs = [x['name'] for x in loc_list if game in x['appearances']]
-        if (count := len(locs)) > 20:
+        count = len(locs)
+        if count > 20:
             locs.sort(key=lambda i: (len(i), i))
             uneven = ''
             if count % 2:
-                uneven = locs.pop()
+                uneven: str = locs.pop()
                 count -= 1
             count //= 2
             left, right = locs[:count], locs[count:]
-            longest_entry = left[-1]
-            left = [x.ljust(len(longest_entry)) for x in left]
-
-
-            # longest_entry = max(locs, key=len)
-            # right, left = [], []
-            # [(left.append(x) if locs.index(x) % 2 else right.append(x.ljust(len(longest_entry)))) for x in locs]
+            l = len(left[-1])
+            left = [f'{x:<{l}}' for x in left]
+            # left = [x.ljust(l) for x in left]
 
             result = '```'
             limit = 2048
@@ -197,16 +215,14 @@ class Subverse(commands.Cog):
                     result = '```'
                 result += f'{x[0]}  {x[1]}\n'
 
-            # if len(right) != len(left):
-            #     uneven = max(right, left, key=len)
-            #     last = uneven.pop(-1).strip()
-            #     result += last
-
             result += f'{uneven}```'
 
             fields.append(result)
-        else: fields = ['```{}```'.format('\n'.join(locs))]
-        embed = discord.Embed(title='Locations list:', description=fields.pop(0), color=discord.Color.from_rgb(*random_color()))
+        else: fields = [f'```{esc_join()(locs)}```']
+        embed = discord.Embed(
+            title='Locations list:',
+            description=fields.pop(0),
+            color=discord.Color.from_rgb(*random_color()))
         for field in fields:
             embed.add_field(name='<:none:772958360240128060>', value=field, inline=True)
         await ctx.send(embed=embed)

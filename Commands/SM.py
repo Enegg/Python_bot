@@ -7,7 +7,7 @@ from typing import Dict, Iterable
 import discord
 from discord.ext import commands
 
-from functions import search_for, intify, random_color
+from functions import search_for, intify, random_color, esc_join
 from discotools import perms, split_to_fields, EmbedUI, scheduler
 
 with open('items.json') as file:
@@ -153,7 +153,7 @@ class SuperMechs(commands.Cog):
         return ''.join(specs[spec] for spec in specs if spec not in spec_filter)
 
     @commands.command(brief='Show to a frantic user where is his place')
-    async def frantic(self, ctx):
+    async def frantic(self, ctx: commands.Context):
         await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
     def buff(self, stat: str, value: int, enabled: bool) -> int:
@@ -173,7 +173,7 @@ class SuperMechs(commands.Cog):
         brief='Inspect an item\'s stats',
         help='To use the command, type in desired item\'s name or its abbreviation, like "efa" for "energy free armor".')
     @commands.cooldown(2, 15.0, commands.BucketType.member)
-    async def stats(self, ctx, *args):
+    async def stats(self, ctx: commands.Context, *args):
         msg = ctx.message
         botmsg = None
         add_x = msg.add_reaction
@@ -205,7 +205,8 @@ class SuperMechs(commands.Cog):
                 if number > 1:
                     embed = discord.Embed(
                         title=f'Found {number} items!',
-                        description='Type a number to get the item\n' + '\n'.join(f'**{n}**: **{i}**' for n, i in enumerate(matches, 1)),
+                        description=('Type a number to get the item\n'
+                            '\n'.join(f'**{n}**: **{i}**' for n, i in enumerate(matches, 1))),
                         color=ctx.author.color)
                     embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
                     botmsg = await ctx.send(embed=embed)
@@ -280,7 +281,7 @@ class SuperMechs(commands.Cog):
                 else:
                     value = self.buff(stat, item[pool][stat], buffs)
 
-                item_stats += f"{stat_abbrev[stat][1]} **{value}** {stat_abbrev[stat][0]}\n"
+                item_stats += f'{stat_abbrev[stat][1]} **{value}** {stat_abbrev[stat][0]}\n'
 
             if 'advance' in item['stats'] or 'retreat' in item['stats']:
                 item_stats += f"{stat_abbrev['jump'][1]} **Jumping required**"
@@ -294,7 +295,7 @@ class SuperMechs(commands.Cog):
             note = ' (buffs applied)' if buffs else ''
             fields.append({
                 'name': 'Transform range: ',
-                'value': f"{''.join(colors[item_tiers.index(_min):item_tiers.index(_max) + 1])}",
+                'value': ''.join(colors[item_tiers.index(_min):item_tiers.index(_max) + 1]),
                 'inline': False})
             fields.append({'name': f'Stats{note}:', 'value': item_stats, 'inline': False})
             for field in fields: embed.add_field(**field)
@@ -311,9 +312,9 @@ class SuperMechs(commands.Cog):
                 await embed.edit(msg)
             checkk = lambda reaction, user: user.id == ctx.author.id and str(reaction) in emojis
             try:
-                async for outcome, event_name in scheduler(ctx, {'reaction_add', 'reaction_remove'}, check=checkk, timeout=20.0):
-                    reaction = str(outcome[0])
-                    action_type = bool(('reaction_remove', 'reaction_add').index(event_name))
+                async for react, _, event in scheduler(ctx, {'reaction_add', 'reaction_remove'}, check=checkk, timeout=20.0):
+                    reaction = str(react)
+                    action_type = bool(('reaction_remove', 'reaction_add').index(event))
                     if first_run:
                         first_run = False
                     if reaction == '❌':
@@ -330,7 +331,7 @@ class SuperMechs(commands.Cog):
         await msg.clear_reactions()
 
     @commands.command(aliases=['bi'], brief='WIP command')
-    async def browseitems(self, ctx, *args):
+    async def browseitems(self, ctx: commands.Context, *args):
         args = list(args)
         try:
             specs, ignored_args = self.ressolve_args(args)
@@ -400,7 +401,7 @@ class SuperMechs(commands.Cog):
 
     @commands.command(hidden=True, aliases=['MB'], brief='WIP command')
     @perms(3)
-    async def mechbuilder(self, ctx, *args):
+    async def mechbuilder(self, ctx: commands.Context, *args):
         title = 'Mech builder' #'      '
         icon = slot_emojis
         none, mods = icon['none'], icon['modl']*2
