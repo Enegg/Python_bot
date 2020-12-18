@@ -14,10 +14,10 @@ class Math(commands.Cog):
 
 
     @commands.command(
-        aliases=['rpn', 'math'],
-        brief='Evaluates a mathematical expression',
+        aliases=['rpn', 'math', 'm'],
         usage='[optional: variable =] (expr)')
     async def RPN(self, ctx: commands.Context, *args):
+        """Evaluates a mathematical expression"""
         exp = ''.join(args).replace('`', '').replace(' ', '')
         if not exp:
             return
