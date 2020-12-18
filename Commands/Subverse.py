@@ -6,7 +6,7 @@ import discord
 from discord.ext import commands
 
 
-from functions import intify, random_color, esc_join
+from functions import intify, random_color, njoin
 from discotools import EmbedUI, scheduler
 
 
@@ -20,10 +20,10 @@ class Subverse(commands.Cog):
 
 
     def get_loc(self, coord: str) -> list:
-        if coord.isdigit() or len(coord) == 3:
+        if coord.isdigit() or len(coord) == 3 or '(' in coord:
             return [x for x in loc_list if ('coordinates' in x.keys() and x['coordinates'] == coord)]
         else:
-            return [x for x in loc_list if coord.lower() in x['name'].lower() or x.get('coordinates', None) == coord]
+            return [x for x in loc_list if coord.lower() in x['name'].lower() or coord in x.get('coordinates', '')]
 
 
     def key_parser(self, key: str) -> str:
@@ -221,7 +221,7 @@ class Subverse(commands.Cog):
             result += f'{uneven}```'
 
             fields.append(result)
-        else: fields = [f'```{esc_join()(locs)}```']
+        else: fields = [f'```{njoin(locs)}```']
         embed = discord.Embed(
             title='Locations list:',
             description=fields.pop(0),

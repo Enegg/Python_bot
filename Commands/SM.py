@@ -1,13 +1,12 @@
 import asyncio
 import json
-import re
 import urllib
 from typing import Dict, Iterable
 
 import discord
 from discord.ext import commands
 
-from functions import search_for, intify, random_color, esc_join
+from functions import search_for, intify, random_color, njoin
 from discotools import perms, split_to_fields, EmbedUI, scheduler
 
 with open('items.json') as file:
@@ -87,12 +86,12 @@ item_element = {
 class SuperMechs(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.abbrevs = {}
-        self.names = []
         self.image_url_cache = {}
+        self.abbreviator()
+
 
     def abbreviator(self):
-        """Helper func which creates abbrevs for items"""
+        """Helper func which creates abbrevs for items: Energy Free Armor => EFA"""
         names = []
         abbrevs = {}
         for item in items_list:
@@ -100,26 +99,38 @@ class SuperMechs(commands.Cog):
             names.append(name)
             if len(name) < 8:
                 continue
-            if ' ' in name or not name[1:].islower():
-                abbreviation = re.sub('[^A-Z]+', '', name).lower()
-            else:
+            if (isnotcamel := name[1:].islower()) and ' ' not in name:
                 continue
-            abbrevs[abbreviation].append(name) if abbreviation in abbrevs else abbrevs.update({abbreviation: [name]})
+            abbrev = [''.join(a for a in name if a.isupper()).lower()]
+            if not isnotcamel and ' ' not in name: # takes care of CamelCase names
+                last = 0
+                for i, a in enumerate(name):
+                    if a.isupper():
+                        string = name[last:i].lower()
+                        if string:
+                            abbrev.append(string)
+                        last = i
+                abbrev.append(name[last:].lower())
+
+            for abb in abbrev:
+                abbrevs.setdefault(abb, [name]).append(name)
+                # abbrevs[abb].append(name) if abb in abbrevs else abbrevs.update({abb: [name]})
         self.abbrevs, self.names = abbrevs, names
 
+
     def get_image(self, item) -> str:
-        safe_name = item['name'].replace(' ', '')
+        if item['id'] in self.image_url_cache:
+            return self.image_url_cache[item['id']]
+
+        safe_name: str = item['name'].replace(' ', '')
         url = url_template.format(safe_name)
+        try:
+            urllib.request.urlopen(url)
+        except urllib.error.HTTPError:
+            url = item_type[item['type']][0]
+        self.image_url_cache[item['id']] = url
+        return url
 
-        if not item['id'] in self.image_url_cache:
-            try:
-                urllib.request.urlopen(url)
-            except urllib.error.HTTPError:
-                self.image_url_cache[item['id']] = item_type[item['type']][0]
-            else:
-                self.image_url_cache[item['id']] = url
-
-        return self.image_url_cache[item['id']]
 
     def ressolve_args(self, args: Iterable):
         """Takes command arguments as an input and tries to match them as key item pairs"""
@@ -143,18 +154,22 @@ class SuperMechs(commands.Cog):
                 specs.update({arg: value.strip()})
         return specs, ingored_args
 
-    def specs(self, item) -> dict:
+
+    def specs(self, item: dict) -> dict:
         return {'type': item_type[item['type']][1],
                 'element': item_element[item['element']],
                 'tier': tier_colors[item_tiers.index(item['transform_range'].split('-')[0])]}
 
-    def emoji_for_browseitems(self, item, spec_filter: Dict['ItemStat', 'StatValue']):
+
+    def emoji_for_browseitems(self, item: dict, spec_filter: dict):
         specs = self.specs(item)
         return ''.join(specs[spec] for spec in specs if spec not in spec_filter)
+
 
     @commands.command(brief='Show to a frantic user where is his place')
     async def frantic(self, ctx: commands.Context):
         await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
+
 
     def buff(self, stat: str, value: int, enabled: bool) -> int:
         """Returns a value buffed respectively to stat type"""
@@ -206,7 +221,7 @@ class SuperMechs(commands.Cog):
                     embed = discord.Embed(
                         title=f'Found {number} items!',
                         description=('Type a number to get the item\n'
-                            '\n'.join(f'**{n}**: **{i}**' for n, i in enumerate(matches, 1))),
+                            + njoin(f'**{n}**. **{i}**' for n, i in enumerate(matches, 1))),
                         color=ctx.author.color)
                     embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
                     botmsg = await ctx.send(embed=embed)
@@ -219,19 +234,19 @@ class SuperMechs(commands.Cog):
                         return
                     choice = intify(reply.content) - 1
                     if choice in range(number):
-                        name = matches[choice]
+                        name: str = matches[choice]
                         await reply.delete()
                     else:
                         await reply.add_reaction('❌')
                         return
                 #only 1 match found
-                else: name = matches[0]
+                else: name: str = matches[0]
 
         #getting the item
         item = None
         for abc in items_list:
             if abc['name'].lower() == name.lower():
-                item = abc
+                item: dict = abc
                 break
         else:
             await add_x('❌')
@@ -385,12 +400,13 @@ class SuperMechs(commands.Cog):
 
         embed = discord.Embed(
             title=f'Matching items ({len(items)})',
-            description='\n'.join(f"{spec.capitalize().replace('_', ' ')}: {self.specs(items[0])[spec]}" for spec in valid_specs), color=color)
+            description=njoin(f"{spec.capitalize().replace('_', ' ')}: {self.specs(items[0])[spec]}" for spec in valid_specs),
+            color=color)
 
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
 
         for field in fields:
-            embed.add_field(name='<:none:772958360240128060>', value='\n'.join(field), inline=True)
+            embed.add_field(name='<:none:772958360240128060>', value=njoin(field), inline=True)
             if len(embed) > 6000:
                 x = sum(len(field) for field in fields[fields.index(field):])
                 embed.set_field_at(index=-1, name='<:none:772958360240128060>', value=f'...and {x} more', inline=False)

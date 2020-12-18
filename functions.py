@@ -213,6 +213,6 @@ def matheval(exp: str, variables: dict = None) -> float:
 
     return values[0]
 
-def esc_join(s: str='\n') -> str.join:
+def njoin(iterable, s: str='\n') -> str:
     """Function to escape joining strings with newline in f-string"""
-    return s.join
+    return s.join(iterable)
