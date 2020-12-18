@@ -15,11 +15,12 @@ from discotools import perms, split_to_fields, EmbedUI, scheduler
 with open('items.json') as file:
     items_list: list = json.load(file)
 
-operation_lookup = {
+
+OPERATIONS = {
     'mult': {'eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'},
     'mult+': {'phyRes', 'expRes', 'eleRes'},
     'reduce': 'backfire'}
-item_type = {
+ITEM_TYPES = {
     'TOP_WEAPON': ['https://i.imgur.com/LW7ZCGZ.png', '<:topr:730115786735091762>'],
     'SIDE_WEAPON': ['https://i.imgur.com/CBbvOnQ.png', '<:sider:730115747799629940>'],
     'TORSO': ['https://i.imgur.com/iNtSziV.png', '<:torso:730115680363347968>'],
@@ -29,10 +30,9 @@ item_type = {
     'TELEPORTER': ['https://i.imgur.com/Fnq035A.png', '<:tele:730115603683213423>'],
     'HOOK': ['https://i.imgur.com/8oAoPcJ.png', '<:hook:730115622347735071>'],
     'MODULE': ['https://i.imgur.com/dQR8UgN.png', '<:mod:730115649866694686>']}
-tier_colors = ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪']
-item_tiers = ['C', 'R', 'E', 'L', 'M', 'D']
-element_colors = {'PHYSICAL': 0xffb800, 'EXPLOSIVE': 0xb71010, 'ELECTRIC': 0x106ed8, 'COMBINED': 0x211d1d}
-slot_emojis = {
+TIER_COLORS = ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪']
+ITEM_TIERS = ['C', 'R', 'E', 'L', 'M', 'D']
+SLOT_EMOJIS = {
     'topl': '<:topl:730115768431280238>',
     'topr': '<:topr:730115786735091762>',
     'dron': '<:drone:730115574763618394>',
@@ -45,7 +45,7 @@ slot_emojis = {
     'hook': '<:hook:730115622347735071>',
     'modl': '<:mod:730115649866694686>',
     'none': '<:none:772958360240128060>'}
-stat_abbrev = {
+STAT_NAMES = {
     'weight': ['Weight', '<:weight:725870760484143174>'],
     'health': ['HP', '<:health:725870887588462652>'],
     'eneCap': ['Energy', '<:energy:725870941883859054>'],
@@ -79,12 +79,12 @@ stat_abbrev = {
     'backfire': ['Backfire', '<:backfire:725871901062201404>'],
     'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
     'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']}
-url_template = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/items/{}.png'
-item_element = {
-    'PHYSICAL': stat_abbrev['phyDmg'][1],
-    'EXPLOSIVE': stat_abbrev['expDmg'][1],
-    'ELECTRIC': stat_abbrev['eleDmg'][1],
-    'COMBINED': '🔰'}
+ELEMENTS = {'PHYSICAL': (0xffb800, STAT_NAMES['phyDmg'][1]),
+            'EXPLOSIVE': (0xb71010, STAT_NAMES['expDmg'][1]),
+            'ELECTRIC': (0x106ed8, STAT_NAMES['eleDmg'][1]),
+            'COMBINED': (0x211d1d, '🔰')}
+URL_TEMPLATE = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/items/{}.png'
+
 
 class SuperMechs(commands.Cog):
     def __init__(self, bot):
@@ -126,11 +126,11 @@ class SuperMechs(commands.Cog):
             return self.image_url_cache[item['id']]
 
         safe_name: str = item['name'].replace(' ', '')
-        url = url_template.format(safe_name)
+        url = URL_TEMPLATE.format(safe_name)
         try:
             urllib.request.urlopen(url)
         except urllib.error.HTTPError:
-            url = item_type[item['type']][0]
+            url = ITEM_TYPES[item['type']][0]
         self.image_url_cache[item['id']] = url
         return url
 
@@ -159,9 +159,9 @@ class SuperMechs(commands.Cog):
 
 
     def specs(self, item: dict) -> dict:
-        return {'type': item_type[item['type']][1],
-                'element': item_element[item['element']],
-                'tier': tier_colors[item_tiers.index(item['transform_range'].split('-')[0])]}
+        return {'type': ITEM_TYPES[item['type']][1],
+                'element': ELEMENTS[item['element']][1],
+                'tier': TIER_COLORS[ITEM_TIERS.index(item['transform_range'].split('-')[0])]}
 
 
     def emoji_for_browseitems(self, item: dict, spec_filter: dict):
@@ -178,11 +178,11 @@ class SuperMechs(commands.Cog):
         """Returns a value buffed respectively to stat type"""
         if not enabled: # the function is always called, that probably could be improved
             return value
-        if stat in operation_lookup['mult']:
+        if stat in OPERATIONS['mult']:
             return round(value * 1.2)
-        if stat in operation_lookup['mult+']:
+        if stat in OPERATIONS['mult+']:
             return round(value * 1.4)
-        if stat == operation_lookup['reduce']:
+        if stat == OPERATIONS['reduce']:
             return round(value * 0.8)
         return value
 
@@ -264,15 +264,15 @@ class SuperMechs(commands.Cog):
         emojis.append('❌')
         #embedding
         desc = f"{item['element'].lower().capitalize()} {item['type'].replace('_', ' ').lower()}"
-        embed = EmbedUI(emojis, title=item['name'], description=desc, color=element_colors[item['element']])
+        embed = EmbedUI(emojis, title=item['name'], description=desc, color=ELEMENTS[item['element']][0])
         img_url = self.get_image(item)
         has_image = bool('imgur' not in img_url) #yeah I know, hack
         embed.set_image(url=img_url)
         if has_image:
-            embed.set_thumbnail(url=item_type[item['type']][0])
+            embed.set_thumbnail(url=ITEM_TYPES[item['type']][0])
         embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
         embed.set_footer(text='Toggle arena buffs with B' + ' and divine stats with D' * ('🇩' in emojis))
-        stat_abbrev['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
+        STAT_NAMES['uses'][0] = ('Use' if 'uses' in item['stats'] and item['stats']['uses'] == 1 else 'Uses')
         #adding item stats
         _min, _max = item['transform_range'].split('-')
 
@@ -299,21 +299,21 @@ class SuperMechs(commands.Cog):
                 else:
                     value = self.buff(stat, item[pool][stat], buffs)
 
-                item_stats += f'{stat_abbrev[stat][1]} **{value}** {stat_abbrev[stat][0]}\n'
+                item_stats += f'{STAT_NAMES[stat][1]} **{value}** {STAT_NAMES[stat][0]}\n'
 
             if 'advance' in item['stats'] or 'retreat' in item['stats']:
-                item_stats += f"{stat_abbrev['jump'][1]} **Jumping required**"
+                item_stats += f"{STAT_NAMES['jump'][1]} **Jumping required**"
             #transform range
-            if (maximal := item_tiers.index(_max)) < 4: tier = maximal
+            if (maximal := ITEM_TIERS.index(_max)) < 4: tier = maximal
             elif divine: tier = 5
             else: tier = 4
-            colors = tier_colors.copy()
+            colors = TIER_COLORS.copy()
             colors.insert(tier, f'({colors.pop(tier)})')
             fields = []
             note = ' (buffs applied)' if buffs else ''
             fields.append({
                 'name': 'Transform range: ',
-                'value': ''.join(colors[item_tiers.index(_min):item_tiers.index(_max) + 1]),
+                'value': ''.join(colors[ITEM_TIERS.index(_min):ITEM_TIERS.index(_max) + 1]),
                 'inline': False})
             fields.append({'name': f'Stats{note}:', 'value': item_stats, 'inline': False})
             for field in fields: embed.add_field(**field)
@@ -365,7 +365,7 @@ class SuperMechs(commands.Cog):
                 await ctx.send(f'Argument must match exactly one data type; "{key}" matched {result or "nothing"}')
                 return
             key = result[0]
-            spec = [item_type, element_colors, item_tiers][search_keys.index(key)]
+            spec = [ITEM_TYPES, ELEMENTS, ITEM_TIERS][search_keys.index(key)]
 
             values = search_for(value, spec)
             if not values or len(values) > 1:
@@ -383,7 +383,7 @@ class SuperMechs(commands.Cog):
             for key, value in valid_specs.items():
                 if key == 'tier':
                     _min, _max = item['transform_range'].split('-')
-                    _range = item_tiers[item_tiers.index(_min):item_tiers.index(_max) + 1]
+                    _range = ITEM_TIERS[ITEM_TIERS.index(_min):ITEM_TIERS.index(_max) + 1]
                     matching_specs.add(value in _range and not _range.index(value))
                     continue
                 matching_specs.add(item[key] == value)
@@ -391,8 +391,8 @@ class SuperMechs(commands.Cog):
 
         def sort_by_tier_elem_name(item: dict) -> tuple:
             return (
-                [*reversed(item_tiers)].index(item['transform_range'].split('-')[0]),
-                [*element_colors.keys()].index(item['element']),
+                [*reversed(ITEM_TIERS)].index(item['transform_range'][0]),
+                [*ELEMENTS.keys()].index(item['element']),
                 item['name'])
 
         items.sort(key=sort_by_tier_elem_name)
@@ -400,7 +400,7 @@ class SuperMechs(commands.Cog):
         item_names = [f"{self.emoji_for_browseitems(item, valid_specs)} {item['name']}" for item in items]
         fields = split_to_fields(item_names, '\n', field_limit=1024)
 
-        color = element_colors[valid_specs['element']] if 'element' in valid_specs else discord.Color.from_rgb(*random_color())
+        color = ELEMENTS[valid_specs['element']][0] if 'element' in valid_specs else discord.Color.from_rgb(*random_color())
 
         embed = discord.Embed(
             title=f'Matching items ({len(items)})',
@@ -424,7 +424,7 @@ class SuperMechs(commands.Cog):
     @perms(3)
     async def mechbuilder(self, ctx: commands.Context, *args):
         title = 'Mech builder' #'      '
-        icon = slot_emojis
+        icon = SLOT_EMOJIS
         none, mods = icon['none'], icon['modl'] * 2
         desc = (
             'Addresing items: `Weapon[n]:` `[name]`, `Module[n]:` `[name]`, `Torso:` `[name]` etc'
