@@ -1,6 +1,5 @@
 import asyncio
 import math
-import typing
 
 import discord
 from discord.ext import commands
@@ -12,6 +11,7 @@ class Math(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.vars = {}
+
 
     @commands.command(
         aliases=['rpn', 'math'],
@@ -40,6 +40,7 @@ class Math(commands.Cog):
             result = f'{var} ={spacer}{result}'
         await ctx.send(f'`{result}`')
 
+
     @commands.command(aliases=['vars'])
     async def variables(self, ctx: commands.Context, *args):
         text = ''
@@ -63,6 +64,7 @@ class Math(commands.Cog):
             if len(text) > 2000:
                 text = 'Requested variable is too large to show'
         if text: await ctx.send(text)
+
 
 def setup(bot):
     bot.add_cog(Math(bot))
