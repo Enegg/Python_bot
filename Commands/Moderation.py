@@ -1,17 +1,21 @@
 import asyncio
 import datetime
-import typing
+from typing import Union, Optional
+
 
 import discord
 from discord.ext import commands
+
 
 from functions import intify
 from discotools import perms
 from config import purge_confirm_emote, purge_cap
 
+
 class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
 
     @commands.group(aliases=['wot','ins', 'info'], brief='Helper command used to retrieve data about the guild')
     @perms(2)
@@ -26,34 +30,42 @@ class Moderation(commands.Cog):
             embed.set_thumbnail(url=guild.icon_url)
             await ctx.send(embed=embed)
 
+
     @inspect.command(brief='Returns guild\'s channels and their id\'s')
     async def channels(self, ctx: commands.Context):
         result = '\n'.join(f'<#{x.id}>: {x.id}' for x in ctx.guild.channels if isinstance(x, discord.TextChannel))
         await ctx.send(result)
 
-    @commands.command(aliases=['user'], brief='Returns info about the invoker or pinged member (you can use his ID)')
+
+    @commands.command(aliases=['user'])
     @perms(2)
-    async def userinfo(self, ctx: commands.Context, member: typing.Union[discord.Member, int]=None):
+    async def userinfo(self, ctx: commands.Context, member: Union[discord.Member, discord.User, int]=None):
+        """Returns info about the invoker or pinged member (you can use his ID)"""
+        is_user = isinstance(member, (discord.User, int))
         if member is None:
             member = ctx.author
-            is_fetched = False
-        elif is_fetched := isinstance(member, int):
+        elif isinstance(member, int):
             if len(str(member)) != 18:
                 await ctx.send('Invalid ID.')
                 return
             botmsg = await ctx.send('User not found. Attempt fetching (API call)?')
-            check = lambda m: m.channel == ctx.channel and m.author == ctx.author
+            reacts = ('✅', '❌')
+            [await botmsg.add_reaction(r) for r in reacts]
+            check = lambda r, u: r.message == botmsg and u == ctx.author and str(r.emoji) in reacts
             try:
-                response = await ctx.bot.wait_for('message', timeout=10.0, check=check)
+                reaction, _ = await ctx.bot.wait_for('reaction_add', timeout=10.0, check=check)
             except asyncio.TimeoutError:
                 await botmsg.delete()
                 return
-            if response.content.lower() in 'yes':
+            if str(reaction.emoji) == '✅':
                 try:
                     member = await ctx.bot.fetch_user(member)
                 except discord.NotFound:
-                    await ctx.send("Couldn't find the user.")
+                    await ctx.send("Could not find the user.")
                     return
+            else:
+                await botmsg.delete()
+                return
 
         created_days = (datetime.datetime.today() - member.created_at).days
         data = (
@@ -61,7 +73,7 @@ class Moderation(commands.Cog):
             f'\n**ID**: {member.id}'
             f'\n**Account created at**: {member.created_at.strftime(r"%d/%m/%Y")} ({created_days} days ago)')
 
-        if not is_fetched:
+        if not is_user:
             important = {'administrator', 'manage_guild', 'manage_channels', 'manage_messages', 'manage_roles'}
             if member.guild_permissions.administrator:
                 high_rank = 'Server owner' if member.id == getattr(ctx.guild.owner, 'id', None) else 'Administrator'
@@ -75,24 +87,26 @@ class Moderation(commands.Cog):
                 f'\n**Joined at**: {member.joined_at.strftime(r"%d/%m/%Y")} ({join_days} days ago)'
                 f'\n**Roles**: {roles}'
                 f'\n**Notable privileges**:\n{notable}')
-        embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if not is_fetched and member.nick else ""}',
+        embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if not is_user and member.nick else ""}',
             description=data, color=member.color)
         embed.set_thumbnail(url=member.avatar_url)
         await ctx.send(embed=embed)
+
 
     @commands.command(brief='Returns a dict of your roles')
     @perms(1)
     async def roles(self, ctx: commands.Context):
         await ctx.send(f'`{ctx.author.roles}`')
 
+
     @commands.command(
         aliases=['prune','pirge','puerg','p'],
         usage='[count] [optional: mention]',
-        brief='Purges messages from a channel',
-        help=('Deletes a specified number of messages from the channel it has been used in.'
-              ' You can specify whose messages to purge by pinging one or more users'))
+        brief='Purges messages from a channel')
     @perms(1)
-    async def purge(self, ctx: commands.Context, count: typing.Optional[int], members: commands.Greedy[discord.Member]):
+    async def purge(self, ctx: commands.Context, count: Optional[int], members: commands.Greedy[discord.Member]):
+        """Deletes number of messages from the channel it has been used in.
+         You can specify whose messages to purge by pinging one or more users"""
         msg = ctx.message
         def purger(n):
             check = lambda m: not m.pinned and (not members or m.author in members)
@@ -121,6 +135,7 @@ class Moderation(commands.Cog):
                 if count > 0:
                     await purger(count)
 
+
     @commands.command(hidden=True, usage='[ActType] (args...)')
     @perms(5)
     async def activity(self, ctx: commands.Context, act: str, *args):
@@ -132,6 +147,7 @@ class Moderation(commands.Cog):
             url='https://discordapp.com/')
         await self.bot.change_presence(activity=activity)
         await ctx.message.add_reaction('✅')
+
 
 def setup(bot):
     bot.add_cog(Moderation(bot))
