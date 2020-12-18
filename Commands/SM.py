@@ -420,13 +420,13 @@ class SuperMechs(commands.Cog):
     async def mechbuilder(self, ctx: commands.Context, *args):
         title = 'Mech builder' #'      '
         icon = slot_emojis
-        none, mods = icon['none'], icon['modl']*2
-        line0 = 'Addresing items: `Weapon[n]:` `[name]`, `Module[n]:` `[name]`, `Torso:` `[name]` etc'
-        line1 = f"\n`1` – {icon['topl']}{icon['dron']}{icon['topr']} – `2`{none}`1` – {mods} – `5`"
-        line2 = f"\n`3` – {icon['sidl']}{icon['tors']}{icon['sidr']} – `4`{none}`2` – {mods} – `6`"
-        line3 = f"\n`5` – {icon['sidl']}{icon['legs']}{icon['sidr']} – `6`{none}`3` – {mods} – `7`"
-        line4 = f"\n`C` – {icon['chrg']}{icon['tele']}{icon['hook']} – `H`{none}`4` – {mods} – `8`"
-        desc = line0 + line1 + line2 + line3 + line4
+        none, mods = icon['none'], icon['modl'] * 2
+        desc = (
+            'Addresing items: `Weapon[n]:` `[name]`, `Module[n]:` `[name]`, `Torso:` `[name]` etc'
+            f"\n`1` – {icon['topl']}{icon['dron']}{icon['topr']} – `2`{none}`1` – {mods} – `5`"
+            f"\n`3` – {icon['sidl']}{icon['tors']}{icon['sidr']} – `4`{none}`2` – {mods} – `6`"
+            f"\n`5` – {icon['sidl']}{icon['legs']}{icon['sidr']} – `6`{none}`3` – {mods} – `7`"
+            f"\n`C` – {icon['chrg']}{icon['tele']}{icon['hook']} – `H`{none}`4` – {mods} – `8`")
         embed = discord.Embed(title=title, description=desc)
         await ctx.send(embed=embed)
 
