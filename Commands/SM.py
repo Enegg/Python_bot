@@ -3,11 +3,14 @@ import json
 import urllib
 from typing import Dict, Iterable
 
+
 import discord
 from discord.ext import commands
 
+
 from functions import search_for, intify, random_color, njoin
 from discotools import perms, split_to_fields, EmbedUI, scheduler
+
 
 with open('items.json') as file:
     items_list: list = json.load(file)
@@ -345,6 +348,7 @@ class SuperMechs(commands.Cog):
         await msg.edit(embed=embed.set_footer())
         await msg.clear_reactions()
 
+
     @commands.command(aliases=['bi'], brief='WIP command')
     async def browseitems(self, ctx: commands.Context, *args):
         args = list(args)
@@ -415,6 +419,7 @@ class SuperMechs(commands.Cog):
         embed.set_footer(text=f'Character count: {len(embed) + 17}')
         await ctx.send(embed=embed)
 
+
     @commands.command(hidden=True, aliases=['MB'], brief='WIP command')
     @perms(3)
     async def mechbuilder(self, ctx: commands.Context, *args):
@@ -429,6 +434,7 @@ class SuperMechs(commands.Cog):
             f"\n`C` – {icon['chrg']}{icon['tele']}{icon['hook']} – `H`{none}`4` – {mods} – `8`")
         embed = discord.Embed(title=title, description=desc)
         await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(SuperMechs(bot))
