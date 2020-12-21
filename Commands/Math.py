@@ -1,141 +1,70 @@
-from functions import matheval
-from discord.ext import commands
-import discord
 import asyncio
+import math
+
+import discord
+from discord.ext import commands
+
 from matrices import Matrix
-import math, cmath
+from functions import matheval, njoin
 
 class Math(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.vars = {}
 
-    async def print_matrix(self, state):
-        """
-        Sends the str representation of a matrix.
-        """
-        cont = state.content[1:]
-        ctx = state.ctx
-        cache = state.cache
-        if not cont:
-            raise ValueError('Incorrect syntax.')
-        if cont[0] not in cache:
-            raise ValueError(f'Did not find any matrix named "{cont[0]}".')
-        if state.delmsg:
-            await state.msg.delete()
-        matrix = cache[cont[0]]
-        str_matrix = f'```({matrix.wy}x{matrix.wx})' + '\n' + f'{str(matrix)}```'
-        if len(str_matrix) > 2000:
-            str_matrix = 'Matrix is too big to display :('
-        await ctx.send(str_matrix)
 
-    async def create_new(self, state):
-        """
-        Creates a new matrix and adds it to the internal cache.
-        """
-        content = state.content
-        embed = state.embed
-        cache = state.cache
-        bot_msg = state.bot_msg
-        if len(content) < 3 or 'x' not in content[2] or len(content[1]) != 1:
-            print(len(content) < 3, 'x' not in content[2], len(content[1]) != 1)
-            raise ValueError('Incorrect input format.')
+    @commands.command(
+        aliases=['rpn', 'math', 'm'],
+        usage='[optional: variable =] (expr)')
+    async def RPN(self, ctx: commands.Context, *args):
+        """Evaluates a mathematical expression"""
+        exp = ''.join(args).replace('`', '').replace(' ', '')
+        if not exp:
+            return
+
+        var = ''
+        eq = exp.find('=')
+        if eq != -1:
+            var = exp[:eq]
+            exp = exp[eq+1:]
+
         try:
-            size = tuple(int(x) for x in content[2].split('x'))
-            values = [int(n) for n in content[3:]]
-        except ValueError:
-            raise ValueError('Incorrect input format.')
-        if values and len(values) != size[0] * size[1]:
-            raise ValueError('Incorrect amount of values for the matrix.')
-
-        cache[content[1]] = Matrix(*size, values) if values else Matrix(*size)
-        matrices_cont = ', '.join(f'{M}({cache[M].wy}x{cache[M].wx})' for M in cache)
-        data = {'index': 0, 'name': 'Matrices', 'value': f'{matrices_cont}', 'inline': False}
-        str_matrix = f'```{str(cache[content[1]])}```'
-        if len(str_matrix) > 2000:
-            str_matrix = 'Too big to display'
-        recent_matrix = {'index': -1, 'name': 'Last matrix:', 'value': str_matrix, 'inline': False}
-        if state.delmsg:
-            await state.msg.delete()
-        if embed.fields[0].name != data['name']:
-            embed.insert_field_at(**data)
-        else:
-            embed.set_field_at(**data)
-        embed.set_field_at(**recent_matrix)
-        await bot_msg.edit(embed=embed)
-
-    async def parse(self, state):
-        cont = state.content
-        try:
-            res = matheval(cont)
-            await state.ctx.send(f'`{res}`')
+            result = matheval(exp, self.vars if self.vars else None)
         except Exception as error:
-            await state.ctx.send(error)
+            result = str(error)
+        else:
+            self.vars.update({var if var else 'ans': result})
 
-    @commands.command(aliases=['matrix'])
-    async def create_matrix(self, ctx):
-        embed = discord.Embed(title='Matrix manipulation')
-        embed.add_field(name='Starting', value='To begin, create a matrix\n```"new" (A-Z) YxX elements...```')
-        embed.set_footer(text='Type "exit" to exit')
-        bot_msg = await ctx.send(embed=embed)
-        exiting = False
-        matrices = {}
-        class state:
-            pass
-        state.delmsg = False
-        while True:
-            try:
-                msg = await ctx.bot.wait_for('message', timeout=120.0, check=lambda m: m.channel == ctx.channel and m.author == ctx.author)
-            except asyncio.TimeoutError:
-                await bot_msg.edit(embed=embed.set_footer(text='Session has expired'))
-                break
-            content = msg.content.split(' ')
-            if exiting:
-                if content and content[0].lower() == 'yes':
-                    await bot_msg.edit(embed=embed.set_footer(text='Session has expired'))
-                    break
-                else:
-                    exiting = False
-                    embed.remove_field(-1)
-                    await bot_msg.edit(embed=embed)
-                    continue
-            if (exiting := ('exit' in content)):
-                embed.add_field(name='Do you wish to exit?', value='[yes/no]', inline=False)
-                await bot_msg.edit(embed=embed)
-                continue
-            print(content)
-            if 'delmsg' in content:
-                if len(content) < 2 or content[1].lower() not in {'true', 'false'}:
-                    await ctx.send('You need to specify value which is either true or false.', delete_after=5.0)
-                state.delmsg = content[1].lower() == 'true'
-                await msg.add_reaction('✅')
-                continue
-
-
-            # handling various commands
-            state.msg = msg
-            state.bot_msg = bot_msg
-            state.embed = embed
-            state.content = content
-            state.cache = matrices
-            state.ctx = ctx
-            commands_dict = {'new': self.create_new, 'print': self.print_matrix}
-            if (cmd := content[0].lower()) in commands_dict:
-                command = commands_dict[cmd]
-            else:
-                command = self.parse
-            try:
-                await command(state)
-            except ValueError as error:
-                await ctx.send(error, delete_after=5.0)
-                continue
-
-        pass
-
-    @commands.command(aliases=['rpn', 'onp', 'ONP'])
-    async def RPN(self, ctx, *args):
-        args = ''.join(args).replace('`', '')
-        result = matheval(args)
+        if var:
+            spacer = (' ', '\n')['\n' in str(result)]
+            result = f'{var} ={spacer}{result}'
         await ctx.send(f'`{result}`')
+
+
+    @commands.command(aliases=['vars'])
+    async def variables(self, ctx: commands.Context, *args):
+        text = ''
+        va: dict = self.vars
+        if not args:
+            if va:
+                text = (
+                '```fix\n'
+                f"{njoin(f'{k}({v.wx}x{v.wy})' if isinstance(v, Matrix) else f'{k} = {v}' for k, v in va.items())}"
+                '```')
+            else:
+                text = 'No variables stored.'
+
+        elif args[0].lower() == 'clear':
+            if not args[1:]:
+                va.clear()
+            else:
+                [va.pop(arg) for arg in args[1:] if arg in va]
+        else:
+            text = va.get(str(args[0]), f'No variable named "{args[0]}" found.')
+            if len(text) > 2000:
+                text = 'Requested variable is too large to show'
+        if text: await ctx.send(text)
+
 
 def setup(bot):
     bot.add_cog(Math(bot))
