@@ -149,7 +149,7 @@ class Subverse(commands.Cog):
                 await ctx.send(embed=embed)
                 return
             links: dict = location['links'].copy()
-            if bool(len(links) - 1):
+            if len(links) > 1:
                 links_names = [*links.keys()]
                 translated_link_names = [self.key_parser(x) for x in links_names]
                 text = 'Available links: ' + ', '.join(translated_link_names)
@@ -169,7 +169,7 @@ class Subverse(commands.Cog):
                     else:
                         embed.set_field_at(-1, name='Map:', value=translated_link_names[selection])
                         await embed.edit(embed_msg)
-                    check = lambda reaction, user: user.id == ctx.author.id and str(reaction.emoji) in options
+                    check = lambda r, u: u == ctx.author and str(r.emoji) in options and r.message == embed_msg
                     try:
                         async for reaction, _ in scheduler(ctx, {'reaction_add'}, check=check, timeout=20.0):
                             if str(reaction[0]) == '❌':
@@ -187,7 +187,7 @@ class Subverse(commands.Cog):
 
 
     @commands.command(name='list', brief='Get names of locations from given Submachine game')
-    async def locator(self, ctx: commands.Context, game):
+    async def locator(self, ctx: commands.Context, game: str):
         keys = {f'sub{n}' for n in range(11)} | {'subflf', 'sub32', 'subverse'}
         game = game.lower()
         if game not in keys:
@@ -229,6 +229,7 @@ class Subverse(commands.Cog):
         for field in fields:
             embed.add_field(name='<:none:772958360240128060>', value=field, inline=True)
         await ctx.send(embed=embed)
+
 
 def setup(bot):
     bot.add_cog(Subverse(bot))

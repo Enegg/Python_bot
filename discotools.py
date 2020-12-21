@@ -23,51 +23,6 @@ def perms(lvl: int):
     return commands.check(extended_check)
 
 
-# async def supreme_listener(ctx, emojis: list, on_add=True, on_remove=False, add_return=False, add_cancel=False) -> int:
-#     """Returns the position of added/removed reaction"""
-#     if not emojis:
-#         raise ValueError('No emojis to check with')
-#     # return emoji is a reserved emoji for going back
-#     if add_return: emojis.append('↩️')
-#     # cross emoji is reserved for closing the menu
-#     if add_cancel: emojis.append('❌')
-#     check = lambda reaction, user: user.id == ctx.author.id and str(reaction.emoji) in emojis
-#     tasks = []
-#     specifiers = set()
-
-#     if on_add:
-#         specifiers.add('reaction_add')
-#     if on_remove:
-#         specifiers.add('reaction_remove')
-
-#     if not specifiers:
-#         raise ValueError('No events to listen to specified.')
-
-#     for listener in specifiers:
-#         wait_for = ctx.bot.wait_for(listener, check=check)
-#         task = asyncio.create_task(wait_for, name=listener)
-#         tasks.append(task)
-
-#     done, pending = await asyncio.wait(tasks, timeout=20.0, return_when='FIRST_COMPLETED')
-#     if not done:
-#         raise asyncio.TimeoutError
-#     [task.cancel() for task in pending]
-#     # done is a set so we can't index it, but it *should* contain only one item
-#     if len(done) != 1: # something fucked up
-#         print(done)
-#         raise Exception('Something falied with tasks')
-#     else:
-#         task = done.pop()
-#         reaction = (await task)[0]
-#         action_type = None
-#         if task.get_name() == 'reaction_add': action_type = True
-#         if task.get_name() == 'reaction_remove': action_type = False
-
-#     if add_return and str(reaction.emoji) == '↩️': return -1, action_type
-#     if add_cancel and str(reaction.emoji) == '❌': return -2, action_type
-#     return emojis.index(reaction.emoji), action_type
-
-
 def set_default(embed: discord.Embed, ctx: discord.ext.commands.Context):
     """Sets embed author"""
     embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)

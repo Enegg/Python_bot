@@ -87,9 +87,7 @@ class Misc(commands.Cog):
         await ctx.send(f'Pong! {round(ctx.bot.latency * 1000)}ms')
 
 
-    @commands.command(
-        aliases=['av'],
-        usage='[optional: mention]')
+    @commands.command(aliases=['av'])
     async def avatar(self, ctx: commands.Context, member: Optional[discord.Member]):
         """Get a link to your or someone\'s avatar"""
         await ctx.send((ctx.author if member is None else member).avatar_url)
@@ -187,7 +185,7 @@ class Misc(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 15.0, commands.BucketType.guild)
     async def hleo(self, ctx: commands.Context):
-        """Fun command deleting the next message sent to a channel"""
+        """Deletes the next message sent to a channel"""
         await ctx.message.delete()
         botmsg = await ctx.send('<:ooh:704392385580498955>')
         try:

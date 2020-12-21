@@ -35,8 +35,12 @@ class Math(commands.Cog):
         else:
             self.vars.update({var if var else 'ans': result})
 
+        result = str(result)
+        newl = '\n' in result
+        if newl:
+            result = result.replace('\n', '`\n`')
         if var:
-            spacer = (' ', '\n')['\n' in str(result)]
+            spacer = (' ', '`\n`')[newl]
             result = f'{var} ={spacer}{result}'
         await ctx.send(f'`{result}`')
 
