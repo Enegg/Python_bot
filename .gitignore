@@ -127,3 +127,4 @@ dmypy.json
 /TOKEN.py
 /test_file.py
 .vscode/settings.json
+test.py

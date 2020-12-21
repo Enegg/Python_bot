@@ -1,11 +1,14 @@
 import asyncio
 import math
 
+
 import discord
 from discord.ext import commands
 
+
 from matrices import Matrix
 from functions import matheval, njoin
+
 
 class Math(commands.Cog):
     def __init__(self, bot):

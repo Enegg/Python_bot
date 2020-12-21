@@ -81,7 +81,6 @@ class EmbedUI(discord.Embed):
         self.count += len(values)
         return self
 
-
     def set_count(self, count):
         self.count = count
         return self

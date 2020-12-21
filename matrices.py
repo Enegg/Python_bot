@@ -140,6 +140,7 @@ class Matrix:
 #--------------------------------- Testing Zone ---------------------------------
 
 if __name__ == '__main__':
+    import random
     e = [random.randint(0, 9) for n in range(64)]
     f = [random.randint(0, 9) for n in range(64)]
 
