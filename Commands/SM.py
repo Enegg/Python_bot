@@ -87,6 +87,7 @@ URL_TEMPLATE = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/m
 
 
 class SuperMechs(commands.Cog):
+    """Set of commands related to the SuperMechs game."""
     def __init__(self, bot):
         self.bot = bot
         self.image_url_cache = {}
@@ -169,8 +170,9 @@ class SuperMechs(commands.Cog):
         return ''.join(specs[spec] for spec in specs if spec not in spec_filter)
 
 
-    @commands.command(brief='Show to a frantic user where is his place')
+    @commands.command()
     async def frantic(self, ctx: commands.Context):
+        """Show to a frantic user where is his place"""
         await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
 
@@ -186,23 +188,21 @@ class SuperMechs(commands.Cog):
             return round(value * 0.8)
         return value
 
-    @commands.command(
-        usage='[item name / part of the name]',
-        brief='Inspect an item\'s stats',
-        help='To use the command, type in desired item\'s name or its abbreviation, like "efa" for "energy free armor".')
+    @commands.command(aliases=['item'], usage='[full item name or part of it]')
     @commands.cooldown(2, 15.0, commands.BucketType.member)
-    async def stats(self, ctx: commands.Context, *args):
+    async def stats(self, ctx: commands.Context, *name: str):
+        """Finds an item and returns its stats"""
         msg = ctx.message
         botmsg = None
         add_x = msg.add_reaction
-        if not bool(args):
+        #flags {'-r'}
+        name = list(name)
+        flags = {name.pop(name.index(i)) for i in {'-r'} if i in name}
+        if not bool(name):
             await add_x('❌')
             return
-        args = list(args)
-        #flags {'-r'}
-        flags = {args.pop(args.index(i)) for i in {'-r'} if i in args}
         #solving for abbrevs
-        name = ' '.join(args).lower()
+        name = ' '.join(name).lower()
         if intify(name) == 0 and len(name) < 2:
             await add_x('❌')
             return
@@ -210,7 +210,8 @@ class SuperMechs(commands.Cog):
         #returning the exact item name from short user input
         if self.abbrevs == {} or self.names == []:
             self.abbreviator()
-        if name not in self.names and not name.isdigit():
+
+        if name not in self.names:
             results = search_for(name, self.names)
             abbrev = self.abbrevs.get(name, [])
             matches = list(set(results + abbrev))

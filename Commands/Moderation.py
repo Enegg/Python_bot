@@ -17,9 +17,10 @@ class Moderation(commands.Cog):
         self.bot = bot
 
 
-    @commands.group(aliases=['wot','ins', 'info'], brief='Helper command used to retrieve data about the guild')
+    @commands.group(aliases=['wot', 'ins', 'info'])
     @perms(2)
     async def inspect(self, ctx: commands.Context):
+        """Helper command used to retrieve data about the guild"""
         if ctx.invoked_subcommand is None:
             guild = ctx.guild
             embed = discord.Embed(title=guild.name, color=guild.owner.color, timestamp=guild.created_at)
@@ -100,7 +101,7 @@ class Moderation(commands.Cog):
 
 
     @commands.command(
-        aliases=['prune','pirge','puerg','p'],
+        aliases=['prune', 'p'],
         usage='[count] [optional: mention]',
         brief='Purges messages from a channel')
     @perms(1)
@@ -136,9 +137,10 @@ class Moderation(commands.Cog):
                     await purger(count)
 
 
-    @commands.command(hidden=True, usage='[ActType] (args...)')
+    @commands.command(hidden=True, usage='[ActType] (text...)')
     @perms(5)
     async def activity(self, ctx: commands.Context, act: str, *args):
+        """Sets the bot activity"""
         if not act:
             return
         activity = discord.Activity(
