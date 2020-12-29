@@ -192,19 +192,18 @@ class SuperMechs(commands.Cog):
     @commands.cooldown(2, 15.0, commands.BucketType.member)
     async def stats(self, ctx: commands.Context, *name: str):
         """Finds an item and returns its stats"""
-        msg = ctx.message
         botmsg = None
-        add_x = msg.add_reaction
+        add_r = ctx.message.add_reaction
         #flags {'-r'}
         name = list(name)
         flags = {name.pop(name.index(i)) for i in {'-r'} if i in name}
         if not bool(name):
-            await add_x('❌')
+            await add_r('❌')
             return
         #solving for abbrevs
         name = ' '.join(name).lower()
-        if intify(name) == 0 and len(name) < 2:
-            await add_x('❌')
+        if len(name) < 2:
+            await add_r('❌')
             return
 
         #returning the exact item name from short user input
@@ -230,7 +229,7 @@ class SuperMechs(commands.Cog):
                     embed.set_author(name=f'Requested by {ctx.author.display_name}', icon_url=ctx.author.avatar_url)
                     botmsg = await ctx.send(embed=embed)
 
-                    check = lambda m: m.author.id == msg.author.id and m.channel.id == ctx.channel.id and m.content.isdigit()
+                    check = lambda m: m.author.id == ctx.message.author.id and m.channel.id == ctx.channel.id and m.content.isdigit()
                     try:
                         reply = await ctx.bot.wait_for('message', timeout=20.0, check=check)
                     except asyncio.TimeoutError:
@@ -253,7 +252,7 @@ class SuperMechs(commands.Cog):
                 item: dict = abc
                 break
         else:
-            await add_x('❌')
+            await add_r('❌')
             return
         #debug flag
         if '-r' in flags:

@@ -9,7 +9,7 @@ from discord.ext import commands
 
 from functions import intify
 from discotools import perms
-from config import purge_confirm_emote, purge_cap
+from config import PURGE_CONFIRM_EMOTE, PURGE_CAP
 
 
 class Moderation(commands.Cog):
@@ -40,11 +40,13 @@ class Moderation(commands.Cog):
 
     @commands.command(aliases=['user'])
     @perms(2)
-    async def userinfo(self, ctx: commands.Context, member: Union[discord.Member, discord.User, int]=None):
-        """Returns info about the invoker or pinged member (you can use his ID)"""
+    async def userinfo(self, ctx: commands.Context,
+    member: Optional[Union[discord.Member, discord.User, int]],
+    channel: Optional[Union[discord.TextChannel, discord.CategoryChannel]]):
+        """Returns info about invoker or pinged user (ID / mention)"""
         is_user = isinstance(member, (discord.User, int))
         if member is None:
-            member = ctx.author
+            member: discord.Member = ctx.author
         elif isinstance(member, int):
             if len(str(member)) != 18:
                 await ctx.send('Invalid ID.')
@@ -70,28 +72,46 @@ class Moderation(commands.Cog):
 
         created_days = (datetime.datetime.today() - member.created_at).days
         data = (
-            f'**User**: {member.mention}'
+            f"**{'User' if is_user else 'Member'}**: {member.mention}"
             f'\n**ID**: {member.id}'
             f'\n**Account created at**: {member.created_at.strftime(r"%d/%m/%Y")} ({created_days} days ago)')
 
         if not is_user:
-            important = {'administrator', 'manage_guild', 'manage_channels', 'manage_messages', 'manage_roles'}
+            important = {'manage_guild', 'manage_channels',
+                'manage_messages', 'manage_roles', 'mention_everyone', 'view_guild_insights',
+                'kick_members', 'ban_members', 'manage_emojis', 'view_audit_log'}
+            check = lambda perm: perm[1] and perm[0] in important
             if member.guild_permissions.administrator:
                 high_rank = 'Server owner' if member.id == getattr(ctx.guild.owner, 'id', None) else 'Administrator'
             else:
                 high_rank = ''
-                privs = filter(lambda perm: perm[1] and perm[0] in important, member.guild_permissions)
-            notable = high_rank or '\n'.join(x[0].title() for x in privs).replace('_', ' ') or 'Basic'
+                privs = filter(check, member.guild_permissions)
+            notable = high_rank or '\n'.join(x[0].capitalize() for x in privs).replace('_', ' ') or 'Basic'
             join_days = (datetime.datetime.today() - member.joined_at).days
             roles = ', '.join(x.mention for x in reversed(member.roles[1:]))
             data += (
                 f'\n**Joined at**: {member.joined_at.strftime(r"%d/%m/%Y")} ({join_days} days ago)'
                 f'\n**Roles**: {roles}'
-                f'\n**Notable privileges**:\n{notable}')
+                f'\n**Global privileges**:\n{notable}')
+            if channel is not None:
+                if member.permissions_in(channel).administrator:
+                    high_rank = 'All'
+                else:
+                    high_rank = ''
+                    privs = filter(lambda perm: perm[1], member.permissions_in(channel))
+                channel_perms = high_rank or '\n'.join(x[0].capitalize() for x in privs).replace('_', ' ') or 'None'
+                data += f'**\nPermissions in {channel.mention}**:\n{channel_perms}'
         embed = discord.Embed(title=f'{member.name}{f" ({member.nick})" if not is_user and member.nick else ""}',
             description=data, color=member.color)
         embed.set_thumbnail(url=member.avatar_url)
         await ctx.send(embed=embed)
+
+    @userinfo.error
+    async def info_error(self, ctx: commands.Context, error):
+        if isinstance(error, commands.BadUnionArgument):
+            print(ctx.args, ctx.kwargs)
+            print(error.param, type(error.param))
+            await ctx.send(f'Invalid input for "{error.param.name}" param')
 
 
     @commands.command(brief='Returns a dict of your roles')
@@ -115,15 +135,15 @@ class Moderation(commands.Cog):
         await msg.delete()
         if count is None:
             count = 1
-        if count > purge_cap:
-            count = purge_cap
+        if count > PURGE_CAP:
+            count = PURGE_CAP
         if count <= 10: 
             await purger(count)
         else:
             victims = f"messages of {', '.join(x.name for x in members)} in the recent " if members else ''
             botmsg = await ctx.send(f'You are going to purge {victims}{count} messages, continue?')
-            await botmsg.add_reaction(purge_confirm_emote)
-            check = lambda reaction, user: user == ctx.author and str(reaction.emoji) == purge_confirm_emote
+            await botmsg.add_reaction(PURGE_CONFIRM_EMOTE)
+            check = lambda reaction, user: user == ctx.author and str(reaction.emoji) == PURGE_CONFIRM_EMOTE
             try: 
                 await ctx.bot.wait_for('reaction_add', timeout=20.0, check=check)
             except asyncio.TimeoutError:

@@ -1,22 +1,30 @@
 import socket
+import logging
+
 
 import discord
 from discord.ext import commands
 
+
 from discotools import perms
-from config import prefix_local, prefix_host, hosts
+from config import PREFIX_LOCAL, PREFIX_HOST, HOSTS, LOGS_CHANNEL
+
+
+logging.basicConfig(level=logging.INFO)
 
 TOKEN = None
-if socket.gethostname() in hosts:
+if socket.gethostname() in HOSTS:
     import importlib
     TOKEN = importlib.import_module('TOKEN').TOKEN
+    del importlib
 
-    prefix = prefix_local
+    prefix = PREFIX_LOCAL
 else:
-    from os import environ
-    TOKEN = environ.get('TOKEN')
+    import os
+    TOKEN = os.environ.get('TOKEN')
+    del os
 
-    prefix = prefix_host
+    prefix = PREFIX_HOST
 
 if not TOKEN: raise Exception('Not running localy and TOKEN is not an environment variable')
 
@@ -97,7 +105,7 @@ bot.load_extension('Commands.SM')
 bot.load_extension('Commands.Subverse')
 bot.load_extension('Commands.Math')
 
-if prefix == prefix_host:
+if prefix == PREFIX_HOST:
     @bot.event
     async def on_command_error(ctx, error):
         if isinstance(error, commands.errors.CommandOnCooldown):
@@ -106,14 +114,14 @@ if prefix == prefix_host:
             await ctx.send('Invalid argument type passed.', delete_after=5.0)
         else:
             print(error, '\n', ctx)
-            await bot.get_channel(624950575343075359).send(f'{error}\n{ctx}')
+            await bot.get_channel(LOGS_CHANNEL).send(f'{error}\n{ctx}')
 
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} is here to take over the world')
     print('----------------')
-    if prefix == prefix_host:
-        await bot.get_channel(624950575343075359).send("I'm back online")
+    if prefix == PREFIX_HOST:
+        await bot.get_channel(LOGS_CHANNEL).send("I'm back online")
     await bot.change_presence(activity=discord.Activity(name='grass grow', type=3))
 
 bot.run(TOKEN)

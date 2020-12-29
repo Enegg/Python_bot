@@ -1,8 +1,9 @@
-'''Config file containing basic variables like purge cap and prefix.'''
+"""Config file containing basic variables like purge cap and prefix."""
 #general vars
-prefix_local = '\''
-prefix_host = ','
-hosts = {'Modzel', 'Mystery_machine'}
+PREFIX_LOCAL = "'"
+PREFIX_HOST = ','
+HOSTS = {'Modzel', 'Mystery_machine'}
+LOGS_CHANNEL = 624950575343075359
 #purge
-purge_cap = 2000
-purge_confirm_emote = '🧹'
+PURGE_CAP = 2000
+PURGE_CONFIRM_EMOTE = '🧹'
