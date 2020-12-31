@@ -349,8 +349,9 @@ class SuperMechs(commands.Cog):
         await msg.clear_reactions()
 
 
-    @commands.command(aliases=['bi'], brief='WIP command')
+    @commands.command(aliases=['bi'], usage='[type:[tors/top/side/.../dron], elem:[exp/elec/phys/combined], tier:[C-D]]')
     async def browseitems(self, ctx: commands.Context, *args):
+        """Lookup items by rarity, element and type"""
         args = list(args)
         try:
             specs, ignored_args = self.ressolve_args(args)
@@ -400,7 +401,12 @@ class SuperMechs(commands.Cog):
         item_names = [f"{self.emoji_for_browseitems(item, valid_specs)} {item['name']}" for item in items]
         fields = split_to_fields(item_names, '\n', field_limit=1024)
 
-        color = ELEMENTS[valid_specs['element']][0] if 'element' in valid_specs else discord.Color.from_rgb(*random_color())
+        if 'element' in valid_specs:
+            color = ELEMENTS[valid_specs['element']][0]
+        elif 'tier' in valid_specs:
+            color = {}[valid_specs['tier']]
+        else:
+            color = discord.Color.from_rgb(*random_color())
 
         embed = discord.Embed(
             title=f'Matching items ({len(items)})',
@@ -420,9 +426,10 @@ class SuperMechs(commands.Cog):
         await ctx.send(embed=embed)
 
 
-    @commands.command(hidden=True, aliases=['MB'], brief='WIP command')
+    @commands.command(aliases=['MB'])
     @perms(3)
     async def mechbuilder(self, ctx: commands.Context, *args):
+        """WIP command, currently on hold"""
         title = 'Mech builder' #'      '
         icon = SLOT_EMOJIS
         none, mods = icon['none'], icon['modl'] * 2

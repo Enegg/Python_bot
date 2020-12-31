@@ -11,6 +11,7 @@ from functions import matheval, njoin
 
 
 class Math(commands.Cog):
+    """I can do math too!"""
     def __init__(self, bot):
         self.bot = bot
         self.vars = {}

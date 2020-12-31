@@ -13,6 +13,7 @@ from config import PURGE_CONFIRM_EMOTE, PURGE_CAP
 
 
 class Moderation(commands.Cog):
+    """Tools for moderation purposes."""
     def __init__(self, bot):
         self.bot = bot
 

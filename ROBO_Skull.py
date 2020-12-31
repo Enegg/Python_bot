@@ -1,5 +1,6 @@
 import socket
 import logging
+from typing import Optional
 
 
 import discord
@@ -28,23 +29,28 @@ else:
 
 if not TOKEN: raise Exception('Not running localy and TOKEN is not an environment variable')
 
-intent = discord.Intents(guilds=True, members=True, emojis=True, messages=True, reactions=True)
-bot = commands.Bot(command_prefix=prefix, intents=intent)
+intents = discord.Intents(guilds=True, members=True, emojis=True, messages=True, reactions=True)
+bot = commands.Bot(command_prefix=prefix, intents=intents)
 
 class Setup(commands.Cog, command_attrs={'hidden': True}):
+    """Module management commands for development purposes."""
     def __init__(self):
         super().__init__()
         self.last_reload = None
 
-    @commands.command(aliases=['ext'], brief='Show loaded extensions')
+
+    @commands.command(aliases=['ext'])
     @perms(5)
-    async def extensions(self, ctx):
+    async def extensions(self, ctx: commands.Context):
+        """Show loaded extensions"""
         cont = 'Enabled modules:\n' + ('\n'.join(bot.extensions) or 'None')
         await ctx.send(cont)
 
-    @commands.command(brief='Load an extension')
+
+    @commands.command()
     @perms(5)
-    async def load(self, ctx, arg):
+    async def load(self, ctx: commands.Context, arg: str):
+        """Loads an extension"""
         await ctx.message.add_reaction('☑️')
         if '.' in arg: ext = arg
         else: ext = f'Commands.{arg}'
@@ -52,9 +58,11 @@ class Setup(commands.Cog, command_attrs={'hidden': True}):
         print(f'Loading {ext}...')
         bot.load_extension(ext)
 
-    @commands.command(brief='Reload an extension or all extensions')
+
+    @commands.command()
     @perms(5)
-    async def reload(self, ctx, arg=None):
+    async def reload(self, ctx: commands.Context, arg: Optional[str]):
+        """Reloads an extension or all extensions"""
         if arg is None:
             if self.last_reload is not None:
                 arg = self.last_reload
@@ -77,9 +85,11 @@ class Setup(commands.Cog, command_attrs={'hidden': True}):
         print(f'Reloading {ext}...')
         bot.reload_extension(ext)
 
-    @commands.command(brief='Unload an extension')
+
+    @commands.command()
     @perms(5)
-    async def unload(self, ctx, arg):
+    async def unload(self, ctx: commands.Context, arg: str):
+        """Unload an extension"""
         await ctx.message.add_reaction('🚀')
         if '.' in arg: ext = arg
         else: ext = f'Commands.{arg}'
@@ -87,16 +97,20 @@ class Setup(commands.Cog, command_attrs={'hidden': True}):
         print(f'Unloading {ext}...')
         bot.unload_extension(ext)
 
+
     @commands.command(aliases=['sd'])
     @perms(5)
-    async def shutdown(self, ctx):
+    async def shutdown(self, ctx: commands.Context):
+        """Terminates the bot connection."""
         await ctx.send('I will be back')
         await bot.logout()
 
+
     @commands.command()
-    async def test(self, ctx, *args):
+    async def test(self, ctx: commands.Context, *args):
         count = len(args)
         await ctx.send(f"{count} argument{'s' * (count != 1)}{':' * bool(count)} {', '.join(args)}")
+
 
 bot.add_cog(Setup())
 bot.load_extension('Commands.Moderation')

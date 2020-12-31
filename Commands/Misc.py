@@ -11,6 +11,7 @@ from functions import roll, intify
 
 
 class Misc(commands.Cog):
+    """Commands not fitting in other categories."""
     def __init__(self, bot):
         self.bot = bot
         self.emojis = None
