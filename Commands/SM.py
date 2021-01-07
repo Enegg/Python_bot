@@ -1,7 +1,8 @@
 import asyncio
 import json
 import urllib
-from typing import Dict, Iterable
+from typing import Dict, Iterable, Optional
+import aiohttp
 
 
 import discord
@@ -84,13 +85,15 @@ ELEMENTS = {'PHYSICAL': (0xffb800, STAT_NAMES['phyDmg'][1]),
             'ELECTRIC': (0x106ed8, STAT_NAMES['eleDmg'][1]),
             'COMBINED': (0x211d1d, '🔰')}
 URL_TEMPLATE = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/items/{}.png'
+URL2_TEMPLATE = 'https://raw.githubusercontent.com/Lookotza/smBot/master/items/{}.png'
 
 
 class SuperMechs(commands.Cog):
     """Set of commands related to the SuperMechs game."""
-    def __init__(self, bot):
+    def __init__(self, bot: discord.ext.commands.Bot):
         self.bot = bot
         self.image_url_cache = {}
+        self.no_img = set()
         self.abbreviator()
 
 
@@ -128,15 +131,18 @@ class SuperMechs(commands.Cog):
 
         safe_name: str = item['name'].replace(' ', '')
         url = URL_TEMPLATE.format(safe_name)
+
         try:
             urllib.request.urlopen(url)
         except urllib.error.HTTPError:
-            url = ITEM_TYPES[item['type']][0]
+            url = URL2_TEMPLATE.format(safe_name)
+            self.no_img.add(item['name'])
+
         self.image_url_cache[item['id']] = url
         return url
 
 
-    def ressolve_args(self, args: Iterable):
+    def ressolve_kwargs(self, args: Iterable):
         """Takes command arguments as an input and tries to match them as key item pairs"""
         args = [a.lower() for a in args]
         specs = {}  # dict of data type: desired data, like 'element': 'explosive'
@@ -168,6 +174,28 @@ class SuperMechs(commands.Cog):
     def emoji_for_browseitems(self, item: dict, spec_filter: dict):
         specs = self.specs(item)
         return ''.join(specs[spec] for spec in specs if spec not in spec_filter)
+
+
+    @commands.command(aliases=['missno'])
+    @perms(5)
+    async def missingimages(self, ctx: commands.Context, scan: Optional[bool]):
+        """Debug command; returns names of items that don't have an image"""
+        if scan:
+            async with aiohttp.ClientSession() as session, ctx.typing():
+                for item in items_list:
+                    name: str = item['name']
+
+                    if name in self.no_img:
+                        continue
+
+                    safe_name = name.replace(' ', '')
+                    url = URL_TEMPLATE.format(safe_name)
+
+                    async with session.get(url) as response:
+                        if response.status != 200:
+                            self.no_img.add(name)
+
+        await ctx.send(f'```\n{self.no_img}```\n({len(self.no_img)}/{len(items_list)})')
 
 
     @commands.command()
@@ -354,7 +382,7 @@ class SuperMechs(commands.Cog):
         """Lookup items by rarity, element and type"""
         args = list(args)
         try:
-            specs, ignored_args = self.ressolve_args(args)
+            specs, ignored_args = self.ressolve_kwargs(args)
         except Exception as error:
             await ctx.send(error)
             return
@@ -427,7 +455,6 @@ class SuperMechs(commands.Cog):
 
 
     @commands.command(aliases=['MB'])
-    @perms(3)
     async def mechbuilder(self, ctx: commands.Context, *args):
         """WIP command, currently on hold"""
         title = 'Mech builder' #'      '
