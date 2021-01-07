@@ -10,8 +10,8 @@ def perms(lvl: int):
     """\
     Defines required user's lvl to access a command, following:
     1 - manage messages, 2 - manage guild, 3 - admin, 4 - guild owner, 5 - bot author"""
-    def extended_check(ctx) -> bool:
-        if ctx.author.id == 190505392504045570:
+    async def extended_check(ctx) -> bool:
+        if await ctx.bot.is_owner(ctx.author):
             return True
         if ctx.guild is None:
             return False
