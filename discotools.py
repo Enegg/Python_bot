@@ -1,5 +1,5 @@
 import asyncio
-from typing import Callable, Tuple
+from typing import Callable
 
 
 import discord
@@ -111,7 +111,7 @@ class EmbedUI(discord.Embed):
         return self
 
 
-async def scheduler(ctx: commands.Context, events: set, check: Callable, timeout=None, return_when: str ='FIRST_COMPLETED') -> Tuple[tuple, str]:
+async def scheduler(ctx: commands.Context, events: set, check: Callable, timeout=None, return_when: str ='FIRST_COMPLETED') -> tuple[tuple, str]:
     """Wrapper for asyncio.wait designed for discord events. Returns the outcome of the event and its name."""
     if not events:
         raise ValueError('No events to await')
