@@ -1,6 +1,7 @@
 import socket
 import logging
 from typing import Optional
+import os
 
 
 import discord
@@ -21,13 +22,12 @@ if socket.gethostname() in HOSTS:
 
     prefix = PREFIX_LOCAL
 else:
-    import os
     TOKEN = os.environ.get('TOKEN')
-    del os
 
     prefix = PREFIX_HOST
 
-if not TOKEN: raise Exception('Not running localy and TOKEN is not an environment variable')
+if not TOKEN:
+    raise Exception('Not running localy and TOKEN is not an environment variable')
 
 intents = discord.Intents(guilds=True, members=True, emojis=True, messages=True, reactions=True)
 bot = commands.Bot(command_prefix=prefix, intents=intents)
@@ -113,11 +113,14 @@ class Setup(commands.Cog, command_attrs={'hidden': True}):
 
 
 bot.add_cog(Setup())
-bot.load_extension('Commands.Moderation')
-bot.load_extension('Commands.Misc')
-bot.load_extension('Commands.SM')
-bot.load_extension('Commands.Subverse')
-bot.load_extension('Commands.Math')
+disabled_modules = {'Testing'}
+
+for file in os.scandir('Commands'):
+    name, ext = os.path.splitext(file.name)
+
+    if ext == '.py' and name not in disabled_modules:
+        bot.load_extension(f'Commands.{name}')
+
 
 if prefix == PREFIX_HOST:
     @bot.event
