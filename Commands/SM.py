@@ -1,16 +1,16 @@
+import aiohttp
 import asyncio
 import json
+from typing import Iterable, Optional
 import urllib
-from typing import Dict, Iterable, Optional
-import aiohttp
 
 
 import discord
 from discord.ext import commands
 
 
-from functions import search_for, intify, random_color, njoin
 from discotools import perms, split_to_fields, EmbedUI, scheduler
+from functions import search_for, intify, random_color, njoin
 
 
 with open('items.json') as file:
@@ -18,19 +18,19 @@ with open('items.json') as file:
 
 
 OPERATIONS = {
-    'mult': {'eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'},
+    'mult':  {'eneCap', 'heaCap', 'eneReg', 'heaCap', 'heaCol', 'phyDmg', 'expDmg', 'eleDmg', 'heaDmg', 'eneDmg'},
     'mult+': {'phyRes', 'expRes', 'eleRes'},
     'reduce': 'backfire'}
 ITEM_TYPES = {
-    'TOP_WEAPON': ['https://i.imgur.com/LW7ZCGZ.png', '<:topr:730115786735091762>'],
+    'TOP_WEAPON':  ['https://i.imgur.com/LW7ZCGZ.png', '<:topr:730115786735091762>'],
     'SIDE_WEAPON': ['https://i.imgur.com/CBbvOnQ.png', '<:sider:730115747799629940>'],
-    'TORSO': ['https://i.imgur.com/iNtSziV.png', '<:torso:730115680363347968>'],
-    'LEGS': ['https://i.imgur.com/6NBLOhU.png', '<:legs:730115699397361827>'],
-    'DRONE': ['https://i.imgur.com/oqQmXTF.png', '<:drone:730115574763618394>'],
-    'CHARGE': ['https://i.imgur.com/UnDqJx8.png', '<:charge:730115557239685281>'],
-    'TELEPORTER': ['https://i.imgur.com/Fnq035A.png', '<:tele:730115603683213423>'],
-    'HOOK': ['https://i.imgur.com/8oAoPcJ.png', '<:hook:730115622347735071>'],
-    'MODULE': ['https://i.imgur.com/dQR8UgN.png', '<:mod:730115649866694686>']}
+    'TORSO':       ['https://i.imgur.com/iNtSziV.png', '<:torso:730115680363347968>'],
+    'LEGS':        ['https://i.imgur.com/6NBLOhU.png', '<:legs:730115699397361827>'],
+    'DRONE':       ['https://i.imgur.com/oqQmXTF.png', '<:drone:730115574763618394>'],
+    'CHARGE':      ['https://i.imgur.com/UnDqJx8.png', '<:charge:730115557239685281>'],
+    'TELEPORTER':  ['https://i.imgur.com/Fnq035A.png', '<:tele:730115603683213423>'],
+    'HOOK':        ['https://i.imgur.com/8oAoPcJ.png', '<:hook:730115622347735071>'],
+    'MODULE':      ['https://i.imgur.com/dQR8UgN.png', '<:mod:730115649866694686>']}
 TIER_COLORS = ['⚪', '🔵', '🟣', '🟠', '🟤', '⚪']
 ITEM_TIERS = ['C', 'R', 'E', 'L', 'M', 'D']
 SLOT_EMOJIS = {
@@ -47,43 +47,43 @@ SLOT_EMOJIS = {
     'modl': '<:mod:730115649866694686>',
     'none': '<:none:772958360240128060>'}
 STAT_NAMES = {
-    'weight': ['Weight', '<:weight:725870760484143174>'],
-    'health': ['HP', '<:health:725870887588462652>'],
-    'eneCap': ['Energy', '<:energy:725870941883859054>'],
-    'eneReg': ['Regeneration', '<:regen:725871003665825822>'],
-    'heaCap': ['Heat', '<:heat:725871043767435336>'],
-    'heaCol': ['Cooling', '<:cooling:725871075778363422>'],
-    'phyRes': ['Physical resistance', '<:phyres:725871121051811931>'],
-    'expRes': ['Explosive resistance', '<:expres:725871136935772294>'],
-    'eleRes': ['Electric resistance', '<:elecres:725871146716758077>'],
-    'phyDmg': ['Damage', '<:phydmg:725871208830074929>'],
-    'phyResDmg': ['Resistance drain', '<:phyresdmg:725871259635679263>'],
-    'expDmg': ['Damage', '<:expdmg:725871223338172448>'],
-    'heaDmg': ['Heat damage', '<:headmg:725871613639393290>'],
-    'heaCapDmg': ['Heat capacity drain', '<:heatcapdmg:725871478083551272>'],
-    'heaColDmg': ['Cooling damage', '<:coolingdmg:725871499281563728>'],
-    'expResDmg': ['Resistance drain', '<:expresdmg:725871281311842314>'],
-    'eleDmg': ['Damage', '<:eledmg:725871233614479443>'],
-    'eneDmg': ['Energy drain', '<:enedmg:725871599517171719>'],
+    'weight':    ['Weight',                '<:weight:725870760484143174>'],
+    'health':    ['HP',                    '<:health:725870887588462652>'],
+    'eneCap':    ['Energy',                '<:energy:725870941883859054>'],
+    'eneReg':    ['Regeneration',          '<:regen:725871003665825822>'],
+    'heaCap':    ['Heat',                  '<:heat:725871043767435336>'],
+    'heaCol':    ['Cooling',               '<:cooling:725871075778363422>'],
+    'phyRes':    ['Physical resistance',   '<:phyres:725871121051811931>'],
+    'expRes':    ['Explosive resistance',  '<:expres:725871136935772294>'],
+    'eleRes':    ['Electric resistance',   '<:elecres:725871146716758077>'],
+    'phyDmg':    ['Damage',                '<:phydmg:725871208830074929>'],
+    'phyResDmg': ['Resistance drain',      '<:phyresdmg:725871259635679263>'],
+    'expDmg':    ['Damage',                '<:expdmg:725871223338172448>'],
+    'heaDmg':    ['Heat damage',           '<:headmg:725871613639393290>'],
+    'heaCapDmg': ['Heat capacity drain',   '<:heatcapdmg:725871478083551272>'],
+    'heaColDmg': ['Cooling damage',        '<:coolingdmg:725871499281563728>'],
+    'expResDmg': ['Resistance drain',      '<:expresdmg:725871281311842314>'],
+    'eleDmg':    ['Damage',                '<:eledmg:725871233614479443>'],
+    'eneDmg':    ['Energy drain',          '<:enedmg:725871599517171719>'],
     'eneCapDmg': ['Energy capacity drain', '<:enecapdmg:725871420126789642>'],
-    'eneRegDmg': ['Regeneration damage', '<:regendmg:725871443815956510>'],
-    'eleResDmg': ['Resistance drain', '<:eleresdmg:725871296381976629>'],
-    'range': ['Range', '<:range:725871752072134736>'],
-    'push': ['Knockback', '<:push:725871716613488843>'],
-    'pull': ['Pull', '<:pull:725871734141616219>'],
-    'recoil': ['Recoil', '<:recoil:725871778282340384>'],
-    'retreat': ['Retreat', '<:retreat:725871804236955668>'],
-    'advance': ['Advance', '<:advance:725871818115907715>'],
-    'walk': ['Walking', '<:walk:725871844581834774>'],
-    'jump': ['Jumping', '<:jump:725871869793796116>'],
-    'uses': ['', '<:uses:725871917923303688>'],
-    'backfire': ['Backfire', '<:backfire:725871901062201404>'],
-    'heaCost': ['Heat cost', '<:heatgen:725871674007879740>'],
-    'eneCost': ['Energy cost', '<:eneusage:725871660237979759>']}
-ELEMENTS = {'PHYSICAL': (0xffb800, STAT_NAMES['phyDmg'][1]),
+    'eneRegDmg': ['Regeneration damage',   '<:regendmg:725871443815956510>'],
+    'eleResDmg': ['Resistance drain',      '<:eleresdmg:725871296381976629>'],
+    'range':     ['Range',                 '<:range:725871752072134736>'],
+    'push':      ['Knockback',             '<:push:725871716613488843>'],
+    'pull':      ['Pull',                  '<:pull:725871734141616219>'],
+    'recoil':    ['Recoil',                '<:recoil:725871778282340384>'],
+    'retreat':   ['Retreat',               '<:retreat:725871804236955668>'],
+    'advance':   ['Advance',               '<:advance:725871818115907715>'],
+    'walk':      ['Walking',               '<:walk:725871844581834774>'],
+    'jump':      ['Jumping',               '<:jump:725871869793796116>'],
+    'uses':      ['',                      '<:uses:725871917923303688>'],
+    'backfire':  ['Backfire',              '<:backfire:725871901062201404>'],
+    'heaCost':   ['Heat cost',             '<:heatgen:725871674007879740>'],
+    'eneCost':   ['Energy cost',           '<:eneusage:725871660237979759>']}
+ELEMENTS = {'PHYSICAL':  (0xffb800, STAT_NAMES['phyDmg'][1]),
             'EXPLOSIVE': (0xb71010, STAT_NAMES['expDmg'][1]),
-            'ELECTRIC': (0x106ed8, STAT_NAMES['eleDmg'][1]),
-            'COMBINED': (0x211d1d, '🔰')}
+            'ELECTRIC':  (0x106ed8, STAT_NAMES['eleDmg'][1]),
+            'COMBINED':  (0x211d1d, '🔰')}
 URL_TEMPLATE = 'https://raw.githubusercontent.com/ctrl-raul/workshop-unlimited/master/items/{}.png'
 URL2_TEMPLATE = 'https://raw.githubusercontent.com/Lookotza/smBot/master/items/{}.png'
 
@@ -98,7 +98,8 @@ class SuperMechs(commands.Cog):
 
 
     def abbreviator(self):
-        """Helper func which creates abbrevs for items: Energy Free Armor => EFA"""
+        """Creates dict of abbrevs and list of names for items:
+        Energy Free Armor => EFA"""
         names = []
         abbrevs = {}
         for item in items_list:
@@ -121,7 +122,7 @@ class SuperMechs(commands.Cog):
 
             for abb in abbrev:
                 abbrevs.setdefault(abb, [name]).append(name)
-                # abbrevs[abb].append(name) if abb in abbrevs else abbrevs.update({abb: [name]})
+
         self.abbrevs, self.names = abbrevs, names
 
 
@@ -144,25 +145,36 @@ class SuperMechs(commands.Cog):
 
     def ressolve_kwargs(self, args: Iterable):
         """Takes command arguments as an input and tries to match them as key item pairs"""
-        args = [a.lower() for a in args]
+        if isinstance(args, str):
+            args = args.split()
+
+        args = [a.strip().replace('=', ':').lower() for a in args]
         specs = {}  # dict of data type: desired data, like 'element': 'explosive'
-        ingored_args = set()
+        ignored_args = set()
+
+        is_value = False
+        pending_kw = ''
         for arg in args:
+            if is_value:
+                is_value = False
+
+                if ':' not in arg:
+                    specs[pending_kw] = value
+                    continue
+
             if ':' not in arg:
-                ingored_args.add(arg)
+                ignored_args.add(arg) # pos args not ressolved yet
                 continue
-            if arg.endswith(':'):  # if True, the next item in args should be treated as a value
-                index = args.index(arg)
-                if index + 1 >= len(args):
-                    raise ValueError(f'Obscure argument "{arg}"')
-                value = args.pop(index + 1).lower()
-                if ':' in value:
-                    raise ValueError(f'"{value}" preceeding "{arg}"')
-                specs.update({arg.replace(':', ''): value})
+
+            if arg.endswith(':'):  # if True, next arg is a value
+                is_value = True
+                pending_kw = arg.lstrip(':')
+
             else:
-                arg, value = arg.lower().split(':')
-                specs.update({arg: value.strip()})
-        return specs, ingored_args
+                key, value = arg.split(':')
+                specs[key] = value.strip()
+
+        return specs, ignored_args
 
 
     def specs(self, item: dict) -> dict:
@@ -206,7 +218,7 @@ class SuperMechs(commands.Cog):
 
     def buff(self, stat: str, value: int, enabled: bool) -> int:
         """Returns a value buffed respectively to stat type"""
-        if not enabled: # the function is always called, that probably could be improved
+        if not enabled:
             return value
         if stat in OPERATIONS['mult']:
             return round(value * 1.2)
@@ -218,18 +230,13 @@ class SuperMechs(commands.Cog):
 
     @commands.command(aliases=['item'], usage='[full item name or part of it]')
     @commands.cooldown(2, 15.0, commands.BucketType.member)
-    async def stats(self, ctx: commands.Context, *name: str):
+    async def stats(self, ctx: commands.Context, *name):
         """Finds an item and returns its stats"""
         botmsg = None
         add_r = ctx.message.add_reaction
         #flags {'-r'}
-        name = list(name)
-        flags = {name.pop(name.index(i)) for i in {'-r'} if i in name}
-        if not bool(name):
-            await add_r('❌')
-            return
-        #solving for abbrevs
-        name = ' '.join(name).lower()
+        flags = {'-r'}.intersection(name)
+        name = ' '.join(s for s in name if s not in flags).lower()
         if len(name) < 2:
             await add_r('❌')
             return
@@ -331,81 +338,101 @@ class SuperMechs(commands.Cog):
 
             if 'advance' in item['stats'] or 'retreat' in item['stats']:
                 item_stats += f"{STAT_NAMES['jump'][1]} **Jumping required**"
+
             #transform range
-            if (maximal := ITEM_TIERS.index(_max)) < 4: tier = maximal
-            elif divine: tier = 5
-            else: tier = 4
+            if (maximal := ITEM_TIERS.index(_max)) < 4:
+                tier = maximal
+            elif divine:
+                tier = 5
+            else:
+                tier = 4
+
             colors = TIER_COLORS.copy()
             colors.insert(tier, f'({colors.pop(tier)})')
-            fields = []
             note = ' (buffs applied)' if buffs else ''
-            fields.append({
-                'name': 'Transform range: ',
-                'value': ''.join(colors[ITEM_TIERS.index(_min):ITEM_TIERS.index(_max) + 1]),
-                'inline': False})
-            fields.append({'name': f'Stats{note}:', 'value': item_stats, 'inline': False})
-            for field in fields: embed.add_field(**field)
+            embed.add_field(
+                name='Transform range: ', 
+                value=''.join(colors[ITEM_TIERS.index(_min):ITEM_TIERS.index(_max) + 1]),
+                inline=False)
+            embed.add_field(name=f'Stats{note}:', value=item_stats, inline=False)
 
             if first_run:
                 embed.set_count(len(emojis))
                 if botmsg is not None:
                     await botmsg.edit(embed=embed)
                     msg = botmsg
+
                 else:
                     msg = await ctx.send(embed=embed)
+
                 await embed.add_options(msg, True)
+
             else:
                 await embed.edit(msg)
+
             checkk = lambda reaction, user: user.id == ctx.author.id and str(reaction) in emojis
             try:
-                async for react, event in scheduler(ctx, {'reaction_add', 'reaction_remove'}, check=checkk, timeout=20.0):
+                async for react, event in scheduler(ctx, {'reaction_add', 'reaction_remove'}, checkk, 20.0):
                     reaction = str(react[0])
                     action_type = bool(('reaction_remove', 'reaction_add').index(event))
                     if first_run:
                         first_run = False
+
                     if reaction == '❌':
                         raise StopAsyncIteration
+
                     embed.clear_fields()
                     if 'divine' in item:
                         if reaction == '🇧': buffs = action_type
                         if reaction == '🇩': divine = action_type
+
                     else:
                         buffs = action_type
+
             except (asyncio.TimeoutError, StopAsyncIteration):
                 break
+
         await msg.edit(embed=embed.set_footer())
         await msg.clear_reactions()
 
 
-    @commands.command(aliases=['bi'], usage='[type:[tors/top/side/.../dron], elem:[exp/elec/phys/combined], tier:[C-D]]')
+    @commands.command(aliases=['bi', 'smlookup'],
+        usage='[type:[tors/top/side/.../dron], elem:[exp/elec/phys/combined], tier:[C-D]]')
     async def browseitems(self, ctx: commands.Context, *args):
         """Lookup items by rarity, element and type"""
         args = list(args)
-        try:
-            specs, ignored_args = self.ressolve_kwargs(args)
-        except Exception as error:
-            await ctx.send(error)
-            return
+
+        specs, ignored_args = self.ressolve_kwargs(args)
+
         valid_specs = {}
         search_keys = ['type', 'element', 'tier']
         for key, value in specs.items():
             result = search_for(key, search_keys)
+
             if not result or len(result) > 1:
-                await ctx.send(f'Argument must match exactly one data type; "{key}" matched {result or "nothing"}')
+                await ctx.send(
+                    'Argument must match exactly one data type; '
+                    f'"{key}" matched {result or "nothing"}')
                 return
+
             key = result[0]
             spec = [ITEM_TYPES, ELEMENTS, ITEM_TIERS][search_keys.index(key)]
 
             values = search_for(value, spec)
-            if not values or len(values) > 1:
+
+            if len(values) != 1:
                 val = bool(values)
                 await ctx.send(
-                    f'Value "{value}" for parameter "{key}" has {("no", "too many")[val]} matches{": " * val}{", ".join(values).lower()}')
+                    f'Value "{value}" for parameter "{key}" has '
+                    f'{("no", "too many")[val]} matches{": " * val}{", ".join(values).lower()}')
                 return
+
             valid_specs.update({key: values[0]})
+
         if not valid_specs:
             await ctx.send('No valid arguments were given.')
             return
+
         items = []
         for item in items_list:
             matching_specs = set()
@@ -415,8 +442,15 @@ class SuperMechs(commands.Cog):
                     _range = ITEM_TIERS[ITEM_TIERS.index(_min):ITEM_TIERS.index(_max) + 1]
                     matching_specs.add(value in _range and not _range.index(value))
                     continue
+
                 matching_specs.add(item[key] == value)
-            if all(matching_specs): items.append(item)
+
+            if all(matching_specs):
+                items.append(item)
+
+        if not items:
+            await ctx.send('No items matching criteria.')
+            return
 
         def sort_by_tier_elem_name(item: dict) -> tuple:
             return (
@@ -432,7 +466,8 @@ class SuperMechs(commands.Cog):
         if 'element' in valid_specs:
             color = ELEMENTS[valid_specs['element']][0]
         elif 'tier' in valid_specs:
-            color = {}[valid_specs['tier']]
+            color = {'C': 0xB1B1B1, 'R': 0x55ACEE, 'E': 0xCC41CC,
+                     'L': 0xE0A23C, 'M': 0xFE6333, 'D': 0xFFFFFF}[valid_specs['tier']]
         else:
             color = discord.Color.from_rgb(*random_color())
 

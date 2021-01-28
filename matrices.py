@@ -4,9 +4,9 @@ from __future__ import annotations
 import random
 from numbers import Number
 from decimal import Decimal
-from typing import Iterable, Tuple, List
+from typing import Iterable, Callable
 from math import floor, log10, ceil
-from itertools import product, starmap as smap, accumulate as acc
+from itertools import product, starmap as smap
 from operator import mul
 
 
@@ -50,16 +50,19 @@ class Matrix:
 
     lower - triangle matrix filled with 0's above main diagonal"""
 
-    def __init__(self, wx: int, wy: int, *args: List[Number], type_='zero'):
+    def __init__(self, wx: int, wy: int, *args: list[Number], type_='zero'):
         if not wx > 0 < wy:
             raise ValueError('Matrix size cannot be negative or zero')
+
         if type_ not in {'zero', 'diag', 'upper', 'lower'}:
             raise ValueError('Invalid type provided')
+
         self.wx, self.wy = wx, wy
         if type_ != 'zero' and not self.is_square():
             raise ValueError(f'matrix must be square for type <{type_}>')
+
         if not args:
-            self._matrix = [[0] * self.wx for n in range(self.wy)]
+            self._matrix = [[0] * self.wx for _ in range(self.wy)]
             if type_ == 'diag':
                 for i in range(self.wx):
                     self._matrix[i][i] = 1
@@ -77,11 +80,14 @@ class Matrix:
         item_count = len(items)
         if item_count < size: # filling in missing items
             items += [0] * (size - len(items))
+
         elif item_count > size:
             items = items[:size]
 
+
         if type_ == 'zero':
             self._matrix = [[*items[n*self.wx:(n+1)*self.wx]] for n in range(self.wy)]
+
         elif type_ in {'upper', 'lower'}:
             self._matrix = []
             isup = type_ == 'upper'
@@ -91,7 +97,7 @@ class Matrix:
                 self._matrix.append(lst)
                 i += n
         else:
-            self._matrix = [[0] * wx for n in range(wx)] # diagonal matrix
+            self._matrix = [[0] * wx for _ in range(wx)] # diagonal matrix
             for i, v in enumerate(items[:wx]):
                 self._matrix[i][i] = v
 
@@ -100,7 +106,7 @@ class Matrix:
         return self.wx * self.wy
 
 
-    def __tuplecheck(self, key: Tuple[int, int]):
+    def __tuplecheck(self, key: tuple[int, int]):
         """Helper function for getitem and setitem"""
         if not isinstance(key, tuple):
             raise TypeError(f'{key} is not a valid format')
@@ -115,13 +121,13 @@ class Matrix:
             raise IndexError('matrix indices out of range')
 
 
-    def __getitem__(self, key: Tuple[int, int]) -> Number:
+    def __getitem__(self, key: tuple[int, int]) -> Number:
         self.__tuplecheck(key)
         wx, wy = key
         return self._matrix[wy][wx]
 
 
-    def __setitem__(self, key: Tuple[int, int], value: Number):
+    def __setitem__(self, key: tuple[int, int], value: Number):
         self.__tuplecheck(key)
         if not isinstance(value, Number):
             raise ValueError(f'Value is not of type {Number}')
@@ -130,7 +136,7 @@ class Matrix:
 
 
     def __bool__(self) -> bool:
-        return any(any(row) for row in self._matrix)
+        return any(map(any, self._matrix))
 
 
     def __str__(self) -> str:
@@ -188,7 +194,7 @@ class Matrix:
         if self.wx != other.wx or self.wy != other.wy:
             raise ValueError(f'Matrices are of different size ({self.wx}x{self.wy} vs {other.wx}x{other.wy})')
 
-        return Matrix(self.wx, self.wy, [sum(x) for a in zip(self._matrix, other._matrix) for x in zip(*a)])
+        return Matrix(self.wx, self.wy, (sum(x) for a in zip(self._matrix, other._matrix) for x in zip(*a)))
 
 
     def __sub__(self, other: Matrix) -> Matrix:
@@ -197,21 +203,21 @@ class Matrix:
         if self.wx != other.wx or self.wy != other.wy:
             raise ValueError(f'Matrices are of different size ({self.wx}x{self.wy} vs {other.wx}x{other.wy})')
 
-        return Matrix(self.wx, self.wy, [b-c for a in zip(self._matrix, other._matrix) for b, c in zip(*a)])
+        return Matrix(self.wx, self.wy, (b-c for a in zip(self._matrix, other._matrix) for b, c in zip(*a)))
 
 
     def __mul__(self, other: Number) -> Matrix:
         if not isinstance(other, Number):
             return NotImplemented
-        return Matrix(self.wx, self.wy, [*map(lambda n: n * other, flatten(self._matrix))])
+        return Matrix(self.wx, self.wy, map(lambda n: n * other, flatten(self._matrix)))
 
 
     def __matmul__(self, other: Matrix) -> Matrix:
         if not isinstance(other, Matrix):
             return NotImplemented
         if self.wx != other.wy:
-            raise ValueError(f'Matrix A\'s X size of {self.wx} does not match matrix B\'s Y size of {other.wy}')
-        return Matrix(other.wx, self.wy, [sum(smap(mul, a)) for a in smap(zip, product(self._matrix, zip(*other._matrix)))])
+            raise ValueError(f"Matrix A's X size of {self.wx} does not match matrix B's Y size of {other.wy}")
+        return Matrix(other.wx, self.wy, (sum(smap(mul, a)) for a in smap(zip, product(self._matrix, zip(*other._matrix)))))
 
 
     def __pow__(self, num: int) -> Matrix:
@@ -228,6 +234,11 @@ class Matrix:
         return self @ self ** (num - 1)
 
 
+    def __iter__(self):
+        for row in self._matrix:
+            yield from row
+
+
     def T(self) -> Matrix:
         return Matrix(self.wy, self.wx, zip(*self._matrix))
 
@@ -240,6 +251,29 @@ class Matrix:
     def is_square(self) -> bool:
         """Return True if the matrix is square, False otherwise"""
         return self.wx == self.wy
+
+
+    def filter(self, predicate: Callable):
+        """Takes in a function that accepts matrix' item as a sole argument
+        and which returns a bool. Items for which it returns False are set to 0."""
+        for i, row in enumerate(self._matrix):
+            self._matrix[i] = list(smap(mul, zip(row, map(predicate, row))))
+
+        return self
+
+
+    def apply(self, callable: Callable, value: Number=None):
+        """Passes values from matrix to callable and saves back the results.
+        If value is passed, callable should accept two arguments and will be called
+        with values from matrix + the passed value."""
+        if value is not None:
+            callable = lambda x: callable(x, value)
+
+        for row in self._matrix:
+            for i, item in enumerate(row):
+                row[i] = callable(item)
+
+        return self
 
 
 #--------------------------------- Testing Zone ---------------------------------
