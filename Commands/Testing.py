@@ -43,7 +43,7 @@ class Testing(commands.Cog):
         reaction = '↩️'
         first_run = True
         def check(reaction, user) -> bool:
-            return user.id == ctx.author.id and str(reaction.emoji) in 
+            return user.id == ctx.author.id and str(reaction.emoji) in []
 
         while True:
             if reaction == '↩️':

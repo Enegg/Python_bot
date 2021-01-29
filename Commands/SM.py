@@ -94,36 +94,43 @@ class SuperMechs(commands.Cog):
         self.bot = bot
         self.image_url_cache = {}
         self.no_img = set()
-        self.abbreviator()
+        self.abbrevs, self.names = self.abbreviator()
 
 
-    def abbreviator(self):
-        """Creates dict of abbrevs and list of names for items:
+    @staticmethod
+    def abbreviator() -> tuple[dict, list]:
+        """Returns dict of abbrevs and list of names for items:
         Energy Free Armor => EFA"""
         names = []
         abbrevs = {}
         for item in items_list:
             name = item['name']
             names.append(name)
+
             if len(name) < 8:
                 continue
-            if (isnotcamel := name[1:].islower()) and ' ' not in name:
+
+            if (IsNotPascal := name[1:].islower()) and ' ' not in name:
                 continue
+
             abbrev = [''.join(a for a in name if a.isupper()).lower()]
-            if not isnotcamel and ' ' not in name: # takes care of CamelCase names
+
+            if not IsNotPascal and ' ' not in name: # takes care of PascalCase names
                 last = 0
                 for i, a in enumerate(name):
                     if a.isupper():
                         string = name[last:i].lower()
                         if string:
                             abbrev.append(string)
+
                         last = i
+
                 abbrev.append(name[last:].lower())
 
             for abb in abbrev:
                 abbrevs.setdefault(abb, [name]).append(name)
 
-        self.abbrevs, self.names = abbrevs, names
+        return abbrevs, names
 
 
     def get_image(self, item) -> str:
@@ -143,7 +150,8 @@ class SuperMechs(commands.Cog):
         return url
 
 
-    def ressolve_kwargs(self, args: Iterable):
+    @staticmethod
+    def ressolve_kwargs(args: Iterable):
         """Takes command arguments as an input and tries to match them as key item pairs"""
         if isinstance(args, str):
             args = args.split()
@@ -177,14 +185,15 @@ class SuperMechs(commands.Cog):
         return specs, ignored_args
 
 
-    def specs(self, item: dict) -> dict:
+    @staticmethod
+    def specs(item: dict) -> dict:
         return {'type': ITEM_TYPES[item['type']][1],
                 'element': ELEMENTS[item['element']][1],
                 'tier': TIER_COLORS[ITEM_TIERS.index(item['transform_range'].split('-')[0])]}
 
 
-    def emoji_for_browseitems(self, item: dict, spec_filter: dict):
-        specs = self.specs(item)
+    @staticmethod
+    def emoji_for_browseitems(specs: dict, spec_filter: dict) -> str:
         return ''.join(specs[spec] for spec in specs if spec not in spec_filter)
 
 
@@ -216,7 +225,8 @@ class SuperMechs(commands.Cog):
         await ctx.send('https://i.imgur.com/Bbbf4AH.mp4')
 
 
-    def buff(self, stat: str, value: int, enabled: bool) -> int:
+    @staticmethod
+    def buff(stat: str, value: int, enabled: bool) -> int:
         """Returns a value buffed respectively to stat type"""
         if not enabled:
             return value
@@ -243,7 +253,7 @@ class SuperMechs(commands.Cog):
 
         #returning the exact item name from short user input
         if self.abbrevs == {} or self.names == []:
-            self.abbreviator()
+            self.abbrevs, self.names = self.abbreviator()
 
         if name not in self.names:
             results = search_for(name, self.names)
@@ -460,7 +470,7 @@ class SuperMechs(commands.Cog):
 
         items.sort(key=sort_by_tier_elem_name)
 
-        item_names = [f"{self.emoji_for_browseitems(item, valid_specs)} {item['name']}" for item in items]
+        item_names = [f"{self.emoji_for_browseitems(self.specs(item), valid_specs)} {item['name']}" for item in items]
         fields = split_to_fields(item_names, '\n', field_limit=1024)
 
         if 'element' in valid_specs:
